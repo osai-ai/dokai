@@ -16,7 +16,7 @@ jobs:
           sudo rm -f /swapfile
           docker rmi $(docker image ls -aq)
           df -h
-       - name: Build Docker images
-         run: |
-           docker build -f ./docker/Dockerfile.base -t $(NAME):base .
-           docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
+      - name: Build Docker images
+        run: |
+          docker build -f ./docker/Dockerfile.base -t $(NAME):base .
+          docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
