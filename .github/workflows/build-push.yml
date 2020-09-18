@@ -1,0 +1,22 @@
+name: Build and push Docker images
+on: [push]
+jobs:
+    
+    build-and-push:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Free disk space
+              run: |
+                df -h
+                sudo apt-get remove -y '^ghc-8.*' '^dotnet-.*' '^llvm-.*' 'php.*' azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+                sudo apt-get autoremove -y
+                sudo apt-get clean
+                sudo swapoff -a
+                sudo rm -f /swapfile
+                docker rmi $(docker image ls -aq)
+                df -h
+            - name: Build Docker images
+              run: |
+                docker build -f ./docker/Dockerfile.base -t $(NAME):base .
+	              docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
