@@ -19,4 +19,4 @@ jobs:
             - name: Build Docker images
               run: |
                 docker build -f ./docker/Dockerfile.base -t $(NAME):base .
-	              docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
+	            docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
