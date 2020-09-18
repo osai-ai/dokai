@@ -15,7 +15,6 @@ jobs:
         run: |
           registry="ghcr.io/osai-ai/dockai:$(date +%y).$(date +%m)"
           docker login ghcr.io -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PAT }}
-          echo $registry-base
           docker tag dockai:base $registry-base
           docker push $registry-base
           docker tag dockai:pytorch $registry-pytorch
