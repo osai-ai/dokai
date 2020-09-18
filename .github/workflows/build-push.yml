@@ -5,8 +5,19 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Build Docker images
         run: |
           docker build -f ./docker/Dockerfile.base -t dockai:base .
           docker build -f ./docker/Dockerfile.pytorch -t dockai:pytorch .
+          docker build -f ./docker/Dockerfile.tensor-stream -t dockai:tensor-stream .
+      - name: Push Docker images
+        run: |
+          registry="ghcr.io/osai-ai/dockai:$(date +%y).$(date +%m)"
+          docker login ghcr.io -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PAT }}
+          docker tag dockai:base $registry-base
+          docker push $registry-base
+          docker tag dockai:pytorch $registry-pytorch
+          docker push $registry-pytorch
+          docker tag dockai:tensor-stream  $registry-tensor-stream
+          docker push $registry-tensor-stream
