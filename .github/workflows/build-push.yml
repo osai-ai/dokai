@@ -1,7 +1,11 @@
 name: Build and push Docker images
-on: [push]
-jobs:
 
+on:
+  push:
+    paths-ignore:
+    - 'README.md'
+
+jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
