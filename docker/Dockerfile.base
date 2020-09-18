@@ -1,0 +1,73 @@
+FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
+
+ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
+ENV PYTHONPATH $PYTHONPATH:/workdir
+WORKDIR /workdir
+
+# Install python and apt-get packages
+RUN apt-get update &&\
+    apt-get -y install software-properties-common &&\
+    add-apt-repository ppa:deadsnakes/ppa &&\
+    apt-get update &&\
+    apt update && apt -y upgrade &&\
+    apt-get -y install \
+    python3.8 python3.8-dev python3-pip \
+    build-essential yasm nasm cmake \
+    unzip git wget curl nano vim tmux \
+    sysstat libtcmalloc-minimal4 pkgconf \
+    autoconf libtool flex bison \
+    libsm6 libxext6 libxrender1 libx264-dev \
+    libsndfile1 libmp3lame-dev &&\
+    apt-get clean &&\
+    apt-get autoremove &&\
+    rm -rf /var/lib/apt/lists/* &&\
+    rm -rf /var/cache/apt/archives/* &&\
+    ln -s /usr/bin/python3.8 /usr/bin/python &&\
+    ln -sf /usr/bin/python3.8 /usr/bin/python3
+
+# Build nvidia codec headers
+RUN git clone --depth 1 -b sdk/9.1 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
+    cd nv-codec-headers && make install &&\
+    cd .. && rm -rf nv-codec-headers
+
+# Build FFmpeg with NVENC support
+RUN git clone --depth 1 -b release/4.3 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
+    cd FFmpeg &&\
+    mkdir ffmpeg_build && cd ffmpeg_build &&\
+    ../configure \
+    --enable-cuda \
+    --enable-cuvid \
+    --enable-shared \
+    --disable-static \
+    --disable-doc \
+    --extra-cflags=-I/usr/local/cuda/include \
+    --extra-ldflags=-L/usr/local/cuda/lib64 \
+    --enable-gpl \
+    --enable-libx264 \
+    --enable-libmp3lame \
+    --extra-libs=-lpthread \
+    --nvccflags="-gencode arch=compute_75,code=sm_75" &&\
+    make -j$(nproc) && make install && ldconfig &&\
+    cd ../.. && rm -rf FFmpeg
+
+# Install pip and setuptools
+RUN python3.8 -m pip install --upgrade --no-cache-dir \
+    pip==20.2.3 \
+    setuptools==50.3.0 \
+    packaging==20.4
+
+# Install python packages
+RUN pip3 install --no-cache-dir \
+    numpy==1.19.2 \
+    opencv-python==4.4.0.42 \
+    scipy==1.5.2 \
+    matplotlib==3.3.2 \
+    pandas==1.1.2 \
+    notebook==6.1.4 \
+    scikit-learn==0.23.2 \
+    scikit-image==0.17.2 \
+    albumentations==0.4.6 \
+    Cython==0.29.21 \
+    Pillow==7.2.0

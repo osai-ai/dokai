@@ -1,0 +1,21 @@
+FROM dockai:base
+
+ENV TORCH_HOME=/workdir/data/.torch
+
+# Install PyTorch
+RUN pip3 install --no-cache-dir \
+    torch==1.6.0 \
+    torchvision==0.7.0
+
+# Install PyTorch based packages
+RUN pip3 install --no-cache-dir \
+    pytorch-argus==0.1.2 \
+    timm==0.2.1
+
+# Install Apex
+RUN git clone --depth 1 -b master --single-branch https://github.com/NVIDIA/apex.git &&\
+    cd apex &&\
+    pip install -v --no-cache-dir \
+    --global-option="--cpp_ext" \
+    --global-option="--cuda_ext" ./ &&\
+    cd .. && rm -rf apex
