@@ -59,6 +59,7 @@ dataclasses==0.7
 [ghcr.io/osai-ai/dockai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dockai/63402)
 
 additionally to `dockai:20.09-base`:
+
 torch==1.6.0  
 torchvision==0.7.0  
 pytorch-argus==0.1.2  
@@ -77,6 +78,7 @@ apex (master)
 [ghcr.io/osai-ai/dockai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dockai/63403)
 
 additionally to `dockai:20.09-pytorch`:
+
 tensor-stream==0.4.6 (dev)  
 
 </p>
