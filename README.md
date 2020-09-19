@@ -14,7 +14,7 @@ Three types of images differ by tag postfix:
 
 ## Example
 
-Example of using dockai image for DL pipeline you can find [here](example).
+Example of using dockai image for DL pipeline you can find [here](https://github.com/osai-ai/dockai/tree/master/example).
 
 ## Versions 
 
