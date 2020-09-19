@@ -71,4 +71,5 @@ RUN pip3 install --no-cache-dir \
     trafaret-config==2.0.2 \
     pyzmq==19.0.2 \
     librosa==0.8.0 \
-    psutil==5.7.2
+    psutil==5.7.2 \
+    dataclasses==0.7
