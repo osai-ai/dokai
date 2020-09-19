@@ -1,4 +1,4 @@
-NAME?=dockai
+NAME?=dockai-example
 COMMAND?=bash
 
 GPUS?=all
@@ -13,9 +13,7 @@ all: stop build run
 
 .PHONY: build
 build:
-	docker build -f ./docker/Dockerfile.base -t $(NAME):base .
-	docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
-	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
+	docker build -t $(NAME) .
 
 .PHONY: stop
 stop:
@@ -30,7 +28,7 @@ run:
 		--ipc=host \
 		-v $(shell pwd):/workdir \
 		--name=$(NAME) \
-		$(NAME):tensor-stream \
+		$(NAME) \
 		$(COMMAND)
 	docker attach $(NAME)
 

@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
     - 'README.md'
+    - 'example/**'
 
 jobs:
   build-and-push:
