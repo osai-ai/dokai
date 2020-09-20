@@ -14,6 +14,19 @@ Three types of images differ by tag postfix:
 
 ## Example
 
+Pull an image 
+```Bash
+docker pull ghcr.io/osai-ai/dokai:20.09-pytorch
+```
+
+Check available GPUs inside container
+```bash
+docker run --rm \
+    --gpus=all \
+    ghcr.io/osai-ai/dokai:20.09-pytorch \
+    nvidia-smi
+```
+
 Example of using dokai image for DL pipeline you can find [here](https://github.com/osai-ai/dokai/tree/master/example).
 
 ## Versions 
@@ -23,7 +36,7 @@ Example of using dokai image for DL pipeline you can find [here](https://github.
 <details><summary>dokai:20.09-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dokai/63401)
+[ghcr.io/osai-ai/dokai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dokai/65167)
 
 FFmpeg (release/4.3), nv-codec-headers (sdk/9.1)  
 Python (3.6.9)  
@@ -56,7 +69,7 @@ dataclasses==0.7
 <details><summary>dokai:20.09-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/63402)
+[ghcr.io/osai-ai/dokai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/65168)
 
 additionally to `dokai:20.09-base`:
 
@@ -75,7 +88,7 @@ apex (master)
 <details><summary>dokai:20.09-tensor-stream</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/63403)
+[ghcr.io/osai-ai/dokai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/65169)
 
 additionally to `dokai:20.09-pytorch`:
 

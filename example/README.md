@@ -45,3 +45,25 @@ Distributed data parallel training with Apex mixed precision and gradient accumu
 ```bash
 make GPUS=2 COMMAND="./cifar_advanced.sh 2 --batch_size 128 --lr 0.0005 --amp --iter_size 2"
 ```
+
+Other Makefile targets
+```bash
+make  # stop, build, run
+
+# do the same
+make stop
+make build
+make run
+
+make  # by default all GPUs passed 
+make GPUS=all  # do the same
+make GPUS=none  # without GPUs
+
+make run GPUS=2  # pass the first two gpus
+make run GPUS=device=1,2  # pass GPUs numbered 1 and 2
+
+make logs
+make exec  # runs a new command in a running container
+make exec COMMAND="bash"  # do the same 
+make stop
+```
