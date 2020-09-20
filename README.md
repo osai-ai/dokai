@@ -1,6 +1,6 @@
 <div align="center">
 
-![dokai-logo](pics/dokai-logo.png)
+![dokai-logo](https://raw.githubusercontent.com/osai-ai/dokai/logo/pics/dokai-logo.png)
 
 ![Build and push Docker images](https://github.com/osai-ai/dokai/workflows/Build%20and%20push%20Docker%20images/badge.svg)
 [![Generic badge](https://img.shields.io/badge/License-MIT-<COLOR>.svg)](https://shields.io/)
