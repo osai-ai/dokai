@@ -1,4 +1,4 @@
-FROM dockai:base
+FROM dokai:base
 
 ENV TORCH_HOME=/workdir/data/.torch
 

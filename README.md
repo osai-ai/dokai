@@ -1,6 +1,6 @@
-# Dockai
+# Dokai
 
-![Build and push Docker images](https://github.com/osai-ai/dockai/workflows/Build%20and%20push%20Docker%20images/badge.svg)
+![Build and push Docker images](https://github.com/osai-ai/dokai/workflows/Build%20and%20push%20Docker%20images/badge.svg)
 
 Collection of Docker images for ML/DL and video processing projects. 
 
@@ -14,16 +14,16 @@ Three types of images differ by tag postfix:
 
 ## Example
 
-Example of using dockai image for DL pipeline you can find [here](https://github.com/osai-ai/dockai/tree/master/example).
+Example of using dokai image for DL pipeline you can find [here](https://github.com/osai-ai/dokai/tree/master/example).
 
 ## Versions 
 
 ### base
 
-<details><summary>dockai:20.09-base</summary>
+<details><summary>dokai:20.09-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dockai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dockai/63401)
+[ghcr.io/osai-ai/dokai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dokai/63401)
 
 FFmpeg (release/4.3), nv-codec-headers (sdk/9.1)  
 Python (3.6.9)  
@@ -53,12 +53,12 @@ dataclasses==0.7
 
 ### pytorch
 
-<details><summary>dockai:20.09-pytorch</summary>
+<details><summary>dokai:20.09-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dockai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dockai/63402)
+[ghcr.io/osai-ai/dokai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/63402)
 
-additionally to `dockai:20.09-base`:
+additionally to `dokai:20.09-base`:
 
 torch==1.6.0  
 torchvision==0.7.0  
@@ -72,12 +72,12 @@ apex (master)
 
 ### tensor-stream
 
-<details><summary>dockai:20.09-tensor-stream</summary>
+<details><summary>dokai:20.09-tensor-stream</summary>
 <p>
 
-[ghcr.io/osai-ai/dockai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dockai/63403)
+[ghcr.io/osai-ai/dokai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/63403)
 
-additionally to `dockai:20.09-pytorch`:
+additionally to `dokai:20.09-pytorch`:
 
 tensor-stream==0.4.6 (dev)  
 

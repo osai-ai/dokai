@@ -6,7 +6,7 @@ Train EfficientNet B0 on CIFAR with [argus](https://github.com/lRomul/argus) and
 
 Pull an image with PyTorch
 ```bash
-docker pull ghcr.io/osai-ai/dockai:20.09-pytorch
+docker pull ghcr.io/osai-ai/dokai:20.09-pytorch
 ```
 
 Run training
@@ -15,8 +15,8 @@ docker run --rm -it \
     --gpus=all \
     --ipc=host \
     -v $(pwd):/workdir \
-    --name=dockai-example \
-    ghcr.io/osai-ai/dockai:20.09-pytorch \
+    --name=dokai-example \
+    ghcr.io/osai-ai/dokai:20.09-pytorch \
     python cifar_advanced.py --batch_size 256 --lr 0.001
 ```
 

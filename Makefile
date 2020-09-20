@@ -1,4 +1,4 @@
-NAME?=dockai
+NAME?=dokai
 COMMAND?=bash
 
 GPUS?=all

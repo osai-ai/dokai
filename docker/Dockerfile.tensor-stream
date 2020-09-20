@@ -1,4 +1,4 @@
-FROM dockai:pytorch
+FROM dokai:pytorch
 
 # Install TensorStream
 RUN git clone --depth 1 -b dev --single-branch https://github.com/osai-ai/tensor-stream.git &&\
