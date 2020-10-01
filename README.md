@@ -41,7 +41,7 @@ Example of using dokai image for DL pipeline you can find [here](https://github.
 <details><summary>dokai:20.09-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dokai/65716)
+[ghcr.io/osai-ai/dokai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dokai/89195)
 
 FFmpeg (release/4.3), nv-codec-headers (sdk/9.1)  
 Python (3.6.9)  
@@ -74,7 +74,7 @@ dataclasses==0.7
 <details><summary>dokai:20.09-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/65718)
+[ghcr.io/osai-ai/dokai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/89197)
 
 additionally to `dokai:20.09-base`:
 
@@ -93,7 +93,7 @@ apex (master)
 <details><summary>dokai:20.09-tensor-stream</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/65719)
+[ghcr.io/osai-ai/dokai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/89200)
 
 additionally to `dokai:20.09-pytorch`:
 
