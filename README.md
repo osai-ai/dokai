@@ -72,7 +72,7 @@ dataclasses==0.7
 <details><summary>dokai:20.10-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.10-base](https://github.com/orgs/osai-ai/packages/container/dokai/176117)
+[ghcr.io/osai-ai/dokai:20.10-base](https://github.com/orgs/osai-ai/packages/container/dokai/176382)
 
 FFmpeg (release/4.3), nv-codec-headers (sdk/9.1)  
 Python (3.6.9)  
@@ -123,7 +123,7 @@ apex (master)
 <details><summary>dokai:20.10-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.10-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/176125)
+[ghcr.io/osai-ai/dokai:20.10-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/176388)
 
 additionally to `dokai:20.10-base`:
 
@@ -153,7 +153,7 @@ tensor-stream==0.4.6 (dev)
 <details><summary>dokai:20.10-tensor-stream</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:20.10-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/176126)
+[ghcr.io/osai-ai/dokai:20.10-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/176389)
 
 additionally to `dokai:20.10-pytorch`:
 
