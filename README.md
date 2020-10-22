@@ -120,7 +120,7 @@ apex (master)
 </p>
 </details>
 
-<details><summary>dokai:20.09-pytorch</summary>
+<details><summary>dokai:20.10-pytorch</summary>
 <p>
 
 [ghcr.io/osai-ai/dokai:20.10-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/176125)
