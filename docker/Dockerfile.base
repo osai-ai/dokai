@@ -51,7 +51,7 @@ RUN git clone --depth 1 -b release/4.3 --single-branch https://github.com/FFmpeg
     --enable-libx264 \
     --enable-libmp3lame \
     --extra-libs=-lpthread \
-    --nvccflags="-gencode arch=compute_75,code=sm_75" &&\
+    --nvccflags="-gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86" &&\
     make -j$(nproc) && make install && ldconfig &&\
     cd ../.. && rm -rf FFmpeg
 

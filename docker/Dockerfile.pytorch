@@ -6,7 +6,8 @@ ENV TORCH_HOME=/workdir/data/.torch
 RUN git clone --depth 1 -b v1.7.1 --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
     git submodule sync && git submodule update --init --recursive  &&\
-    TORCH_CUDA_ARCH_LIST="3.5 5.2 6.0 6.1 7.0+PTX" TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
+    TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6" TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
+    BUILD_CAFFE2_OPS="0" BUILD_CAFFE2="0" \
     pip install -v . &&\
     cd .. && rm -rf pytorch
 
