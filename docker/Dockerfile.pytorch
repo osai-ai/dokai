@@ -3,14 +3,23 @@ FROM dokai:base
 ENV TORCH_HOME=/workdir/data/.torch
 
 # Install PyTorch
-RUN pip3 install --no-cache-dir \
-    torch==1.6.0 \
-    torchvision==0.7.0
+RUN git clone --depth 1 -b v1.7.1 --single-branch https://github.com/pytorch/pytorch.git &&\
+    cd pytorch &&\
+    git submodule sync && git submodule update --init --recursive  &&\
+    TORCH_CUDA_ARCH_LIST="3.5 5.2 6.0 6.1 7.0+PTX" TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
+    pip install -v . &&\
+    cd .. && rm -rf pytorch
+
+# Install torchvision
+RUN git clone --depth 1 -b v0.8.2 https://github.com/pytorch/vision.git &&\
+    cd vision && pip install . &&\
+    cd .. && rm -rf vision
 
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir \
-    pytorch-argus==0.1.2 \
-    timm==0.2.1
+    pytorch-argus==0.2.0 \
+    timm==0.3.2 \
+    kornia==0.4.1
 
 # Install Apex
 RUN git clone --depth 1 -b master --single-branch https://github.com/NVIDIA/apex.git &&\
