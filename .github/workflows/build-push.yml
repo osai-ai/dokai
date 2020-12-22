@@ -1,10 +1,12 @@
 name: Build and push
 
 on:
-  push:
-    paths-ignore:
-    - 'README.md'
-    - 'example/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Docker image version'
+        required: true
+        default: 'dev'
 
 jobs:
   build-and-push:
@@ -23,11 +25,12 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
       - name: Push Docker images
+        env:
+          IMAGE_NAME: ghcr.io/${{ github.repository }}:${{ github.event.inputs.version }}
         run: |
-          registry="ghcr.io/osai-ai/dokai:$(date +%y).$(date +%m)"
-          docker tag dokai:base $registry-base
-          docker push $registry-base
-          docker tag dokai:pytorch $registry-pytorch
-          docker push $registry-pytorch
-          docker tag dokai:tensor-stream  $registry-tensor-stream
-          docker push $registry-tensor-stream
+          docker tag dokai:base ${IMAGE_NAME,,}-base
+          docker push ${IMAGE_NAME,,}-base
+          docker tag dokai:pytorch ${IMAGE_NAME,,}-pytorch
+          docker push ${IMAGE_NAME,,}-pytorch
+          docker tag dokai:tensor-stream  ${IMAGE_NAME,,}-tensor-stream
+          docker push ${IMAGE_NAME,,}-tensor-stream
