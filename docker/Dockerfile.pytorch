@@ -1,13 +1,13 @@
 FROM dokai:base
 
-ENV TORCH_HOME=/workdir/data/.torch
+ENV TORCH_HOME /workdir/data/.torch
+ENV TORCH_CUDA_ARCH_LIST 6.0;6.1;7.0;7.5;8.0;8.6
 
 # Install PyTorch
 RUN git clone --depth 1 -b v1.7.1 --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
     git submodule sync && git submodule update --init --recursive  &&\
-    TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6" \
-    pip install -v . &&\
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
     cd .. && rm -rf pytorch
 
 # Install torchvision
