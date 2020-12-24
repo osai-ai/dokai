@@ -102,6 +102,39 @@ requests==2.24.0
 </p>
 </details>
 
+<details><summary>dokai:20.12-base</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:20.12-base](https://github.com/orgs/osai-ai/packages/container/dokai/623505)
+
+CUDA (11.1), cuDNN (8.0.5)
+FFmpeg (release/4.3), nv-codec-headers (sdk/9.1)  
+Python (3.8.5)  
+
+pip==20.3.3  
+setuptools==51.0.0  
+packaging==20.8  
+numpy==1.19.4  
+opencv-python==4.4.0.46  
+scipy==1.5.4  
+matplotlib==3.3.3  
+pandas==1.1.5  
+notebook==6.1.5  
+scikit-learn==0.23.2  
+scikit-image==0.18.0  
+albumentations==0.5.2  
+Cython==0.29.21  
+Pillow==8.0.1  
+trafaret-config==2.0.2  
+pyzmq==20.0.0  
+librosa==0.8.0  
+psutil==5.8.0  
+pydantic==1.7.3  
+requests==2.25.1  
+
+</p>
+</details>
+
 ### pytorch
 
 <details><summary>dokai:20.09-pytorch</summary>
@@ -136,6 +169,23 @@ apex (master)
 </p>
 </details>
 
+<details><summary>dokai:20.12-pytorch</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:20.12-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/623509)
+
+additionally to `dokai:20.12-base`:
+
+torch==1.7.1 (source build)  
+torchvision==0.8.2 (source build)  
+pytorch-argus==0.2.0  
+timm==0.3.2  
+kornia==0.4.1  
+apex (master)  
+
+</p>
+</details>
+
 ### tensor-stream
 
 <details><summary>dokai:20.09-tensor-stream</summary>
@@ -156,6 +206,18 @@ tensor-stream==0.4.6 (dev)
 [ghcr.io/osai-ai/dokai:20.10-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/176389)
 
 additionally to `dokai:20.10-pytorch`:
+
+tensor-stream==0.4.6 (dev)  
+
+</p>
+</details>
+
+<details><summary>dokai:20.12-tensor-stream</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:20.12-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/623510)
+
+additionally to `dokai:20.12-pytorch`:
 
 tensor-stream==0.4.6 (dev)  
 
