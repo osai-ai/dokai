@@ -107,7 +107,7 @@ requests==2.24.0
 
 [ghcr.io/osai-ai/dokai:20.12-base](https://github.com/orgs/osai-ai/packages/container/dokai/623505)
 
-CUDA (11.1), cuDNN (8.0.5)
+CUDA (11.1), cuDNN (8.0.5)  
 FFmpeg (release/4.3), nv-codec-headers (sdk/9.1)  
 Python (3.8.5)  
 
@@ -176,12 +176,12 @@ apex (master)
 
 additionally to `dokai:20.12-base`:
 
-torch==1.7.1 (source build)  
-torchvision==0.8.2 (source build)  
+torch==1.7.1 (source, v1.7.1 tag)  
+torchvision==0.8.2 (source, v0.8.2 tag)  
 pytorch-argus==0.2.0  
 timm==0.3.2  
 kornia==0.4.1  
-apex (master)  
+apex (source, master branch)  
 
 </p>
 </details>
@@ -219,7 +219,7 @@ tensor-stream==0.4.6 (dev)
 
 additionally to `dokai:20.12-pytorch`:
 
-tensor-stream==0.4.6 (dev)  
+tensor-stream==0.4.6 (source, dev branch) 
 
 </p>
 </details>
