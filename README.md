@@ -24,6 +24,11 @@ Pull an image
 docker pull ghcr.io/osai-ai/dokai:21.01-pytorch
 ```
 
+Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
+```bash
+docker pull osaiai/dokai:21.01-pytorch
+```
+
 Check available GPUs inside container
 ```bash
 docker run --rm \
