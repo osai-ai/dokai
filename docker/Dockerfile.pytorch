@@ -19,7 +19,13 @@ RUN git clone --depth 1 -b v0.8.2 https://github.com/pytorch/vision.git &&\
 RUN pip3 install --no-cache-dir \
     pytorch-argus==0.2.0 \
     timm==0.3.4 \
-    kornia==0.4.1
+    kornia==0.4.1 \
+    pretrainedmodels==0.7.4 \
+    efficientnet-pytorch==0.7.0
+
+# Prevent timm and efficientnet-pytorch reinstall
+RUN pip3 install --no-cache-dir --no-deps \
+    segmentation-models-pytorch==0.1.3
 
 # Install Apex
 RUN git clone --depth 1 -b master --single-branch https://github.com/NVIDIA/apex.git &&\
