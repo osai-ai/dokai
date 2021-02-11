@@ -75,6 +75,7 @@ RUN pip3 install --no-cache-dir \
     pydantic==1.7.3 \
     PyYAML==5.4.1 \
     notebook==6.2.0 \
+    ipywidgets==7.6.3 \
     tqdm==4.56.0 \
     pytest==6.2.2 \
     mypy==0.800 \
