@@ -18,10 +18,10 @@ RUN git clone --depth 1 -b v0.8.2 https://github.com/pytorch/vision.git &&\
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir \
     pytorch-argus==0.2.0 \
-    timm==0.3.4 \
     kornia==0.4.1 \
     pretrainedmodels==0.7.4 \
-    efficientnet-pytorch==0.7.0
+    efficientnet-pytorch==0.7.0 \
+    git+git://github.com/rwightman/pytorch-image-models.git@master
 
 # Prevent timm and efficientnet-pytorch reinstall
 RUN pip3 install --no-cache-dir --no-deps \
