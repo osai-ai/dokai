@@ -13,7 +13,7 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA, FFmpeg with NVENC support
+* `base`: Python with ML and CV packages, CUDA (11.2.1), FFmpeg (4.3) with NVENC support
 * `pytorch`: PyTorch, torchvision and torch based libraries
 * `tensor-stream`: Tensor Stream
 
@@ -21,19 +21,19 @@ Three types of images differ by tag postfix:
 
 Pull an image 
 ```Bash
-docker pull ghcr.io/osai-ai/dokai:21.01-pytorch
+docker pull ghcr.io/osai-ai/dokai:21.02-pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:21.01-pytorch
+docker pull osaiai/dokai:21.02-pytorch
 ```
 
 Check available GPUs inside container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:21.01-pytorch \
+    ghcr.io/osai-ai/dokai:21.02-pytorch \
     nvidia-smi
 ```
 
