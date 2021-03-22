@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.2.1-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.2.2-cudnn8-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -27,7 +27,7 @@ RUN apt-get update && apt -y upgrade &&\
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
     pip==21.0.1 \
-    setuptools==53.0.0 \
+    setuptools==54.2.0 \
     packaging==20.9
 
 # Build nvidia codec headers
@@ -36,7 +36,7 @@ RUN git clone --depth 1 -b sdk/10.0 --single-branch https://git.videolan.org/git
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth 1 -b release/4.3 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
+RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
     cd FFmpeg &&\
     mkdir ffmpeg_build && cd ffmpeg_build &&\
     ../configure \
@@ -51,7 +51,15 @@ RUN git clone --depth 1 -b release/4.3 --single-branch https://github.com/FFmpeg
     --enable-libx264 \
     --enable-libmp3lame \
     --extra-libs=-lpthread \
-    --nvccflags="-gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86" &&\
+    --nvccflags="-arch=sm_52 \
+-gencode=arch=compute_52,code=sm_52 \
+-gencode=arch=compute_60,code=sm_60 \
+-gencode=arch=compute_61,code=sm_61 \
+-gencode=arch=compute_70,code=sm_70 \
+-gencode=arch=compute_75,code=sm_75 \
+-gencode=arch=compute_80,code=sm_80 \
+-gencode=arch=compute_86,code=sm_86 \
+-gencode=arch=compute_86,code=compute_86" &&\
     make -j$(nproc) && make install && ldconfig &&\
     cd ../.. && rm -rf FFmpeg
 
