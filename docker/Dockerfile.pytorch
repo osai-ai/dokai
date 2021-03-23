@@ -12,12 +12,12 @@ RUN git clone --depth 1 -b v1.8.0 --single-branch https://github.com/pytorch/pyt
 
 # Install torchvision
 RUN git clone --depth 1 -b v0.9.0 https://github.com/pytorch/vision.git &&\
-    cd vision && pip install . &&\
+    cd vision && python setup.py install &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth 1 -b v0.8.0 https://github.com/pytorch/audio.git &&\
-    cd audio && pip install . &&\
+RUN git clone --depth 1 -b v0.8.0 --recurse-submodules https://github.com/pytorch/audio.git &&\
+    cd audio && BUILD_SOX=1 python setup.py install &&\
     cd .. && rm -rf audio
 
 # Install PyTorch based packages

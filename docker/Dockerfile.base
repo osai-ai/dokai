@@ -10,7 +10,7 @@ WORKDIR /workdir
 RUN apt-get update && apt -y upgrade &&\
     apt-get -y install \
     software-properties-common \
-    build-essential yasm nasm cmake \
+    build-essential yasm nasm cmake ninja-build \
     unzip git wget curl nano vim tmux \
     sysstat libtcmalloc-minimal4 pkgconf \
     autoconf libtool flex bison \
