@@ -111,30 +111,16 @@ class CategoricalAccuracy(Metric):
         return self.correct / self.count
 
 
-def initialize_amp(model,
-                   opt_level='O1',
-                   keep_batchnorm_fp32=None,
-                   loss_scale='dynamic'):
-    from apex import amp
-    model.nn_module, model.optimizer = amp.initialize(
-        model.nn_module, model.optimizer,
-        opt_level=opt_level,
-        keep_batchnorm_fp32=keep_batchnorm_fp32,
-        loss_scale=loss_scale
-    )
-    model.amp = amp
-
-
 class CifarModel(argus.Model):
     nn_module = timm.create_model
 
     def __init__(self, params):
         super().__init__(params)
-        self.amp = None
-
-        if 'iter_size' not in self.params:
-            self.params['iter_size'] = 1
-        self.iter_size = self.params['iter_size']
+        self.iter_size = (1 if 'iter_size' not in self.params
+                          else int(self.params['iter_size']))
+        self.amp = (False if 'amp' not in self.params
+                    else bool(self.params['amp']))
+        self.scaler = torch.cuda.amp.GradScaler() if self.amp else None
 
     def train_step(self, batch, state) -> dict:
         self.train()
@@ -143,19 +129,21 @@ class CifarModel(argus.Model):
         # Gradient accumulation
         for i, chunk_batch in enumerate(deep_chunk(batch, self.iter_size)):
             input, target = deep_to(chunk_batch, self.device, non_blocking=True)
-            prediction = self.nn_module(input)
-            loss = self.loss(prediction, target)
-            if self.amp is not None:
-                delay_unscale = i != (self.iter_size - 1)
-                # Mixed precision
-                with self.amp.scale_loss(loss, self.optimizer,
-                                         delay_unscale=delay_unscale) as scaled_loss:
-                    scaled_loss.backward()
+            with torch.cuda.amp.autocast(enabled=self.amp):
+                prediction = self.nn_module(input)
+                loss = self.loss(prediction, target)
+                loss = loss / self.iter_size
+
+            if self.amp:
+                self.scaler.scale(loss).backward()
             else:
                 loss.backward()
 
-        self.optimizer.step()
-        torch.cuda.synchronize()
+        if self.amp:
+            self.scaler.step(self.optimizer)
+            self.scaler.update()
+        else:
+            self.optimizer.step()
 
         prediction = deep_detach(prediction)
         target = deep_detach(target)
@@ -216,13 +204,11 @@ if __name__ == "__main__":
         }),
         'loss': 'CrossEntropyLoss',
         'device': 'cuda',
+        'amp': args.amp,
         'iter_size': args.iter_size
     }
 
     model = CifarModel(params)
-
-    if args.amp:
-        initialize_amp(model)
 
     if args.distributed:
         model.nn_module = SyncBatchNorm.convert_sync_batchnorm(model.nn_module)
