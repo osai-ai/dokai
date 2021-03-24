@@ -1,5 +1,6 @@
 NAME?=dokai-example
 COMMAND?=bash
+OPTIONS?=
 
 GPUS?=all
 ifeq ($(GPUS),none)
@@ -23,6 +24,7 @@ stop:
 .PHONY: run
 run:
 	docker run --rm -dit \
+		$(OPTIONS) \
 		$(GPUS_OPTION) \
 		--net=host \
 		--ipc=host \
@@ -42,4 +44,4 @@ logs:
 
 .PHONY: exec
 exec:
-	docker exec -it $(NAME) $(COMMAND)
+	docker exec -it $(OPTIONS) $(NAME) $(COMMAND)
