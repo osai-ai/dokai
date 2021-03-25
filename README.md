@@ -13,9 +13,9 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (11.2.1), cuDNN (8.1.0), FFmpeg (4.3) with NVENC support
-* `pytorch`: PyTorch (1.9.0a0+c2b9283), torchvision (0.8.2) and torch based libraries
-* `tensor-stream`: Tensor Stream
+* `base`: Python with ML and CV packages, CUDA (11.2.2), cuDNN (8.1.1), FFmpeg (4.4) with NVENC support
+* `pytorch`: PyTorch (1.8.0), torchvision (0.9.0), torchaudio (0.8.0) and torch based libraries
+* `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU 
 
 ## Example
 
