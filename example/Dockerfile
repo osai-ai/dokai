@@ -1,4 +1,4 @@
-FROM ghcr.io/osai-ai/dokai:21.02-pytorch
+FROM ghcr.io/osai-ai/dokai:21.03-pytorch
 
 # Install some python packages
 RUN pip3 install --no-cache-dir \
