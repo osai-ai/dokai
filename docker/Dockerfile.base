@@ -27,7 +27,7 @@ RUN apt-get update && apt -y upgrade &&\
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
     pip==21.0.1 \
-    setuptools==54.2.0 \
+    setuptools==56.0.0 \
     packaging==20.9
 
 # Build nvidia codec headers
@@ -65,19 +65,19 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.20.1 \
+    numpy==1.20.2 \
     opencv-python==4.5.1.48 \
-    scipy==1.6.1 \
-    matplotlib==3.3.4 \
-    pandas==1.2.3 \
+    scipy==1.6.2 \
+    matplotlib==3.4.1 \
+    pandas==1.2.4 \
     scikit-learn==0.24.1 \
     scikit-image==0.18.1 \
-    Pillow==8.1.2 \
+    Pillow==8.2.0 \
     librosa==0.8.0 \
     albumentations==0.5.2 \
     pyzmq==22.0.3 \
-    Cython==0.29.22 \
-    numba==0.53.0 \
+    Cython==0.29.23 \
+    numba==0.53.1 \
     requests==2.25.1 \
     psutil==5.8.0 \
     trafaret-config==2.0.2 \
@@ -85,7 +85,7 @@ RUN pip3 install --no-cache-dir \
     PyYAML==5.4.1 \
     notebook==6.3.0 \
     ipywidgets==7.6.3 \
-    tqdm==4.59.0 \
-    pytest==6.2.2 \
+    tqdm==4.60.0 \
+    pytest==6.2.3 \
     mypy==0.812 \
     flake8==3.9.0
