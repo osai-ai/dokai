@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.2.2-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.3.0-cudnn8-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -26,7 +26,7 @@ RUN apt-get update && apt -y upgrade &&\
 
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
-    pip==21.0.1 \
+    pip==21.1 \
     setuptools==56.0.0 \
     packaging==20.9
 
@@ -67,7 +67,7 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 RUN pip3 install --no-cache-dir \
     numpy==1.20.2 \
     opencv-python==4.5.1.48 \
-    scipy==1.6.2 \
+    scipy==1.6.3 \
     matplotlib==3.4.1 \
     pandas==1.2.4 \
     scikit-learn==0.24.1 \
@@ -88,4 +88,4 @@ RUN pip3 install --no-cache-dir \
     tqdm==4.60.0 \
     pytest==6.2.3 \
     mypy==0.812 \
-    flake8==3.9.0
+    flake8==3.9.1

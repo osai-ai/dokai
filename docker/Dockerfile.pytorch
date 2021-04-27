@@ -25,7 +25,7 @@ RUN pip3 install --no-cache-dir \
     pytorch-argus==0.2.1 \
     kornia==0.5.0 \
     pretrainedmodels==0.7.4 \
-    efficientnet-pytorch==0.7.0 \
+    efficientnet-pytorch==0.7.1 \
     git+git://github.com/rwightman/pytorch-image-models.git@master
 
 # Prevent timm and efficientnet-pytorch reinstall
