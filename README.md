@@ -13,7 +13,7 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (?), cuDNN (?), FFmpeg (4.4) with NVENC support
+* `base`: Python with ML and CV packages, CUDA (11.3), cuDNN (8.2.0), FFmpeg (4.4) with NVENC support
 * `pytorch`: PyTorch (1.8.1), torchvision (0.9.1), torchaudio (0.8.1) and torch based libraries
 * `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU 
 
@@ -256,11 +256,11 @@ flake8==3.9.0
 <details><summary>dokai:21.05-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:21.05-base](?)
+[ghcr.io/osai-ai/dokai:21.05-base](https://github.com/orgs/osai-ai/packages/container/dokai/2467512?tag=21.05-base)
 
-CUDA (?), cuDNN (?)  
+CUDA (11.3), cuDNN (8.2.0)  
 FFmpeg (release/4.4), nv-codec-headers (sdk/10.0)  
-Python (?)  
+Python (3.8.5)  
 
 pip==21.1.1  
 setuptools==56.2.0  
@@ -405,7 +405,7 @@ apex (source, master branch)
 <details><summary>dokai:21.05-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:21.05-pytorch](?)
+[ghcr.io/osai-ai/dokai:21.05-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/2467547?tag=21.05-pytorch)
 
 additionally to `dokai:21.05-base`:
 
@@ -413,7 +413,7 @@ torch==1.8.1 (source, v1.8.1 tag)
 torchvision==0.9.1 (source, v0.9.1 tag)  
 torchaudio==0.8.1 (source, v0.8.1 tag)  
 pytorch-argus==0.2.1  
-timm==(?)(source, master branch)  
+timm==0.4.8 (source, master branch)  
 kornia==0.5.1  
 pretrainedmodels==0.7.4  
 efficientnet-pytorch==0.7.1  
@@ -501,7 +501,7 @@ tensor-stream==0.4.6 (source, dev branch)
 <details><summary>dokai:21.05-tensor-stream</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:21.05-tensor-stream](?)
+[ghcr.io/osai-ai/dokai:21.05-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/2467549?tag=21.05-tensor-stream)
 
 additionally to `dokai:21.05-pytorch`:
 
