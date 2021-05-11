@@ -21,19 +21,19 @@ Three types of images differ by tag postfix:
 
 Pull an image 
 ```Bash
-docker pull ghcr.io/osai-ai/dokai:21.03-pytorch
+docker pull ghcr.io/osai-ai/dokai:21.05-pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:21.03-pytorch
+docker pull osaiai/dokai:21.05-pytorch
 ```
 
 Check available GPUs inside container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:21.03-pytorch \
+    ghcr.io/osai-ai/dokai:21.05-pytorch \
     nvidia-smi
 ```
 
