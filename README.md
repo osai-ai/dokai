@@ -13,8 +13,8 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (11.2.2), cuDNN (8.1.1), FFmpeg (4.4) with NVENC support
-* `pytorch`: PyTorch (1.8.0), torchvision (0.9.0), torchaudio (0.8.0) and torch based libraries
+* `base`: Python with ML and CV packages, CUDA (?), cuDNN (?), FFmpeg (4.4) with NVENC support
+* `pytorch`: PyTorch (1.8.1), torchvision (0.9.1), torchaudio (0.8.1) and torch based libraries
 * `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU 
 
 ## Example
@@ -253,6 +253,46 @@ flake8==3.9.0
 </p>
 </details>
 
+<details><summary>dokai:21.05-base</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.05-base](?)
+
+CUDA (?), cuDNN (?)  
+FFmpeg (release/4.4), nv-codec-headers (sdk/10.0)  
+Python (?)  
+
+pip==21.1.1  
+setuptools==56.2.0  
+packaging==20.9  
+numpy==1.20.3  
+opencv-python==4.5.2.52  
+scipy==1.6.3  
+matplotlib==3.4.2  
+pandas==1.2.4  
+scikit-learn==0.24.2  
+scikit-image==0.18.1  
+Pillow==8.2.0  
+librosa==0.8.0  
+albumentations==0.5.2  
+pyzmq==22.0.3  
+Cython==0.29.23  
+numba==0.53.1  
+requests==2.25.1  
+psutil==5.8.0  
+trafaret-config==2.0.2  
+pydantic==1.8.1  
+PyYAML==5.4.1  
+notebook==6.3.0  
+ipywidgets==7.6.3  
+tqdm==4.60.0  
+pytest==6.2.4  
+mypy==0.812  
+flake8==3.9.2  
+
+</p>
+</details>
+
 ### pytorch
 
 <details><summary>dokai:20.09-pytorch</summary>
@@ -362,6 +402,28 @@ apex (source, master branch)
 </p>
 </details>
 
+<details><summary>dokai:21.05-pytorch</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.05-pytorch](?)
+
+additionally to `dokai:21.05-base`:
+
+torch==1.8.1 (source, v1.8.1 tag)  
+torchvision==0.9.1 (source, v0.9.1 tag)  
+torchaudio==0.8.1 (source, v0.8.1 tag)  
+pytorch-argus==0.2.1  
+timm==(?)(source, master branch)  
+kornia==0.5.1  
+pretrainedmodels==0.7.4  
+efficientnet-pytorch==0.7.1  
+segmentation-models-pytorch==0.1.3  
+apex (source, master branch)  
+
+</p>
+</details>
+
+
 ### tensor-stream
 
 <details><summary>dokai:20.09-tensor-stream</summary>
@@ -430,6 +492,18 @@ tensor-stream==0.4.6 (source, dev branch)
 [ghcr.io/osai-ai/dokai:21.03-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/1661648)
 
 additionally to `dokai:21.03-pytorch`:
+
+tensor-stream==0.4.6 (source, dev branch)  
+
+</p>
+</details>
+
+<details><summary>dokai:21.05-tensor-stream</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.05-tensor-stream](?)
+
+additionally to `dokai:21.05-pytorch`:
 
 tensor-stream==0.4.6 (source, dev branch)  
 
