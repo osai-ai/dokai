@@ -23,7 +23,7 @@ RUN git clone --depth 1 -b v0.8.1 --recurse-submodules https://github.com/pytorc
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir \
     pytorch-argus==0.2.1 \
-    kornia==0.5.0 \
+    kornia==0.5.1 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     git+git://github.com/rwightman/pytorch-image-models.git@master
