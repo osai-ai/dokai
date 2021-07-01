@@ -4,29 +4,29 @@ ENV TORCH_HOME /workdir/data/.torch
 ENV TORCH_CUDA_ARCH_LIST 5.2;6.0;6.1;7.0;7.5;8.0;8.6
 
 # Install PyTorch
-RUN git clone --depth 1 -b v1.8.1 --single-branch https://github.com/pytorch/pytorch.git &&\
+RUN git clone --depth 1 -b v1.9.0 --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
     git submodule sync && git submodule update --init --recursive  &&\
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
     cd .. && rm -rf pytorch
 
 # Install torchvision
-RUN git clone --depth 1 -b v0.9.1 https://github.com/pytorch/vision.git &&\
+RUN git clone --depth 1 -b v0.10.0 https://github.com/pytorch/vision.git &&\
     cd vision && python setup.py install &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth 1 -b v0.8.1 --recurse-submodules https://github.com/pytorch/audio.git &&\
+RUN git clone --depth 1 -b v0.9.0 --recurse-submodules https://github.com/pytorch/audio.git &&\
     cd audio && BUILD_SOX=1 python setup.py install &&\
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir \
     pytorch-argus==0.2.1 \
-    kornia==0.5.1 \
+    kornia==0.5.5 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
-    git+git://github.com/rwightman/pytorch-image-models.git@master
+    timm==0.4.12
 
 # Prevent timm and efficientnet-pytorch reinstall
 RUN pip3 install --no-cache-dir --no-deps \
