@@ -293,6 +293,46 @@ flake8==3.9.2
 </p>
 </details>
 
+<details><summary>dokai:21.07-base</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.07-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600567)
+
+CUDA (11.3.1), cuDNN (8.2.0)  
+FFmpeg (release/4.4), nv-codec-headers (sdk/10.0)  
+Python (3.8.10)  
+
+pip==21.1.3  
+setuptools==57.0.0  
+packaging==20.9  
+numpy==1.21.0  
+opencv-python==4.5.2.54  
+scipy==1.7.0  
+matplotlib==3.4.2  
+pandas==1.2.5  
+scikit-learn==0.24.2  
+scikit-image==0.18.2  
+Pillow==8.2.0  
+librosa==0.8.1  
+albumentations==1.0.0  
+pyzmq==22.1.0  
+Cython==0.29.23  
+numba==0.53.1  
+requests==2.25.1  
+psutil==5.8.0  
+trafaret-config==2.0.2  
+pydantic==1.8.2  
+PyYAML==5.4.1  
+notebook==6.4.0  
+ipywidgets==7.6.3  
+tqdm==4.61.1  
+pytest==6.2.4  
+mypy==0.910  
+flake8==3.9.2  
+
+</p>
+</details>
+
 ### pytorch
 
 <details><summary>dokai:20.09-pytorch</summary>
@@ -423,6 +463,27 @@ apex (source, master branch)
 </p>
 </details>
 
+<details><summary>dokai:21.07-pytorch</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.07-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600591)
+
+additionally to `dokai:21.07-base`:
+
+torch==1.9.0 (source, v1.9.0 tag)  
+torchvision==0.10.0 (source, v0.10.0 tag)  
+torchaudio==0.9.0 (source, v0.9.0 tag)  
+pytorch-argus==0.2.1  
+pretrainedmodels==0.7.4  
+efficientnet-pytorch==0.7.1  
+timm==0.4.12  
+segmentation-models-pytorch==0.1.3  
+kornia==0.5.5  
+apex (source, master branch)  
+
+</p>
+</details>
+
 
 ### tensor-stream
 
@@ -504,6 +565,18 @@ tensor-stream==0.4.6 (source, dev branch)
 [ghcr.io/osai-ai/dokai:21.05-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/2467549?tag=21.05-tensor-stream)
 
 additionally to `dokai:21.05-pytorch`:
+
+tensor-stream==0.4.6 (source, dev branch)  
+
+</p>
+</details>
+
+<details><summary>dokai:21.07-tensor-stream</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.07-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600595)
+
+additionally to `dokai:21.07-pytorch`:
 
 tensor-stream==0.4.6 (source, dev branch)  
 
