@@ -64,7 +64,7 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.21.0 \
+    numpy==1.20.3 \
     opencv-python==4.5.2.54 \
     scipy==1.7.0 \
     matplotlib==3.4.2 \
