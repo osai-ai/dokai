@@ -64,14 +64,14 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.20.3 \
+    numpy==1.21.0 \
     opencv-python==4.5.2.54 \
     scipy==1.7.0 \
     matplotlib==3.4.2 \
     pandas==1.2.5 \
     scikit-learn==0.24.2 \
     scikit-image==0.18.2 \
-    Pillow==8.3.0 \
+    Pillow==8.2.0 \
     librosa==0.8.1 \
     albumentations==1.0.0 \
     pyzmq==22.1.0 \
