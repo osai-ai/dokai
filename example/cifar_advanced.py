@@ -4,7 +4,6 @@ from pathlib import Path
 
 import torch
 import torch.distributed as dist
-from torch.nn import SyncBatchNorm
 from torch.utils.data import DataLoader, DistributedSampler
 from torch.nn.parallel import DistributedDataParallel
 from torchvision import transforms
@@ -211,7 +210,8 @@ if __name__ == "__main__":
     model = CifarModel(params)
 
     if args.distributed:
-        model.nn_module = SyncBatchNorm.convert_sync_batchnorm(model.nn_module)
+        # For some reason SyncBatchNorm doesn't work with torch==1.9.0
+        # model.nn_module = SyncBatchNorm.convert_sync_batchnorm(model.nn_module)
         model.nn_module = DistributedDataParallel(model.nn_module.to(args.local_rank),
                                                   device_ids=[args.local_rank],
                                                   output_device=args.local_rank)
