@@ -2,6 +2,15 @@ FROM dokai:base
 
 ENV TORCH_CUDA_ARCH_LIST 5.2;6.0;6.1;7.0;7.5;8.0;8.6
 
+# Build MAGMA
+COPY docker/magma/make.inc make.inc
+RUN MAGMA_VERSION=2.6.1 &&\
+    wget http://icl.utk.edu/projectsfiles/magma/downloads/magma-${MAGMA_VERSION}.tar.gz &&\
+    tar -xzf magma-${MAGMA_VERSION}.tar.gz &&\
+    cp make.inc magma-${MAGMA_VERSION} &&\
+    cd magma-${MAGMA_VERSION} &&\
+    make -j$(nproc) && make install
+
 # Install PyTorch
 RUN git clone --depth 1 -b v1.9.0 --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
