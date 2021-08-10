@@ -9,6 +9,7 @@ RUN MAGMA_VERSION=2.6.1 &&\
     tar -xzf magma-${MAGMA_VERSION}.tar.gz &&\
     cp make.inc magma-${MAGMA_VERSION} &&\
     cd magma-${MAGMA_VERSION} &&\
+    ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so &&\
     make -j$(nproc) && make install
 
 # Install PyTorch
