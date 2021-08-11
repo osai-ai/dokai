@@ -5,16 +5,18 @@ ENV TORCH_CUDA_ARCH_LIST 5.2;6.0;6.1;7.0;7.5;8.0;8.6
 # Build MAGMA
 COPY docker/magma/make.inc make.inc
 RUN MAGMA_VERSION=2.6.1 &&\
+    ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so &&\
     wget http://icl.utk.edu/projectsfiles/magma/downloads/magma-${MAGMA_VERSION}.tar.gz &&\
     tar -xzf magma-${MAGMA_VERSION}.tar.gz &&\
     cp make.inc magma-${MAGMA_VERSION} &&\
     cd magma-${MAGMA_VERSION} &&\
-    ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so &&\
-    make -j$(nproc) && make install
+    make -j$(nproc) && make install &&\
+    rm -rf magma-${MAGMA_VERSION}
 
 # Install PyTorch
-RUN git clone --depth 1 -b v1.9.0 --single-branch https://github.com/pytorch/pytorch.git &&\
+RUN git clone -b master --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
+    git checkout 5b8389e5368430677c6979294efa812d43df13b0 &&\
     git submodule sync && git submodule update --init --recursive  &&\
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
     cd .. && rm -rf pytorch
