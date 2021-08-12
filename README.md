@@ -13,7 +13,7 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (11.3.1), cuDNN (8.2.2), FFmpeg (4.4) with NVENC support
+* `base`: Python with ML and CV packages, CUDA (11.4.1), cuDNN (8.2.2), FFmpeg (4.4) with NVENC support
 * `pytorch`: PyTorch (1.10.0a0+git5b8389e), torchvision (0.10.0), torchaudio (0.9.0) and torch based libraries
 * `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU 
 
@@ -529,6 +529,8 @@ apex (source, master branch)
 [ghcr.io/osai-ai/dokai:21.08-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484815)
 
 additionally to `dokai:21.08-base`:
+
+MAGMA (2.6.1)
 
 torch==1.10.0a0+git5b8389e (source, master branch)  
 torchvision==0.10.0 (source, v0.10.0 tag)  
