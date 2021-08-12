@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.4.1-cudnn8-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -26,12 +26,12 @@ RUN apt-get update && apt -y upgrade &&\
 
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
-    pip==21.1.3 \
-    setuptools==57.0.0 \
-    packaging==20.9
+    pip==21.2.3 \
+    setuptools==57.4.0 \
+    packaging==21.0
 
 # Build nvidia codec headers
-RUN git clone --depth 1 -b sdk/10.0 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
+RUN git clone --depth 1 -b sdk/11.0 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
     cd nv-codec-headers && make install &&\
     cd .. && rm -rf nv-codec-headers
 
@@ -65,27 +65,26 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.21.0 \
-    opencv-python==4.5.2.54 \
-    scipy==1.7.0 \
+    numpy==1.21.1 \
+    opencv-python==4.5.3.56 \
+    scipy==1.7.1 \
     matplotlib==3.4.2 \
-    pandas==1.2.5 \
+    pandas==1.3.1 \
     scikit-learn==0.24.2 \
     scikit-image==0.18.2 \
-    Pillow==8.2.0 \
+    Pillow==8.3.1 \
     librosa==0.8.1 \
-    albumentations==1.0.0 \
-    pyzmq==22.1.0 \
-    Cython==0.29.23 \
+    albumentations==1.0.3 \
+    pyzmq==22.2.1 \
+    Cython==0.29.24 \
     numba==0.53.1 \
-    requests==2.25.1 \
+    requests==2.26.0 \
     psutil==5.8.0 \
-    trafaret-config==2.0.2 \
     pydantic==1.8.2 \
     PyYAML==5.4.1 \
-    notebook==6.4.0 \
+    notebook==6.4.3 \
     ipywidgets==7.6.3 \
-    tqdm==4.61.1 \
+    tqdm==4.62.0 \
     pytest==6.2.4 \
     mypy==0.910 \
     flake8==3.9.2
