@@ -13,27 +13,27 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (11.3.1), cuDNN (8.2.0), FFmpeg (4.4) with NVENC support
-* `pytorch`: PyTorch (1.9.0), torchvision (0.10.0), torchaudio (0.9.0) and torch based libraries
+* `base`: Python with ML and CV packages, CUDA (11.3.1), cuDNN (8.2.2), FFmpeg (4.4) with NVENC support
+* `pytorch`: PyTorch (1.10.0a0+git5b8389e), torchvision (0.10.0), torchaudio (0.9.0) and torch based libraries
 * `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU 
 
 ## Example
 
 Pull an image 
 ```Bash
-docker pull ghcr.io/osai-ai/dokai:21.07-pytorch
+docker pull ghcr.io/osai-ai/dokai:21.08-pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:21.07-pytorch
+docker pull osaiai/dokai:21.08-pytorch
 ```
 
 Check available GPUs inside container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:21.07-pytorch \
+    ghcr.io/osai-ai/dokai:21.08-pytorch \
     nvidia-smi
 ```
 
@@ -333,6 +333,45 @@ flake8==3.9.2
 </p>
 </details>
 
+<details><summary>dokai:21.08-base</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.08-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484719)
+
+CUDA (11.4.1), cuDNN (8.2.2)  
+FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
+Python (3.8.10)  
+
+pip==21.2.3  
+setuptools==57.4.0  
+packaging==21.0  
+numpy==1.21.1  
+opencv-python==4.5.3.56  
+scipy==1.7.1  
+matplotlib==3.4.2  
+pandas==1.3.1  
+scikit-learn==0.24.2  
+scikit-image==0.18.2  
+Pillow==8.3.1  
+librosa==0.8.1  
+albumentations==1.0.3  
+pyzmq==22.2.1  
+Cython==0.29.24  
+numba==0.53.1  
+requests==2.26.0  
+psutil==5.8.0  
+pydantic==1.8.2  
+PyYAML==5.4.1  
+notebook==6.4.3  
+ipywidgets==7.6.3  
+tqdm==4.62.0  
+pytest==6.2.4  
+mypy==0.910  
+flake8==3.9.2  
+
+</p>
+</details>
+
 ### pytorch
 
 <details><summary>dokai:20.09-pytorch</summary>
@@ -484,6 +523,27 @@ apex (source, master branch)
 </p>
 </details>
 
+<details><summary>dokai:21.08-pytorch</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.08-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484815)
+
+additionally to `dokai:21.08-base`:
+
+torch==1.10.0a0+git5b8389e (source, master branch)  
+torchvision==0.10.0 (source, v0.10.0 tag)  
+torchaudio==0.9.0 (source, v0.9.0 tag)  
+pytorch-ignite==0.4.6  
+pytorch-argus==0.2.1  
+pretrainedmodels==0.7.4  
+efficientnet-pytorch==0.7.1  
+timm==0.4.12  
+segmentation-models-pytorch==0.2.0  
+kornia==0.5.8  
+apex (source, master branch)  
+
+</p>
+</details>
 
 ### tensor-stream
 
@@ -577,6 +637,18 @@ tensor-stream==0.4.6 (source, dev branch)
 [ghcr.io/osai-ai/dokai:21.07-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600595)
 
 additionally to `dokai:21.07-pytorch`:
+
+tensor-stream==0.4.6 (source, dev branch)  
+
+</p>
+</details>
+
+<details><summary>dokai:21.08-tensor-stream</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.08-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484817)
+
+additionally to `dokai:21.08-pytorch`:
 
 tensor-stream==0.4.6 (source, dev branch)  
 
