@@ -15,6 +15,7 @@ RUN MAGMA_VERSION=2.6.1 &&\
 
 # Install PyTorch
 RUN git clone --depth 1 -b v1.8.2 --single-branch https://github.com/pytorch/pytorch.git &&\
+    cd pytorch &&\
     git submodule sync && git submodule update --init --recursive  &&\
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
     cd .. && rm -rf pytorch
