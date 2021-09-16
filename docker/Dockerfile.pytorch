@@ -11,7 +11,7 @@ RUN MAGMA_VERSION=2.6.1 &&\
     cp make.inc magma-${MAGMA_VERSION} &&\
     cd magma-${MAGMA_VERSION} &&\
     make -j$(nproc) && make install &&\
-    rm -rf magma-${MAGMA_VERSION}
+    cd .. && rm -rf magma-${MAGMA_VERSION} magma-${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
 RUN git clone -b master --single-branch https://github.com/pytorch/pytorch.git &&\
