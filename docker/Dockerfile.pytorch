@@ -14,20 +14,18 @@ RUN MAGMA_VERSION=2.6.1 &&\
     cd .. && rm -rf magma-${MAGMA_VERSION} magma-${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone -b master --single-branch https://github.com/pytorch/pytorch.git &&\
-    cd pytorch &&\
-    git checkout 5b8389e5368430677c6979294efa812d43df13b0 &&\
+RUN git clone --depth 1 -b v1.8.2 --single-branch https://github.com/pytorch/pytorch.git &&\
     git submodule sync && git submodule update --init --recursive  &&\
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
     cd .. && rm -rf pytorch
 
 # Install torchvision
-RUN git clone --depth 1 -b v0.10.0 https://github.com/pytorch/vision.git &&\
+RUN git clone --depth 1 -b v0.10.1-rc3 https://github.com/pytorch/vision.git &&\
     cd vision && python setup.py install &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth 1 -b v0.9.0 --recurse-submodules https://github.com/pytorch/audio.git &&\
+RUN git clone --depth 1 -b v0.9.1-rc2 --recurse-submodules https://github.com/pytorch/audio.git &&\
     cd audio && BUILD_SOX=1 python setup.py install &&\
     cd .. && rm -rf audio
 
@@ -42,7 +40,7 @@ RUN pip3 install --no-cache-dir \
 # Prevent timm and efficientnet-pytorch reinstall
 RUN pip3 install --no-cache-dir --no-deps \
     segmentation-models-pytorch==0.2.0 \
-    kornia==0.5.8
+    kornia==0.5.10
 
 # Install Apex
 RUN git clone --depth 1 -b master --single-branch https://github.com/NVIDIA/apex.git &&\
