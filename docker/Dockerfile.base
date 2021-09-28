@@ -27,7 +27,7 @@ RUN apt-get update && apt -y upgrade &&\
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
     pip==21.2.4 \
-    setuptools==58.0.4 \
+    setuptools==58.1.0 \
     packaging==21.0
 
 # Build nvidia codec headers
@@ -70,7 +70,7 @@ RUN pip3 install --no-cache-dir \
     scipy==1.7.1 \
     matplotlib==3.4.3 \
     pandas==1.3.3 \
-    scikit-learn==0.24.2 \
+    scikit-learn==1.0 \
     scikit-image==0.18.3 \
     Pillow==8.3.2 \
     librosa==0.8.1 \
@@ -84,7 +84,7 @@ RUN pip3 install --no-cache-dir \
     PyYAML==5.4.1 \
     notebook==6.4.4 \
     ipywidgets==7.6.5 \
-    tqdm==4.62.2 \
+    tqdm==4.62.3 \
     pytest==6.2.5 \
     mypy==0.910 \
     flake8==3.9.2
