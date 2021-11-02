@@ -26,9 +26,9 @@ RUN apt-get update && apt -y upgrade &&\
 
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
-    pip==21.2.4 \
-    setuptools==58.1.0 \
-    packaging==21.0
+    pip==21.3.1 \
+    setuptools==58.4.0 \
+    packaging==21.2
 
 # Build nvidia codec headers
 RUN git clone --depth 1 -b sdk/11.0 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
@@ -67,26 +67,26 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.21.2 \
-    opencv-python==4.5.3.56 \
+    numpy==1.21.3\
+    opencv-python==4.5.4.58 \
     scipy==1.7.1 \
     matplotlib==3.4.3 \
-    pandas==1.3.3 \
-    scikit-learn==1.0 \
+    pandas==1.3.4 \
+    scikit-learn==1.0.1 \
     scikit-image==0.18.3 \
-    Pillow==8.3.2 \
+    Pillow==8.4.0 \
     librosa==0.8.1 \
-    albumentations==1.0.3 \
+    albumentations==1.1.0 \
     pyzmq==22.3.0 \
     Cython==0.29.24 \
-    numba==0.53.1 \
+    numba==0.54.1 \
     requests==2.26.0 \
     psutil==5.8.0 \
     pydantic==1.8.2 \
-    PyYAML==5.4.1 \
-    notebook==6.4.4 \
+    PyYAML==6.0 \
+    notebook==6.4.5 \
     ipywidgets==7.6.5 \
     tqdm==4.62.3 \
     pytest==6.2.5 \
     mypy==0.910 \
-    flake8==3.9.2
+    flake8==4.0.1
