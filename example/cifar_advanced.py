@@ -4,6 +4,7 @@ from pathlib import Path
 
 import torch
 import torch.distributed as dist
+from torch.nn import SyncBatchNorm
 from torch.utils.data import DataLoader, DistributedSampler
 from torch.nn.parallel import DistributedDataParallel
 from torchvision import transforms
@@ -166,29 +167,29 @@ if __name__ == "__main__":
                         help='gradient accumulation step (default: 1)')
     parser.add_argument('--amp', action='store_true',
                         help='use Apex mixed precision')
-
-    parser.add_argument("--local_rank", default=0, type=int)
     args = parser.parse_args()
 
-    args.distributed = False
+    local_rank = 0
+    if 'LOCAL_RANK' in os.environ:
+        local_rank = int(os.environ['LOCAL_RANK'])
+
+    distributed = False
     if 'WORLD_SIZE' in os.environ:
-        args.distributed = int(os.environ['WORLD_SIZE']) > 1
+        distributed = int(os.environ['WORLD_SIZE']) > 1
 
-    if args.distributed:
-        torch.cuda.set_device(args.local_rank)
+    if distributed:
+        torch.cuda.set_device(local_rank)
         dist.init_process_group(backend='nccl', init_method='env://')
-
-    if args.distributed:
         world_size = dist.get_world_size()
-        args.world_batch_size = args.batch_size * world_size
+        world_batch_size = args.batch_size * world_size
     else:
         world_size = 1
-        args.world_batch_size = args.batch_size
-    print("World batch size:", args.world_batch_size)
+        world_batch_size = args.batch_size
+    print("World batch size:", world_batch_size)
 
     train_loader, val_loader = get_data_loaders(args.batch_size,
-                                                args.distributed,
-                                                args.local_rank)
+                                                distributed,
+                                                local_rank)
 
     params = {
         'nn_module': {
@@ -199,7 +200,7 @@ if __name__ == "__main__":
             'drop_path_rate': 0.2,
         },
         'optimizer': ('AdamW', {
-            'lr': get_linear_scaled_lr(args.lr, args.world_batch_size)
+            'lr': get_linear_scaled_lr(args.lr, world_batch_size)
         }),
         'loss': 'CrossEntropyLoss',
         'device': 'cuda',
@@ -209,19 +210,18 @@ if __name__ == "__main__":
 
     model = CifarModel(params)
 
-    if args.distributed:
-        # For some reason SyncBatchNorm doesn't work with torch==1.9.0
-        # model.nn_module = SyncBatchNorm.convert_sync_batchnorm(model.nn_module)
-        model.nn_module = DistributedDataParallel(model.nn_module.to(args.local_rank),
-                                                  device_ids=[args.local_rank],
-                                                  output_device=args.local_rank)
-        if args.local_rank:
+    if distributed:
+        model.nn_module = SyncBatchNorm.convert_sync_batchnorm(model.nn_module)
+        model.nn_module = DistributedDataParallel(model.nn_module.to(local_rank),
+                                                  device_ids=[local_rank],
+                                                  output_device=local_rank)
+        if local_rank:
             model.logger.disabled = True
     else:
         model.set_device('cuda')
 
     callbacks = []
-    if args.local_rank == 0:
+    if local_rank == 0:
         callbacks += [
             MonitorCheckpoint(dir_path=EXPERIMENT_DIR,
                               monitor='val_dist_accuracy', max_saves=3),
@@ -234,7 +234,7 @@ if __name__ == "__main__":
         CosineAnnealingLR(args.epochs),
     ]
 
-    if args.distributed:
+    if distributed:
         @argus.callbacks.on_epoch_complete
         def schedule_sampler(state):
             state.data_loader.sampler.set_epoch(state.epoch + 1)
@@ -243,5 +243,5 @@ if __name__ == "__main__":
     model.fit(train_loader,
               val_loader=val_loader,
               num_epochs=args.epochs,
-              metrics=[CategoricalAccuracy(args.distributed, world_size)],
+              metrics=[CategoricalAccuracy(distributed, world_size)],
               callbacks=callbacks)
