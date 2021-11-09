@@ -21,19 +21,19 @@ Three types of images differ by tag postfix:
 
 Pull an image 
 ```Bash
-docker pull ghcr.io/osai-ai/dokai:21.09-pytorch
+docker pull ghcr.io/osai-ai/dokai:21.11-pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:21.09-pytorch
+docker pull osaiai/dokai:21.11-pytorch
 ```
 
 Check available GPUs inside container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:21.09-pytorch \
+    ghcr.io/osai-ai/dokai:21.11-pytorch \
     nvidia-smi
 ```
 
@@ -411,6 +411,46 @@ flake8==3.9.2
 </p>
 </details>
 
+<details><summary>dokai:21.11-base</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.11-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/10048323?tag=21.11-base)
+
+CUDA (11.4.2), cuDNN (8.2.4)  
+FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
+Python (3.8.10)  
+CMake (3.21.4)
+
+pip==21.3.1  
+setuptools==58.5.3  
+packaging==21.2  
+numpy==1.21.4  
+opencv-python==4.5.4.58  
+scipy==1.7.2  
+matplotlib==3.4.3  
+pandas==1.3.4  
+scikit-learn==1.0.1  
+scikit-image==0.18.3  
+Pillow==8.4.0  
+librosa==0.8.1  
+albumentations==1.1.0  
+pyzmq==22.3.0  
+Cython==0.29.24  
+numba==0.53.1  
+requests==2.26.0  
+psutil==5.8.0  
+pydantic==1.8.2  
+PyYAML==6.0  
+notebook==6.4.5  
+ipywidgets==7.6.5  
+tqdm==4.62.3  
+pytest==6.2.5  
+mypy==0.910  
+flake8==4.0.1  
+
+</p>
+</details>
+
 ### pytorch
 
 <details><summary>dokai:20.09-pytorch</summary>
@@ -610,6 +650,29 @@ apex (source, master branch)
 </p>
 </details>
 
+<details><summary>dokai:21.11-pytorch</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.11-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/10048416?tag=21.11-pytorch)
+
+additionally to `dokai:21.11-base`:
+
+MAGMA (2.6.1)
+
+torch==1.10.0 (source, v1.10.0 tag)  
+torchvision==0.11.1 (source, v0.11.1 tag)  
+torchaudio==0.10.0 (source, v0.10.0 tag)  
+pytorch-ignite==0.4.7   
+pytorch-argus==1.0.0  
+pretrainedmodels==0.7.4  
+efficientnet-pytorch==0.7.1  
+timm==0.4.12  
+segmentation-models-pytorch==0.2.0  
+kornia==0.6.1  
+
+</p>
+</details>
+
 ### tensor-stream
 
 <details><summary>dokai:20.09-tensor-stream</summary>
@@ -726,6 +789,18 @@ tensor-stream==0.4.6 (source, dev branch)
 [ghcr.io/osai-ai/dokai:21.09-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/8319006?tag=21.09-tensor-stream)
 
 additionally to `dokai:21.09-pytorch`:
+
+tensor-stream==0.4.6 (source, dev branch)  
+
+</p>
+</details>
+
+<details><summary>dokai:21.11-tensor-stream</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:21.11-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/10048418?tag=21.11-tensor-stream)
+
+additionally to `dokai:21.11-pytorch`:
 
 tensor-stream==0.4.6 (source, dev branch)  
 
