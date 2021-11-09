@@ -33,7 +33,7 @@ RUN git clone --depth 1 -b v0.10.0 --recurse-submodules https://github.com/pytor
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir \
     pytorch-ignite==0.4.7 \
-    pytorch-argus==0.2.1 \
+    pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     timm==0.4.12
