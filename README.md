@@ -414,7 +414,7 @@ flake8==3.9.2
 <details><summary>dokai:21.11-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:21.11-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/10048323?tag=21.11-base)
+[ghcr.io/osai-ai/dokai:21.11-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097475?tag=21.11-base)
 
 CUDA (11.4.2), cuDNN (8.2.4)  
 FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
@@ -653,7 +653,7 @@ apex (source, master branch)
 <details><summary>dokai:21.11-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:21.11-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/10048416?tag=21.11-pytorch)
+[ghcr.io/osai-ai/dokai:21.11-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097671?tag=21.11-pytorch)
 
 additionally to `dokai:21.11-base`:
 
@@ -798,7 +798,7 @@ tensor-stream==0.4.6 (source, dev branch)
 <details><summary>dokai:21.11-tensor-stream</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:21.11-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/10048418?tag=21.11-tensor-stream)
+[ghcr.io/osai-ai/dokai:21.11-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097674?tag=21.11-tensor-stream)
 
 additionally to `dokai:21.11-pytorch`:
 
