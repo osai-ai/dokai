@@ -31,7 +31,7 @@ RUN CMAKE_VERSION=3.21.4 &&\
     cd cmake-${CMAKE_VERSION} &&\
     ./bootstrap &&\
     make && make install &&\
-    cd .. && rm -rf cmake-${CMAKE_VERSION}
+    cd .. && rm -rf cmake-${CMAKE_VERSION} cmake-${CMAKE_VERSION}.tar.gz
 
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
