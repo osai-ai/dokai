@@ -88,7 +88,7 @@ RUN pip3 install --no-cache-dir \
     albumentations==1.1.0 \
     pyzmq==22.3.0 \
     Cython==0.29.26 \
-    numba==0.54.1 \
+    numba==0.53.1 \
     requests==2.27.1 \
     psutil==5.9.0 \
     pydantic==1.9.0 \
