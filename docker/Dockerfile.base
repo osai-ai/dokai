@@ -36,7 +36,7 @@ RUN CMAKE_VERSION=3.21.4 &&\
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
     pip==21.3.1 \
-    setuptools==58.5.3 \
+    setuptools==59.8.0 \
     packaging==21.2
 
 # Build nvidia codec headers
