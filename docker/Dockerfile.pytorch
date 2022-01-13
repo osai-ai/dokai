@@ -14,19 +14,19 @@ RUN MAGMA_VERSION=2.6.1 &&\
     cd .. && rm -rf magma-${MAGMA_VERSION} magma-${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone --depth 1 -b v1.10.0 --single-branch https://github.com/pytorch/pytorch.git &&\
+RUN git clone --depth 1 -b v1.10.1 --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
     git submodule sync && git submodule update --init --recursive  &&\
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
     cd .. && rm -rf pytorch
 
 # Install torchvision
-RUN git clone --depth 1 -b v0.11.1 https://github.com/pytorch/vision.git &&\
+RUN git clone --depth 1 -b v0.11.2 https://github.com/pytorch/vision.git &&\
     cd vision && python setup.py install &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth 1 -b v0.10.0 --recurse-submodules https://github.com/pytorch/audio.git &&\
+RUN git clone --depth 1 -b v0.10.1 --recurse-submodules https://github.com/pytorch/audio.git &&\
     cd audio && BUILD_SOX=1 python setup.py install &&\
     cd .. && rm -rf audio
 
@@ -36,9 +36,10 @@ RUN pip3 install --no-cache-dir \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
+    pytorch-toolbelt==0.4.4 \
+    kornia==0.6.2 \
     timm==0.4.12
 
 # Prevent timm and efficientnet-pytorch reinstall
 RUN pip3 install --no-cache-dir --no-deps \
-    segmentation-models-pytorch==0.2.0 \
-    kornia==0.6.1
+    segmentation-models-pytorch==0.2.1

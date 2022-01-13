@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.4.2-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.5.1-cudnn8-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -25,7 +25,7 @@ RUN apt-get update && apt -y upgrade &&\
     rm -rf /var/cache/apt/archives/*
 
 # Install CMake
-RUN CMAKE_VERSION=3.21.4 &&\
+RUN CMAKE_VERSION=3.22.1 &&\
     wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz &&\
     tar -zxvf cmake-${CMAKE_VERSION}.tar.gz &&\
     cd cmake-${CMAKE_VERSION} &&\
@@ -37,7 +37,7 @@ RUN CMAKE_VERSION=3.21.4 &&\
 RUN pip3 install --upgrade --no-cache-dir \
     pip==21.3.1 \
     setuptools==59.8.0 \
-    packaging==21.2
+    packaging==21.3
 
 # Build nvidia codec headers
 RUN git clone --depth 1 -b sdk/11.0 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
@@ -45,7 +45,7 @@ RUN git clone --depth 1 -b sdk/11.0 --single-branch https://git.videolan.org/git
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
+RUN git clone --depth 1 -b release/5.0 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
     cd FFmpeg &&\
     mkdir ffmpeg_build && cd ffmpeg_build &&\
     ../configure \
@@ -76,26 +76,26 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.21.4 \
-    opencv-python==4.5.4.58 \
-    scipy==1.7.2 \
-    matplotlib==3.4.3 \
-    pandas==1.3.4 \
-    scikit-learn==1.0.1 \
-    scikit-image==0.18.3 \
-    Pillow==8.4.0 \
+    numpy==1.22.0 \
+    opencv-python==4.5.5.62 \
+    scipy==1.7.3 \
+    matplotlib==3.5.1 \
+    pandas==1.3.5 \
+    scikit-learn==1.0.2 \
+    scikit-image==0.19.1 \
+    Pillow==9.0.0 \
     librosa==0.8.1 \
     albumentations==1.1.0 \
     pyzmq==22.3.0 \
-    Cython==0.29.24 \
+    Cython==0.29.26 \
     numba==0.53.1 \
-    requests==2.26.0 \
-    psutil==5.8.0 \
-    pydantic==1.8.2 \
+    requests==2.27.1 \
+    psutil==5.9.0 \
+    pydantic==1.9.0 \
     PyYAML==6.0 \
-    notebook==6.4.5 \
+    notebook==6.4.6 \
     ipywidgets==7.6.5 \
     tqdm==4.62.3 \
     pytest==6.2.5 \
-    mypy==0.910 \
+    mypy==0.931 \
     flake8==4.0.1
