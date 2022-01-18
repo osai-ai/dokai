@@ -76,7 +76,7 @@ RUN git clone --depth 1 -b release/5.0 --single-branch https://github.com/FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.22.0 \
+    numpy==1.22.1 \
     opencv-python==4.5.5.62 \
     scipy==1.7.3 \
     matplotlib==3.5.1 \
@@ -88,12 +88,12 @@ RUN pip3 install --no-cache-dir \
     albumentations==1.1.0 \
     pyzmq==22.3.0 \
     Cython==0.29.26 \
-    numba==0.53.1 \
+    numba==0.55.0 \
     requests==2.27.1 \
     psutil==5.9.0 \
     pydantic==1.9.0 \
     PyYAML==6.0 \
-    notebook==6.4.6 \
+    notebook==6.4.7 \
     ipywidgets==7.6.5 \
     tqdm==4.62.3 \
     pytest==6.2.5 \

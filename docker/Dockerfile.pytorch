@@ -32,13 +32,13 @@ RUN git clone --depth 1 -b v0.10.1 --recurse-submodules https://github.com/pytor
 
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir \
-    pytorch-ignite==0.4.7 \
+    pytorch-ignite==0.4.8 \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     pytorch-toolbelt==0.4.4 \
     kornia==0.6.2 \
-    timm==0.4.12
+    timm==0.5.4
 
 # Prevent timm and efficientnet-pytorch reinstall
 RUN pip3 install --no-cache-dir --no-deps \
