@@ -22,7 +22,7 @@ RUN git clone --depth 1 -b v1.10.0 --single-branch https://github.com/pytorch/py
 
 # Install torchvision
 RUN git clone --depth 1 -b v0.11.1 https://github.com/pytorch/vision.git &&\
-    cd vision && python setup.py install &&\
+    cd vision && FORCE_CUDA=1 python setup.py install &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
