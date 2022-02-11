@@ -14,30 +14,39 @@ RUN MAGMA_VERSION=2.6.1 &&\
     cd .. && rm -rf magma-${MAGMA_VERSION} magma-${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone --depth 1 -b v1.10.1 --single-branch https://github.com/pytorch/pytorch.git &&\
+RUN git clone --depth 1 -b v1.10.2 --single-branch https://github.com/pytorch/pytorch.git &&\
     cd pytorch &&\
-    git submodule sync && git submodule update --init --recursive  &&\
-    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip install -v . &&\
+    git submodule sync && git submodule update --init --recursive && \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" && \
+    TORCH_CUDA_ARCH_LIST="$(TORCH_CUDA_ARCH_LIST)" && \
+    USE_CUDA=ON && \
+    pip install -v . > torch.txt && \
     cd .. && rm -rf pytorch
 
+# Hack to
+RUN sed -i "s/, '-v'/, '--version'/" \
+    "/usr/local/lib/python3.8/dist-packages/torch/utils/cpp_extension.py"
+
 # Install torchvision
-RUN git clone --depth 1 -b v0.11.2 https://github.com/pytorch/vision.git &&\
-    cd vision && python setup.py install &&\
+RUN git clone --depth 1 -b v0.11.3 https://github.com/pytorch/vision.git &&\
+    cd vision && \
+    FORCE_CUDA=1 DEBUG=1 pip install -v . > torchvision.txt &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth 1 -b v0.10.1 --recurse-submodules https://github.com/pytorch/audio.git &&\
+RUN git clone --depth 1 -b v0.10.2 --recurse-submodules https://github.com/pytorch/audio.git &&\
     cd audio && BUILD_SOX=1 python setup.py install &&\
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
-RUN pip3 install --no-cache-dir \
+RUN pip3 install --no-cache-dir --no-deps \
     pytorch-ignite==0.4.8 \
     pytorch-argus==1.0.0 \
+    munch==2.5.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     pytorch-toolbelt==0.4.4 \
-    kornia==0.6.2 \
+    kornia==0.6.3 \
     timm==0.5.4
 
 # Prevent timm and efficientnet-pytorch reinstall
