@@ -20,21 +20,21 @@ RUN git clone --depth 1 -b master --single-branch https://github.com/pytorch/pyt
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" && \
     TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}" && \
     USE_CUDA=ON && \
-    pip install -v . > torch.txt && \
+    python3 setup.py install && \
     cd .. && rm -rf pytorch
 
-# Hack to
+# Hack to fix small bug
 RUN sed -i "s/, '-v'/, '--version'/" \
     "/usr/local/lib/python3.8/dist-packages/torch/utils/cpp_extension.py"
 
 # Install torchvision
 RUN git clone --depth 1 -b main https://github.com/pytorch/vision.git &&\
     cd vision && \
-    FORCE_CUDA=1 DEBUG=1 pip install -v . > torchvision.txt &&\
+    FORCE_CUDA=1 DEBUG=1 python3 setup.py install &&\
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth 1 -b v0.10.2 --recurse-submodules https://github.com/pytorch/audio.git &&\
+RUN git clone --depth 1 -b main --recurse-submodules https://github.com/pytorch/audio.git &&\
     cd audio && BUILD_SOX=1 python setup.py install &&\
     cd .. && rm -rf audio
 

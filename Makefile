@@ -45,3 +45,12 @@ logs:
 .PHONY: exec
 exec:
 	docker exec -it $(NAME) $(COMMAND)
+
+.PHONY: test
+test:
+	docker run --rm -it \
+		$(GPUS_OPTION) \
+		-v $(shell pwd):/workdir \
+		--name=$(NAME) \
+		$(NAME):tensor-stream \
+		pytest --cov=tests
