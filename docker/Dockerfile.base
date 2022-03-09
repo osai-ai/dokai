@@ -1,5 +1,5 @@
-# https://hub.docker.com/r/nvidia/cuda/tags
-FROM nvidia/cuda:11.5.1-cudnn8-devel-ubuntu20.04
+# See latest cuda tags here: https://hub.docker.com/r/nvidia/cuda/tags
+FROM nvidia/cuda:11.5.1-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -41,12 +41,12 @@ RUN pip3 install --upgrade --no-cache-dir \
     packaging==21.3
 
 # Build nvidia codec headers
-RUN git clone --depth 1 -b sdk/11.0 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
+RUN git clone --depth=1 --branch=sdk/11.0 --progress https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
     cd nv-codec-headers && make install &&\
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth 1 -b release/5.0 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
+RUN git clone --depth=1 --branch=release/5.0 --progress https://github.com/FFmpeg/FFmpeg.git &&\
     cd FFmpeg &&\
     mkdir ffmpeg_build && cd ffmpeg_build &&\
     ../configure \
@@ -79,16 +79,16 @@ RUN git clone --depth 1 -b release/5.0 --single-branch https://github.com/FFmpeg
 RUN pip3 install --no-cache-dir \
     numpy==1.21.5 \
     opencv-python==4.5.5.62 \
-    scipy==1.7.3 \
+    scipy==1.8.0 \
     matplotlib==3.5.1 \
-    pandas==1.4.0 \
+    pandas==1.4.1 \
     scikit-learn==1.0.2 \
-    scikit-image==0.19.1 \
+    scikit-image==0.19.2 \
     Pillow==9.0.1 \
-    librosa==0.8.1 \
+    librosa==0.9.1 \
     albumentations==1.1.0 \
     pyzmq==22.3.0 \
-    Cython==0.29.27 \
+    Cython==0.29.28 \
     numba==0.55.1 \
     requests==2.27.1 \
     psutil==5.9.0 \
@@ -96,8 +96,8 @@ RUN pip3 install --no-cache-dir \
     PyYAML==6.0 \
     notebook==6.4.8 \
     ipywidgets==7.6.5 \
-    tqdm==4.62.3 \
-    pytest==6.2.5 \
+    tqdm==4.63.0 \
+    pytest==7.0.1 \
     pytest-cov==3.0.0 \
     mypy==0.931 \
     pre-commit==2.17.0 \

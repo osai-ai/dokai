@@ -11,11 +11,20 @@ endif
 .PHONY: all
 all: stop build run
 
-.PHONY: build
-build:
+.PHONY: build-base
+build-base:
 	docker build -f ./docker/Dockerfile.base -t $(NAME):base .
-	docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
+
+.PHONY: build-pytorch
+build-pytorch:
+	docker build --build-arg BUILDKIT_INLINE_CACHE=1 -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
+
+.PHONY: build-tensor-stream
+build-tensor-stream:
 	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
+
+.PHONY: build
+build: build-base build-pytorch build-tensor-stream
 
 .PHONY: stop
 stop:
