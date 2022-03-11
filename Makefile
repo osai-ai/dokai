@@ -17,7 +17,7 @@ build-base:
 
 .PHONY: build-pytorch
 build-pytorch:
-	docker build --build-arg BUILDKIT_INLINE_CACHE=1 -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
+	docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
 
 .PHONY: build-tensor-stream
 build-tensor-stream:
