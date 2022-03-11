@@ -1,5 +1,5 @@
 # See latest cuda tags here: https://hub.docker.com/r/nvidia/cuda/tags
-FROM nvidia/cuda:11.5.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -8,7 +8,7 @@ ENV PYTHONPATH $PYTHONPATH:/workdir
 WORKDIR /workdir
 
 # Install python and apt-get packages
-RUN apt-get update && apt -y upgrade &&\
+RUN apt-get update && apt -y upgrade && \
     apt-get -y install \
     software-properties-common \
     build-essential yasm nasm ninja-build \
@@ -17,21 +17,21 @@ RUN apt-get update && apt -y upgrade &&\
     autoconf libtool flex bison \
     libsm6 libxext6 libxrender1 libgl1-mesa-glx \
     libx264-dev libsndfile1 libmp3lame-dev libssl-dev \
-    python3 python3-dev python3-pip \
-    liblapack-dev libopenblas-dev gfortran &&\
-    ln -s /usr/bin/python3 /usr/bin/python &&\
-    apt-get clean &&\
-    apt-get -y autoremove &&\
-    rm -rf /var/lib/apt/lists/* &&\
+    python3 python3-dev python3-pip libpng-dev libjpeg-dev \
+    liblapack-dev libopenblas-dev gfortran && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
 
 # Install CMake
-RUN CMAKE_VERSION=3.22.2 &&\
-    wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz &&\
-    tar -zxvf cmake-${CMAKE_VERSION}.tar.gz &&\
-    cd cmake-${CMAKE_VERSION} &&\
-    ./bootstrap &&\
-    make && make install &&\
+RUN CMAKE_VERSION=3.22.2 && \
+    wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz && \
+    tar -zxvf cmake-${CMAKE_VERSION}.tar.gz && \
+    cd cmake-${CMAKE_VERSION} && \
+    ./bootstrap && \
+    make && make install && \
     cd .. && rm -rf cmake-${CMAKE_VERSION} cmake-${CMAKE_VERSION}.tar.gz
 
 # Install pip and setuptools
@@ -41,14 +41,14 @@ RUN pip3 install --upgrade --no-cache-dir \
     packaging==21.3
 
 # Build nvidia codec headers
-RUN git clone --depth=1 --branch=sdk/11.0 --progress https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
-    cd nv-codec-headers && make install &&\
+RUN git clone --depth=1 --branch=n11.1.5.1 --progress https://github.com/FFmpeg/nv-codec-headers.git && \
+    cd nv-codec-headers && make install && \
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth=1 --branch=release/5.0 --progress https://github.com/FFmpeg/FFmpeg.git &&\
-    cd FFmpeg &&\
-    mkdir ffmpeg_build && cd ffmpeg_build &&\
+RUN git clone --depth=1 --branch=release/4.4 --progress https://github.com/FFmpeg/FFmpeg.git && \
+    cd FFmpeg && \
+    mkdir ffmpeg_build && cd ffmpeg_build && \
     ../configure \
     --enable-cuda \
     --enable-cuvid \
@@ -64,15 +64,15 @@ RUN git clone --depth=1 --branch=release/5.0 --progress https://github.com/FFmpe
     --enable-openssl \
     --enable-nonfree \
     --nvccflags="-arch=sm_52 \
--gencode=arch=compute_52,code=sm_52 \
--gencode=arch=compute_60,code=sm_60 \
--gencode=arch=compute_61,code=sm_61 \
--gencode=arch=compute_70,code=sm_70 \
--gencode=arch=compute_75,code=sm_75 \
--gencode=arch=compute_80,code=sm_80 \
--gencode=arch=compute_86,code=sm_86 \
--gencode=arch=compute_86,code=compute_86" &&\
-    make -j$(nproc) && make install && ldconfig &&\
+                 -gencode=arch=compute_52,code=sm_52 \
+                 -gencode=arch=compute_60,code=sm_60 \
+                 -gencode=arch=compute_61,code=sm_61 \
+                 -gencode=arch=compute_70,code=sm_70 \
+                 -gencode=arch=compute_75,code=sm_75 \
+                 -gencode=arch=compute_80,code=sm_80 \
+                 -gencode=arch=compute_86,code=sm_86 \
+                 -gencode=arch=compute_86,code=compute_86" && \
+    make -j$(nproc) && make install && ldconfig && \
     cd ../.. && rm -rf FFmpeg
 
 # Install python packages
