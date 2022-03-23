@@ -1,6 +1,7 @@
+from time import sleep
+
 import pytest
 import torch
-
 from torchvision.ops import roi_align
 
 
@@ -43,4 +44,5 @@ class TestTorchvision:
     def test_forward(
         self, inputs: torch.Tensor, boxes: torch.Tensor, width: int, height: int, aligned: bool
     ):
+        sleep(1)
         roi_align(input=inputs, boxes=boxes, output_size=(width, height), aligned=aligned)

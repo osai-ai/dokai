@@ -10,6 +10,7 @@ class TestImports:
         import pretrainedmodels
         import pytorch_toolbelt
         import segmentation_models_pytorch
+        import tensor_stream
         import timm
         import torch
         import torchvision
