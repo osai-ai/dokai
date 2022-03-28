@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.4.2-cudnn8-devel-ubuntu20.04
+# See latest cuda tags here: https://hub.docker.com/r/nvidia/cuda/tags
+FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -7,7 +8,7 @@ ENV PYTHONPATH $PYTHONPATH:/workdir
 WORKDIR /workdir
 
 # Install python and apt-get packages
-RUN apt-get update && apt -y upgrade &&\
+RUN apt-get update && apt -y upgrade && \
     apt-get -y install \
     software-properties-common \
     build-essential yasm nasm ninja-build \
@@ -16,38 +17,38 @@ RUN apt-get update && apt -y upgrade &&\
     autoconf libtool flex bison \
     libsm6 libxext6 libxrender1 libgl1-mesa-glx \
     libx264-dev libsndfile1 libmp3lame-dev libssl-dev \
-    python3 python3-dev python3-pip \
-    liblapack-dev libopenblas-dev gfortran &&\
-    ln -s /usr/bin/python3 /usr/bin/python &&\
-    apt-get clean &&\
-    apt-get -y autoremove &&\
-    rm -rf /var/lib/apt/lists/* &&\
+    python3 python3-dev python3-pip libpng-dev libjpeg-dev \
+    liblapack-dev libopenblas-dev gfortran && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
 
 # Install CMake
-RUN CMAKE_VERSION=3.21.4 &&\
-    wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz &&\
-    tar -zxvf cmake-${CMAKE_VERSION}.tar.gz &&\
-    cd cmake-${CMAKE_VERSION} &&\
-    ./bootstrap &&\
-    make && make install &&\
+RUN CMAKE_VERSION=3.22.2 && \
+    wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz && \
+    tar -zxvf cmake-${CMAKE_VERSION}.tar.gz && \
+    cd cmake-${CMAKE_VERSION} && \
+    ./bootstrap && \
+    make && make install && \
     cd .. && rm -rf cmake-${CMAKE_VERSION} cmake-${CMAKE_VERSION}.tar.gz
 
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
-    pip==21.3.1 \
-    setuptools==59.8.0 \
-    packaging==21.2
+    pip==22.0.3 \
+    setuptools==59.5.0 \
+    packaging==21.3
 
 # Build nvidia codec headers
-RUN git clone --depth 1 -b sdk/11.0 --single-branch https://git.videolan.org/git/ffmpeg/nv-codec-headers.git &&\
-    cd nv-codec-headers && make install &&\
+RUN git clone --depth=1 --branch=n11.1.5.1 --progress https://github.com/FFmpeg/nv-codec-headers.git && \
+    cd nv-codec-headers && make install && \
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg/FFmpeg.git &&\
-    cd FFmpeg &&\
-    mkdir ffmpeg_build && cd ffmpeg_build &&\
+RUN git clone --depth=1 --branch=release/4.4 --progress https://github.com/FFmpeg/FFmpeg.git && \
+    cd FFmpeg && \
+    mkdir ffmpeg_build && cd ffmpeg_build && \
     ../configure \
     --enable-cuda \
     --enable-cuvid \
@@ -63,39 +64,41 @@ RUN git clone --depth 1 -b release/4.4 --single-branch https://github.com/FFmpeg
     --enable-openssl \
     --enable-nonfree \
     --nvccflags="-arch=sm_52 \
--gencode=arch=compute_52,code=sm_52 \
--gencode=arch=compute_60,code=sm_60 \
--gencode=arch=compute_61,code=sm_61 \
--gencode=arch=compute_70,code=sm_70 \
--gencode=arch=compute_75,code=sm_75 \
--gencode=arch=compute_80,code=sm_80 \
--gencode=arch=compute_86,code=sm_86 \
--gencode=arch=compute_86,code=compute_86" &&\
-    make -j$(nproc) && make install && ldconfig &&\
+                 -gencode=arch=compute_52,code=sm_52 \
+                 -gencode=arch=compute_60,code=sm_60 \
+                 -gencode=arch=compute_61,code=sm_61 \
+                 -gencode=arch=compute_70,code=sm_70 \
+                 -gencode=arch=compute_75,code=sm_75 \
+                 -gencode=arch=compute_80,code=sm_80 \
+                 -gencode=arch=compute_86,code=sm_86 \
+                 -gencode=arch=compute_86,code=compute_86" && \
+    make -j$(nproc) && make install && ldconfig && \
     cd ../.. && rm -rf FFmpeg
 
 # Install python packages
 RUN pip3 install --no-cache-dir \
-    numpy==1.21.4 \
-    opencv-python==4.5.4.58 \
-    scipy==1.7.2 \
-    matplotlib==3.4.3 \
-    pandas==1.3.4 \
-    scikit-learn==1.0.1 \
-    scikit-image==0.18.3 \
-    Pillow==8.4.0 \
-    librosa==0.8.1 \
+    numpy==1.21.5 \
+    opencv-python==4.5.5.62 \
+    scipy==1.8.0 \
+    matplotlib==3.5.1 \
+    pandas==1.4.1 \
+    scikit-learn==1.0.2 \
+    scikit-image==0.19.2 \
+    Pillow==9.0.1 \
+    librosa==0.9.1 \
     albumentations==1.1.0 \
     pyzmq==22.3.0 \
-    Cython==0.29.24 \
-    numba==0.53.1 \
-    requests==2.26.0 \
-    psutil==5.8.0 \
-    pydantic==1.8.2 \
+    Cython==0.29.28 \
+    numba==0.55.1 \
+    requests==2.27.1 \
+    psutil==5.9.0 \
+    pydantic==1.9.0 \
     PyYAML==6.0 \
-    notebook==6.4.5 \
+    notebook==6.4.8 \
     ipywidgets==7.6.5 \
-    tqdm==4.62.3 \
-    pytest==6.2.5 \
-    mypy==0.910 \
+    tqdm==4.63.0 \
+    pytest==7.0.1 \
+    pytest-cov==3.0.0 \
+    mypy==0.931 \
+    pre-commit==2.17.0 \
     flake8==4.0.1
