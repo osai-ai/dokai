@@ -49,7 +49,7 @@ Example of using dokai image for DL pipeline you can find [here](https://github.
 <details><summary style="margin-left: 20px;">dokai:22.03-base</summary>
 <div style="margin-left: 20px;">
 
-[ghcr.io/osai-ai/dokai:22.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/FIXME!!!!!!!!!!!)
+[ghcr.io/osai-ai/dokai:22.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/17750505?tag=22.03-base)
 
 CUDA (11.6.0), cuDNN (8.3.1)  
 FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
@@ -494,7 +494,7 @@ flake8==3.9.2
 <details><summary style="margin-left: 20px;">dokai:22.03-pytorch</summary>
 <div style="margin-left: 20px;">
 
-[ghcr.io/osai-ai/dokai:22.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097671?tag=22.03-pytorch)  #FIXME
+[ghcr.io/osai-ai/dokai:22.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/17750784?tag=22.03-pytorch)
 
 additionally to `dokai:22.03-base`:
 
@@ -734,7 +734,7 @@ apex (source, master branch)
 <details><summary style="margin-left: 20px;">dokai:22.03-tensor-stream</summary>
 <div style="margin-left: 20px;">
 
-[ghcr.io/osai-ai/dokai:22.03-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097674?tag=22.03-tensor-stream)
+[ghcr.io/osai-ai/dokai:22.03-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/17750801?tag=22.03-tensor-stream)
 
 additionally to `dokai:22.03-pytorch`:
 
