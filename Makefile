@@ -23,8 +23,12 @@ build-pytorch:
 build-tensor-stream:
 	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
 
+.PHONY: build-tensorrt
+build-tensor-stream:
+	docker build -f ./docker/Dockerfile.tensorrt -t $(NAME):tensorrt .
+
 .PHONY: build
-build: build-base build-pytorch build-tensor-stream
+build: build-base build-pytorch build-tensor-stream build-tensorrt
 
 .PHONY: stop
 stop:

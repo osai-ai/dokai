@@ -1,0 +1,7 @@
+FROM dokai:pytorch
+
+# Install tensorrt
+RUN pip3 install --no-cache-dir --no-deps \
+    --extra-index-url https://pypi.ngc.nvidia.com \
+    --trusted-host pypi.ngc.nvidia.com \
+    nvidia-tensorrt==8.2.3
