@@ -24,7 +24,7 @@ build-tensor-stream:
 	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
 
 .PHONY: build-tensorrt
-build-tensor-stream:
+build-tensorrt:
 	docker build -f ./docker/Dockerfile.tensorrt -t $(NAME):tensorrt .
 
 .PHONY: build
