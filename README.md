@@ -862,3 +862,33 @@ tensor-stream==0.4.6 (source, dev branch)
 
 </div>
 </details>
+
+
+### tensorrt
+<!---
+==================================== TENSORRT ====================================
+-->
+
+<details><summary style="margin-left: 20px;">dokai:22.03-tensorrt</summary>
+<div style="margin-left: 20px;">
+
+[ghcr.io/osai-ai/dokai:22.03-tensorrt](https://github.com/osai-ai/dokai/pkgs/container/dokai/39362129?tag=22.03-tensorrt)
+
+additionally to `dokai:22.03-pytorch`:
+
+nvidia-tensorrt==8.2.3
+
+</div>
+</details>
+
+<details><summary style="margin-left: 20px;">dokai:21.11-tensorrt</summary>
+<div style="margin-left: 20px;">
+
+[ghcr.io/osai-ai/dokai:21.11-tensorrt](https://github.com/osai-ai/dokai/pkgs/container/dokai/39245088?tag=21.11-tensorrt)
+
+additionally to `dokai:21.11-pytorch`:
+
+nvidia-tensorrt==8.2.3
+
+</div>
+</details>
