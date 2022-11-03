@@ -27,20 +27,19 @@ RUN apt-get update && apt -y upgrade && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
 
-# Install CMake
-RUN CMAKE_VERSION=3.22.2 && \
-    wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz && \
-    tar -zxvf cmake-${CMAKE_VERSION}.tar.gz && \
-    cd cmake-${CMAKE_VERSION} && \
-    ./bootstrap && \
-    make && make install && \
-    cd .. && rm -rf cmake-${CMAKE_VERSION} cmake-${CMAKE_VERSION}.tar.gz
-
-# Install pip and setuptools
-RUN pip3 install --upgrade --no-cache-dir \
-    pip==22.0.3 \
-    setuptools==59.5.0 \
-    packaging==21.3
+# Install pip
+RUN PYTHON_PIP_VERSION=22.3 && \
+    PYTHON_SETUPTOOLS_VERSION=65.5.0 && \
+    wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py && \
+	export PYTHONDONTWRITEBYTECODE=1 && \
+	python get-pip.py \
+		--disable-pip-version-check \
+		--no-cache-dir \
+		--no-compile \
+		"pip==$PYTHON_PIP_VERSION" \
+		"setuptools==$PYTHON_SETUPTOOLS_VERSION" && \
+	rm -f get-pip.py && \
+	pip --version
 
 # Build nvidia codec headers
 RUN git clone --depth=1 --branch=n11.1.5.1 --progress https://github.com/FFmpeg/nv-codec-headers.git && \
