@@ -1,5 +1,4 @@
-# See latest cuda tags here: https://hub.docker.com/r/nvidia/cuda/tags
-FROM nvidia/cuda:11.6.0-devel-ubuntu20.04
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
