@@ -1,4 +1,5 @@
 NAME?=dokai
+TAG?=tensor-stream
 COMMAND?=bash
 
 GPUS?=all
@@ -11,24 +12,12 @@ endif
 .PHONY: all
 all: stop build run
 
-.PHONY: build-base
-build-base:
-	docker build -f ./docker/Dockerfile.base -t $(NAME):base .
-
-.PHONY: build-pytorch
-build-pytorch:
-	docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
-
-.PHONY: build-tensor-stream
-build-tensor-stream:
-	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
-
-.PHONY: build-tensorrt
-build-tensorrt:
-	docker build -f ./docker/Dockerfile.tensorrt -t $(NAME):tensorrt .
-
 .PHONY: build
-build: build-base build-pytorch build-tensor-stream build-tensorrt
+build:
+	docker build -f ./docker/Dockerfile.base -t $(NAME):base .
+	docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
+	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
+	docker build -f ./docker/Dockerfile.tensorrt -t $(NAME):tensorrt .
 
 .PHONY: stop
 stop:
@@ -43,7 +32,7 @@ run:
 		--ipc=host \
 		-v $(shell pwd):/workdir \
 		--name=$(NAME) \
-		$(NAME):tensor-stream \
+		$(NAME):$(TAG) \
 		$(COMMAND)
 	docker attach $(NAME)
 
@@ -65,5 +54,5 @@ test:
 		$(GPUS_OPTION) \
 		-v $(shell pwd):/workdir \
 		--name=$(NAME) \
-		$(NAME):tensor-stream \
+		$(NAME):$(TAG) \
 		pytest --cov=tests
