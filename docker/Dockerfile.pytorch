@@ -15,8 +15,10 @@ RUN MAGMA_VERSION=2.6.2 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone --depth=1 --branch=v1.13.0 --single-branch https://github.com/pytorch/pytorch.git && \
+# Checkout v1.13.0 after commit: ada lovelace (arch 8.9) support #87436
+RUN git clone --branch=master --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
+    git checkout 71fe069d985e97b5947d133f2f2bde9adea01ed7 && \
     git submodule sync && git submodule update --init --recursive && \
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
@@ -31,7 +33,7 @@ RUN git clone --depth=1 --branch=v0.14.0 --single-branch https://github.com/pyto
 RUN git clone --depth=1 --branch=v0.13.0 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
-    USE_CUDA=ON USE_FFMPEG=ON python3 setup.py install && \
+    USE_CUDA=ON python3 setup.py install && \
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
