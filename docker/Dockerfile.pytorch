@@ -1,10 +1,10 @@
 FROM dokai:base
 
-ENV TORCH_CUDA_ARCH_LIST 5.2;6.0;6.1;7.0;7.5;8.0;8.6
+ENV TORCH_CUDA_ARCH_LIST 6.0;6.1;7.0;7.5;8.0;8.6;8.9
 
 # Build MAGMA
 COPY docker/magma/make.inc make.inc
-RUN MAGMA_VERSION=2.6.1 && \
+RUN MAGMA_VERSION=2.6.2 && \
     ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so && \
     wget https://bitbucket.org/icl/magma/get/v${MAGMA_VERSION}.tar.gz && \
     mkdir magma-${MAGMA_VERSION}/ && \
