@@ -15,42 +15,33 @@ RUN MAGMA_VERSION=2.6.2 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone --depth=1 --branch=v1.11.0 --recurse-submodules --jobs=8 --progress https://github.com/pytorch/pytorch.git && \
+RUN git clone --depth=1 --branch=v1.13.0 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
-    git submodule sync && git submodule deinit -f . && git submodule update --init --recursive --progress --jobs=8 && \
-    cd third_party/ideep && rm -rf mkl-dnn/ && \
-    git clone https://github.com/oneapi-src/oneDNN.git mkl-dnn && cd mkl-dnn && git checkout v2.2.4 && cd ../../.. && \
-    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" && \
-    TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}" && \
-    CUDA_BIN_PATH="/usr/local/cuda-11.6" && \
-    USE_CUDA=ON && \
-    python3 setup.py install && \
+    git submodule sync && git submodule update --init --recursive && \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
 # Install torchvision
-RUN git clone --depth=1 --branch=v0.12.0 --recurse-submodules --jobs=8 --progress https://github.com/pytorch/vision.git && \
+RUN git clone --depth=1 --branch=v0.14.0 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
-    FORCE_CUDA=1 python3 setup.py install && \
+    WITH_CUDA=ON python3 setup.py install && \
     cd .. && rm -rf vision
 
 # # Install torchaudio
-RUN git clone --depth=1 --branch=v0.11.0 --recurse-submodules --jobs=8 --progress https://github.com/pytorch/audio.git && \
+RUN git clone --depth=1 --branch=v0.13.0 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
-    git submodule sync && git submodule deinit -f . && git submodule update --init --recursive --progress --jobs=8 && \
-    BUILD_SOX=1 python setup.py install && \
+    git submodule sync && git submodule update --init --recursive && \
+    USE_CUDA=ON USE_FFMPEG=ON python3 setup.py install && \
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir --no-deps \
-    pytorch-ignite==0.4.8 \
+    pytorch-ignite==0.4.10 \
     pytorch-argus==1.0.0 \
     munch==2.5.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
-    pytorch-toolbelt==0.4.4 \
-    kornia==0.6.3 \
-    timm==0.5.4
-
-# Prevent timm and efficientnet-pytorch reinstall
-RUN pip3 install --no-cache-dir --no-deps \
-    segmentation-models-pytorch==0.2.1
+    pytorch-toolbelt==0.5.2 \
+    kornia==0.6.8 \
+    timm==0.6.11 \
+    segmentation-models-pytorch==0.3.0
