@@ -25,6 +25,11 @@ RUN apt-get update && apt -y upgrade && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
 
+# Install bazelisk
+RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.15.0/bazelisk-linux-amd64 && \
+    chmod +x bazelisk-linux-amd64 && \
+    mv bazelisk-linux-amd64 /usr/local/bin/bazel
+
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
     pip==22.3.1 \
