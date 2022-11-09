@@ -2,6 +2,28 @@ FROM dokai:base
 
 ENV TORCH_CUDA_ARCH_LIST 6.0;6.1;7.0;7.5;8.0;8.6;8.9
 
+# Install TensorRT GA and build TensorRT OSS
+RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.1.7 TRT_OSS_VERSION=8.5.1 && \
+    GPU_ARCHS="60 61 70 75 80 86 89" && \
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub && \
+    apt-get update && \
+    v="${TRT_GA_VERSION%.*}-1+cuda${CUDA_VERSION%.*}" && \
+    apt-get install -y \
+    libnvinfer8=${v} libnvparsers8=${v} libnvinfer-plugin8=${v} \
+    libnvinfer-dev=${v} libnvparsers-dev=${v} libnvinfer-plugin-dev=${v} && \
+    git clone --depth=1 --branch="$TRT_OSS_VERSION" --single-branch https://github.com/nvidia/TensorRT && \
+    cd TensorRT && \
+    git submodule sync && git submodule update --init --recursive && \
+    mkdir -p build && cd build && \
+    cmake .. -DGPU_ARCHS="$GPU_ARCHS" -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DTRT_OUT_DIR=/usr/lib/TensorRT && \
+    make -j$(nproc) && \
+    cd ../.. && rm -rf TensorRT && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/TensorRT:/usr/lib/x86_64-linux-gnu"
+
 # Build MAGMA
 COPY docker/magma/make.inc make.inc
 RUN MAGMA_VERSION=2.6.2 && \

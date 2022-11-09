@@ -9,7 +9,7 @@ WORKDIR /workdir
 # Install Python and apt-get packages
 RUN apt-get update && apt -y upgrade && \
     apt-get -y install \
-    software-properties-common \
+    software-properties-common apt-utils \
     build-essential yasm nasm ninja-build cmake\
     unzip git wget curl nano vim tmux \
     sysstat libtcmalloc-minimal4 pkgconf \
