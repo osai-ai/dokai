@@ -1,6 +1,7 @@
 FROM dokai:base
 
-ENV TORCH_CUDA_ARCH_LIST 6.0;6.1;7.0;7.5;8.0;8.6;8.9
+ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9"
+ENV TORCH_NVCC_FLAGS "-Xfatbin -compress-all"
 
 # Install TensorRT GA and build TensorRT OSS
 RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.1.7 TRT_OSS_VERSION=8.5.1 && \
@@ -42,7 +43,7 @@ RUN git clone --branch=master --single-branch https://github.com/pytorch/pytorch
     cd pytorch && \
     git checkout 71fe069d985e97b5947d133f2f2bde9adea01ed7 && \
     git submodule sync && git submodule update --init --recursive && \
-    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
+    python3 setup.py install && \
     cd .. && rm -rf pytorch
 
 # Install torchvision

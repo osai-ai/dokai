@@ -12,12 +12,16 @@ endif
 .PHONY: all
 all: stop build run
 
+define docker_build
+	docker build -f ./docker/Dockerfile.$(1) -t $(NAME):$(1) . 2>&1 | tee logs/build_$(1).log
+endef
+
 .PHONY: build
 build:
-	docker build -f ./docker/Dockerfile.base -t $(NAME):base .
-	docker build -f ./docker/Dockerfile.pytorch -t $(NAME):pytorch .
-	docker build -f ./docker/Dockerfile.tensor-stream -t $(NAME):tensor-stream .
-	docker build -f ./docker/Dockerfile.tensorrt -t $(NAME):tensorrt .
+	$(call docker_build,base)
+	$(call docker_build,pytorch)
+	$(call docker_build,tensor-stream)
+	$(call docker_build,tensorrt)
 
 .PHONY: stop
 stop:
