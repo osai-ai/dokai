@@ -9,20 +9,22 @@ RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.1.7 TRT_OSS_VERSION=8.5.1 && \
     apt-get update && \
     v="${TRT_GA_VERSION%.*}-1+cuda${CUDA_VERSION%.*}" && \
     apt-get install -y \
-    libnvinfer8=${v} libnvparsers8=${v} libnvinfer-plugin8=${v} \
-    libnvinfer-dev=${v} libnvparsers-dev=${v} libnvinfer-plugin-dev=${v} && \
+    libnvinfer8=${v} libnvonnxparsers8=${v} libnvparsers8=${v} libnvinfer-plugin8=${v} \
+    libnvinfer-dev=${v} libnvonnxparsers-dev=${v} libnvparsers-dev=${v} libnvinfer-plugin-dev=${v} \
+    python3-libnvinfer=${v} && \
     git clone --depth=1 --branch="$TRT_OSS_VERSION" --single-branch https://github.com/nvidia/TensorRT && \
     cd TensorRT && \
     git submodule sync && git submodule update --init --recursive && \
     mkdir -p build && cd build && \
-    cmake .. -DGPU_ARCHS="$GPU_ARCHS" -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DTRT_OUT_DIR=/usr/lib/TensorRT && \
+    cmake .. -DGPU_ARCHS="$GPU_ARCHS" -DBUILD_SAMPLES=OFF \
+    -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DTRT_OUT_DIR=/usr/lib/x86_64-linux-gnu && \
     make -j$(nproc) && \
     cd ../.. && rm -rf TensorRT && \
     apt-get clean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
-ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/TensorRT:/usr/lib/x86_64-linux-gnu"
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
 
 # Build MAGMA
 COPY docker/magma/make.inc make.inc
@@ -48,7 +50,7 @@ RUN git clone --branch=master --single-branch https://github.com/pytorch/pytorch
 # Install torchvision
 RUN git clone --depth=1 --branch=v0.14.0 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
-    WITH_CUDA=ON python3 setup.py install && \
+    FORCE_CUDA=1 python3 setup.py install && \
     cd .. && rm -rf vision
 
 # # Install torchaudio
