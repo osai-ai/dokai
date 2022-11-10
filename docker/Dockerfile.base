@@ -25,11 +25,6 @@ RUN apt-get update && apt -y upgrade && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
 
-# Install bazelisk
-RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.15.0/bazelisk-linux-amd64 && \
-    chmod +x bazelisk-linux-amd64 && \
-    mv bazelisk-linux-amd64 /usr/local/bin/bazel
-
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
     pip==22.3.1 \
@@ -42,7 +37,7 @@ RUN git clone --depth=1 --branch=sdk/11.1 --single-branch https://github.com/FFm
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth=1 --branch=release/5.1 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
+RUN git clone --depth=1 --branch=release/4.4 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
     cd FFmpeg && \
     mkdir ffmpeg_build && cd ffmpeg_build && \
     ../configure \
