@@ -1,0 +1,15 @@
+resnet18
+resnet50
+resnet101
+resnetv2_50
+mobilenetv2_100
+mobilenetv3_large_100
+mobilenetv3_small_100
+tf_efficientnet_b0
+tf_efficientnet_b3
+tf_efficientnetv2_b0
+tf_efficientnetv2_b3
+swin_base_patch4_window7_224
+swinv2_base_window8_256
+vgg16
+hrnet_w32
