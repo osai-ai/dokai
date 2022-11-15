@@ -39,7 +39,7 @@ RUN MAGMA_VERSION=2.6.2 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-# Checkout v1.13.0 after commit: ada lovelace (arch 8.9) support #87436
+# Checkout close to v1.13.0 after commit "ada lovelace (arch 8.9) support #87436"
 RUN git clone --branch=master --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
     git checkout 71fe069d985e97b5947d133f2f2bde9adea01ed7 && \
