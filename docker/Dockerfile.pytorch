@@ -64,7 +64,6 @@ RUN git clone --depth=1 --branch=v0.13.0 --single-branch https://github.com/pyto
 RUN pip3 install --no-cache-dir --no-deps \
     pytorch-ignite==0.4.10 \
     pytorch-argus==1.0.0 \
-    munch==2.5.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     pytorch-toolbelt==0.5.2 \
