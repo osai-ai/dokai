@@ -1,8 +1,9 @@
 REGISTRY?=ghcr.io/osai-ai/dokai
 TAG?=dev-pytorch
-IMAGE_NAME?=dokai-benchmark
 PRECISION?=float32
 RESULT_PREFIX?=benchmark
+
+BENCHMARK_NAME=$(shell basename $(REGISTRY)):$(TAG)
 
 GPUS?=all
 ifeq ($(GPUS),none)
@@ -19,17 +20,17 @@ build:
 	docker build \
 		--build-arg REGISTRY=$(REGISTRY) \
 		--build-arg TAG=$(TAG) \
-		-t $(IMAGE_NAME):$(TAG) .
+		-t $(BENCHMARK_NAME) .
 
 .PHONY: run-benchmark
 run-benchmark:
-	docker run --rm -it \
+	docker run --rm \
 		$(GPUS_OPTION) \
 		-v $(shell pwd)/results:/results \
 		-v $(shell pwd)/model_list.txt:/model_list.txt \
-		--name=$(IMAGE_NAME)-$(TAG) \
-		$(IMAGE_NAME):$(TAG) \
+		--name=dokai-benchmark \
+		$(BENCHMARK_NAME) \
 		python pytorch-image-models/benchmark.py \
 		--model-list /model_list.txt \
 		--precision $(PRECISION) \
-		--results-file "/results/$(RESULT_PREFIX)_$(PRECISION)_$(shell basename $(REGISTRY)):$(TAG).csv"
+		--results-file "/results/$(RESULT_PREFIX)_$(PRECISION)_$(BENCHMARK_NAME).csv"
