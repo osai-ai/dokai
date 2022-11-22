@@ -53,7 +53,7 @@ RUN git clone --depth=1 --branch=v0.14.0 --single-branch https://github.com/pyto
     FORCE_CUDA=1 python3 setup.py install && \
     cd .. && rm -rf vision
 
-# # Install torchaudio
+# Install torchaudio
 RUN git clone --depth=1 --branch=v0.13.0 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
