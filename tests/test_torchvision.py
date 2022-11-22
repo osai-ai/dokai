@@ -1,5 +1,3 @@
-from time import sleep
-
 import pytest
 import torch
 from torchvision.ops import roi_align
@@ -24,17 +22,17 @@ class TestTorchvision:
         return torch.device(request.param)
 
     @pytest.fixture(scope="class")
-    def inputs(self, device: torch.device) -> torch.Tensor:
-        return torch.rand(size=(8, 3, 256, 256), device=device, dtype=torch.float32)
+    def inputs(self) -> torch.Tensor:
+        return torch.rand(size=(8, 3, 256, 256), dtype=torch.float32)
 
     @pytest.fixture(scope="class")
     def boxes(
-        self, device: torch.device, width: int, height: int, num_points: int
+        self, width: int, height: int, num_points: int
     ) -> torch.Tensor:
 
-        ids = torch.arange(end=num_points, device=device).unsqueeze(1)
-        x1 = torch.randint(high=width // 2, size=(num_points, 1), device=device)
-        y1 = torch.randint(high=height // 2, size=(num_points, 1), device=device)
+        ids = torch.arange(end=num_points).unsqueeze(1)
+        x1 = torch.randint(high=width // 2, size=(num_points, 1))
+        y1 = torch.randint(high=height // 2, size=(num_points, 1))
 
         x2, y2 = x1 + width, y1 + height
 
@@ -42,7 +40,9 @@ class TestTorchvision:
 
     @pytest.mark.parametrize("aligned", [True, False])
     def test_forward(
-        self, inputs: torch.Tensor, boxes: torch.Tensor, width: int, height: int, aligned: bool
+        self, inputs: torch.Tensor, boxes: torch.Tensor, device: torch.device, width: int, height: int, aligned: bool
     ):
-        sleep(1)
+        inputs = inputs.to(device)
+        boxes = boxes.to(device)
+
         roi_align(input=inputs, boxes=boxes, output_size=(width, height), aligned=aligned)
