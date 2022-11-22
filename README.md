@@ -538,6 +538,8 @@ flake8==4.0.1
 <details><summary style="margin-left: 20px;">dokai:22.11-pytorch</summary>
 <div style="margin-left: 20px;">
 
+additionally to `dokai:22.11-base`:
+
 [ghcr.io/osai-ai/dokai:22.11-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/50580682?tag=22.11-pytorch)
 
 TensorRT (8.5.1)  
