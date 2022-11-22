@@ -13,9 +13,12 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (11.8.0), cuDNN (8.6.0), FFmpeg (4.4) with NVENC support
-* `pytorch`: PyTorch (1.13.0), torchvision (0.14.0), torchaudio (0.13.0) and torch based libraries
+* `base`: Python with ML and CV packages, CUDA (11.8.0), cuDNN (8.6.0), FFmpeg (4.4) with NVENC/NVDEC support
+* `pytorch`: TensorRT (8.5.1) , PyTorch (1.13.0), torchvision (0.14.0), torchaudio (0.13.0) and torch based libraries
 * `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU
+
+Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89).  
+You can identify the architecture of your GPU [here](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
 
 ## Example
 
@@ -50,6 +53,8 @@ Example of using dokai image for DL pipeline you can find [here](https://github.
 <div style="margin-left: 20px;">
 
 [ghcr.io/osai-ai/dokai:22.11-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/50579876?tag=22.11-base)
+
+Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89).  
 
 CUDA (11.8.0), cuDNN (8.6.0)  
 FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
