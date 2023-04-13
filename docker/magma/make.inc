@@ -1,9 +1,9 @@
 #//////////////////////////////////////////////////////////////////////////////
-#   -- MAGMA (version 2.6.2) --
+#   -- MAGMA (version 2.7.1) --
 #      Univ. of Tennessee, Knoxville
 #      Univ. of California, Berkeley
 #      Univ. of Colorado, Denver
-#      @date November 2022
+#      @date April 2023
 #//////////////////////////////////////////////////////////////////////////////
 
 
@@ -54,11 +54,9 @@ RANLIB    = ranlib
 
 # set our GPU targets
 ifeq ($(BACKEND),cuda)
-    # For newer cards
-    #GPU_TARGET = Pascal Volta Turing Ampere
     GPU_TARGET = sm_60 sm_61 sm_70 sm_75 sm_80 sm_86 sm_89
 else ifeq ($(BACKEND),hip)
-    GPU_TARGET = gfx900 gfx901
+    GPU_TARGET = gfx900 gfx906 gfx908
 endif
 
 # Use -fPIC to make shared (.so) and static (.a) library;
@@ -72,7 +70,7 @@ FFLAGS      = -O3 $(FPIC) -DNDEBUG -DADD_ -Wall -Wno-unused-dummy-argument
 F90FLAGS    = -O3 $(FPIC) -DNDEBUG -DADD_ -Wall -Wno-unused-dummy-argument -x f95-cpp-input
 LDFLAGS     =     $(FPIC)                       -fopenmp
 
-DEVCCFLAGS  = -O3         -DNDEBUG -DADD_       
+DEVCCFLAGS  = -O3         -DNDEBUG -DADD_
 
 # DEVCCFLAGS are populated later in `backend-specific`
 
@@ -88,7 +86,7 @@ LIB       += -lopenblas
 
 # define library directories preferably in your environment, or here.
 LIBDIR    += -L$(OPENBLASDIR)/lib
-INC       += 
+INC       +=
 
 
 # --------------------
@@ -108,9 +106,9 @@ ifeq ($(BACKEND),cuda)
     DEVCCFLAGS += -Xcompiler "$(FPIC)" -std=c++11
 
     # link with cuda specific libraries
-    LIB += -lcublas -lcusparse -lcudart
-    INC += -I$(CUDADIR)/include
-
+    INC    += -I$(CUDADIR)/include
+    LIBDIR += -L$(CUDADIR)/lib64
+    LIB    += -lcublas -lcusparse -lcudart -lcudadevrt
 endif
 
 # add appropriate HIP flags
@@ -119,8 +117,7 @@ ifeq ($(BACKEND),hip)
 
     DEVCCFLAGS += $(FPIC) -std=c++11
 
-    #TODO: see if we need to link any HIP libraries
-    #LIB += -lhip_hcc -lhsa-runtime64
-    INC += -I$(HIPDIR)/include
-
+    INC    += -I$(HIPDIR)/../include
+    LIBDIR += -L$(HIPDIR)/../aomp/lib -L$(HIPDIR)/../hipblas/lib -L$(HIPDIR)/../hipsparse/lib
+    LIB    += -lhipblas -lhipsparse
 endif

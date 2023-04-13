@@ -3,7 +3,7 @@ FROM dokai:base
 ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9"
 
 # Install TensorRT GA and build TensorRT OSS
-RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.1.7 TRT_OSS_VERSION=8.5.1 && \
+RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.3.1 TRT_OSS_VERSION=8.5.3 && \
     GPU_ARCHS="60 61 70 75 80 86 89" && \
     apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub && \
     apt-get update && \
@@ -28,7 +28,7 @@ ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
 
 # Build MAGMA
 COPY docker/magma/make.inc make.inc
-RUN MAGMA_VERSION=2.6.2 && \
+RUN MAGMA_VERSION=2.7.1 && \
     ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so && \
     wget https://bitbucket.org/icl/magma/get/v${MAGMA_VERSION}.tar.gz && \
     mkdir magma-${MAGMA_VERSION}/ && \
