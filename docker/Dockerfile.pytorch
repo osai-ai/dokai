@@ -39,11 +39,11 @@ RUN MAGMA_VERSION=2.7.1 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-# Checkout close to v1.13.0 after commit "ada lovelace (arch 8.9) support #87436"
-RUN git clone --branch=master --single-branch https://github.com/pytorch/pytorch.git && \
+# Fix compilation fail with GCC 11
+RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
-    git checkout 71fe069d985e97b5947d133f2f2bde9adea01ed7 && \
     git submodule sync && git submodule update --init --recursive && \
+    sed -i 's/Store::kDefaultTimeout/::c10d::Store::kDefaultTimeout/' torch/csrc/distributed/c10d/ProcessGroupGloo.hpp && \
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
