@@ -47,26 +47,28 @@ RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/pytor
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
+RUN pip3 install sympy==1.11.1
+
 # Install torchvision
-RUN git clone --depth=1 --branch=v0.14.0 --single-branch https://github.com/pytorch/vision.git && \
+RUN git clone --depth=1 --branch=v0.15.1 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
-    FORCE_CUDA=1 python3 setup.py install && \
+    FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install && \
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth=1 --branch=v0.13.0 --single-branch https://github.com/pytorch/audio.git && \
+RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
-    USE_CUDA=ON python3 setup.py install && \
+    python3 setup.py install && \
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir --no-deps \
-    pytorch-ignite==0.4.10 \
+    pytorch-ignite==0.4.11 \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
-    pytorch-toolbelt==0.5.2 \
-    kornia==0.6.8 \
-    timm==0.6.11 \
-    segmentation-models-pytorch==0.3.0
+    pytorch-toolbelt==0.6.2 \
+    kornia==0.6.11 \
+    timm==0.6.13 \
+    segmentation-models-pytorch==0.3.2
