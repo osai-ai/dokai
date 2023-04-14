@@ -20,7 +20,7 @@ endef
 build:
 	$(call docker_build,base)
 	$(call docker_build,pytorch)
-#	$(call docker_build,tensor-stream)
+	$(call docker_build,tensor-stream)
 
 .PHONY: stop
 stop:
