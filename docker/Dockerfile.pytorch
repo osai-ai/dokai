@@ -47,8 +47,6 @@ RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/pytor
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
-RUN pip3 install sympy==1.11.1
-
 # Install torchvision
 RUN git clone --depth=1 --branch=v0.15.1 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
