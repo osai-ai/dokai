@@ -30,12 +30,12 @@ RUN apt-get update && apt -y upgrade && \
 
 # Install pip and setuptools
 RUN pip3 install --upgrade --no-cache-dir \
-    pip==23.0.1 \
+    pip==23.1 \
     setuptools==67.6.1 \
     packaging==23.1
 
 # Build nvidia codec headers
-RUN git clone --depth=1 --branch=n12.0.16.0 --single-branch https://github.com/FFmpeg/nv-codec-headers.git && \
+RUN git clone --depth=1 --branch=n11.1.5.2 --single-branch https://github.com/FFmpeg/nv-codec-headers.git && \
     cd nv-codec-headers && make install && \
     cd .. && rm -rf nv-codec-headers
 
