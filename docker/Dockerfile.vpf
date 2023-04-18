@@ -1,0 +1,8 @@
+FROM dokai:pytorch
+
+RUN git clone --branch=master --single-branch https://github.com/NVIDIA/VideoProcessingFramework && \
+    cd VideoProcessingFramework \
+    git checkout f16a1406642c8ac415fa0ed95a271b93c40071e6 && \
+    pip3 install . && \
+    cd src/PytorchNvCodec && pip3 install . && \
+    cd ../../.. && rm -rf VideoProcessingFramework
