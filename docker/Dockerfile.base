@@ -20,8 +20,7 @@ RUN apt-get update && apt -y upgrade && \
     libpng-dev libjpeg-dev libmp3lame-dev \
     liblapack-dev libopenblas-dev gfortran \
     libavfilter-dev libavformat-dev libavcodec-dev \
-    libswresample-dev libavutil-dev \
-    libnvidia-encode-520 libnvidia-decode-520 && \
+    libswresample-dev libavutil-dev && \
     ln -s /usr/bin/python3 /usr/bin/python && \
     apt-get clean && \
     apt-get -y autoremove && \
@@ -35,7 +34,7 @@ RUN pip3 install --upgrade --no-cache-dir \
     packaging==23.1
 
 # Build nvidia codec headers
-RUN git clone --depth=1 --branch=n11.1.5.2 --single-branch https://github.com/FFmpeg/nv-codec-headers.git && \
+RUN git clone --depth=1 --branch=n12.0.16.0 --single-branch https://github.com/FFmpeg/nv-codec-headers.git && \
     cd nv-codec-headers && make install && \
     cd .. && rm -rf nv-codec-headers
 
@@ -86,7 +85,7 @@ RUN pip3 install --no-cache-dir \
     Cython==0.29.34 \
     numba==0.57.0rc1 \
     requests==2.28.2 \
-    psutil==5.9.4 \
+    psutil==5.9.5 \
     pydantic==1.10.7 \
     PyYAML==6.0 \
     notebook==6.5.2 \

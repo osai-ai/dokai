@@ -16,10 +16,11 @@ RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.3.1 TRT_OSS_VERSION=8.5.3 && \
     cd TensorRT && \
     git submodule sync && git submodule update --init --recursive && \
     mkdir -p build && cd build && \
-    cmake .. -DGPU_ARCHS="$GPU_ARCHS" -DBUILD_SAMPLES=OFF \
+    cmake .. -DGPU_ARCHS="$GPU_ARCHS" -DBUILD_SAMPLES=ON \
     -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DTRT_OUT_DIR=/usr/lib/x86_64-linux-gnu && \
     make -j$(nproc) && \
     cd ../.. && rm -rf TensorRT && \
+    ln -s /usr/lib/x86_64-linux-gnu/trtexec /usr/bin/trtexec && \
     apt-get clean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
