@@ -68,6 +68,6 @@ RUN pip3 install --no-cache-dir --no-deps \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     pytorch-toolbelt==0.6.2 \
-    kornia==0.6.11 \
+    kornia==0.6.12 \
     timm==0.6.13 \
     segmentation-models-pytorch==0.3.2
