@@ -48,6 +48,14 @@ RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/pytor
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
+# Install Torch-TensorRT
+COPY docker/torchtrt/WORKSPACE WORKSPACE
+RUN git clone --depth=1 --branch=v1.3.0 --single-branch https://github.com/pytorch/TensorRT.git && \
+    cp WORKSPACE TensorRT/ && cd TensorRT && \
+    bazel build //:libtorchtrt --compilation_mode opt && \
+    cd py && python3 setup.py install --use-cxx11-abi && \
+    cd ../.. && rm -rf TensorRT WORKSPACE
+
 # Install torchvision
 RUN git clone --depth=1 --branch=v0.15.1 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
