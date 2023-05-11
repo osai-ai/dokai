@@ -1,5 +1,14 @@
 FROM dokai:pytorch
 
+RUN apt-get update && \
+    apt-get -y install \
+    libavfilter-dev libavformat-dev libavcodec-dev \
+    libswresample-dev libavutil-dev && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+
 RUN git clone --branch=master --single-branch https://github.com/NVIDIA/VideoProcessingFramework && \
     cd VideoProcessingFramework \
     git checkout 1ce5e7896fa0d35c6f6f301f2a9946f47b1ebf2c && \

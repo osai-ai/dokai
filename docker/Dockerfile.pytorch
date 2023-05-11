@@ -41,7 +41,7 @@ RUN MAGMA_VERSION=2.7.1 && \
 
 # Install PyTorch
 # Fix compilation fail with GCC 11
-RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/pytorch/pytorch.git && \
+RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
     git submodule sync && git submodule update --init --recursive && \
     sed -i 's/Store::kDefaultTimeout/::c10d::Store::kDefaultTimeout/' torch/csrc/distributed/c10d/ProcessGroupGloo.hpp && \
@@ -57,13 +57,13 @@ RUN git clone --depth=1 --branch=v1.3.0 --single-branch https://github.com/pytor
     cd ../.. && rm -rf TensorRT WORKSPACE
 
 # Install torchvision
-RUN git clone --depth=1 --branch=v0.15.1 --single-branch https://github.com/pytorch/vision.git && \
+RUN git clone --depth=1 --branch=v0.15.2 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
     FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install && \
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytorch/audio.git && \
+RUN git clone --depth=1 --branch=v2.0.2 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
     python3 setup.py install && \
@@ -71,11 +71,11 @@ RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytor
 
 # Install PyTorch based packages
 RUN pip3 install --no-cache-dir --no-deps \
-    pytorch-ignite==0.4.11 \
+    pytorch-ignite==0.4.12 \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
-    pytorch-toolbelt==0.6.2 \
+    pytorch-toolbelt==0.6.3 \
     kornia==0.6.12 \
     timm==0.6.13 \
     segmentation-models-pytorch==0.3.2
