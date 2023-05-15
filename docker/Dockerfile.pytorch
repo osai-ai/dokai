@@ -45,7 +45,7 @@ RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytor
     cd pytorch && \
     git submodule sync && git submodule update --init --recursive && \
     sed -i 's/Store::kDefaultTimeout/::c10d::Store::kDefaultTimeout/' torch/csrc/distributed/c10d/ProcessGroupGloo.hpp && \
-    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" pip3 install . && \
     cd .. && rm -rf pytorch
 
 # Install Torch-TensorRT
@@ -53,20 +53,20 @@ COPY docker/torchtrt/WORKSPACE WORKSPACE
 RUN git clone --depth=1 --branch=v1.3.0 --single-branch https://github.com/pytorch/TensorRT.git && \
     cp WORKSPACE TensorRT/ && cd TensorRT && \
     bazel build //:libtorchtrt --compilation_mode opt && \
-    cd py && python3 setup.py install --use-cxx11-abi && \
-    cd ../.. && rm -rf TensorRT WORKSPACE
+    pip3 install py --use-cxx11-abi && \
+    cd .. && rm -rf TensorRT WORKSPACE
 
 # Install torchvision
 RUN git clone --depth=1 --branch=v0.15.2 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
-    FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install && \
+    FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 pip3 install . && \
     cd .. && rm -rf vision
 
 # Install torchaudio
 RUN git clone --depth=1 --branch=v2.0.2 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
-    python3 setup.py install && \
+    pip3 install . && \
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
