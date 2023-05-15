@@ -6,9 +6,7 @@ RUN apt-get update && \
     libavformat-dev \
     libavcodec-dev \
     libswresample-dev \
-    libavutil-dev \
-    libnvidia-encode-520 \
-    libnvidia-decode-520 && \
+    libavutil-dev && \
     apt-get clean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
