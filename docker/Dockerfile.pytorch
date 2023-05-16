@@ -72,7 +72,7 @@ RUN git clone --depth=1 --branch=v2.0.2 --single-branch https://github.com/pytor
     cd .. && rm -rf audio
 
 # Install PyTorch based packages
-RUN pip3 install --no-cache-dir --no-deps \
+RUN pip3 install --no-cache-dir \
     pytorch-ignite==0.4.12 \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
