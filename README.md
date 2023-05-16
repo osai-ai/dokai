@@ -8,7 +8,7 @@ Collection of Docker images for ML/DL and video processing projects.
 
 ## Overview of images
 
-Three types of images differ by tag postfix:
+Several types of images are presented:
 
 * `base`: Python with ML and CV packages, CUDA (11.8.0), cuDNN (8.7.0), FFmpeg (6.0) with NVENC/NVDEC support
 * `pytorch`: TensorRT (8.6.1) , PyTorch (2.0.1), torchvision (0.15.2), torchaudio (2.0.2) and torch based libraries

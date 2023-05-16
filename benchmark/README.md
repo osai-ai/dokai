@@ -1,6 +1,6 @@
 # PyTorch image models benchmark
 
-Run an inference and train step benchmark script from [timm](https://github.com/rwightman/pytorch-image-models/blob/main/benchmark.py).
+Run an inference and train step benchmark script from [timm](https://github.com/huggingface/pytorch-image-models/blob/main/benchmark.py).
 ```bash
 make
 ```
