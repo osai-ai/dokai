@@ -22,19 +22,19 @@ You can identify the architecture of your GPU [here](https://arnon.dk/matching-s
 
 Pull an image
 ```Bash
-docker pull ghcr.io/osai-ai/dokai:22.11-pytorch
+docker pull ghcr.io/osai-ai/dokai:23.05-pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:22.11-pytorch
+docker pull osaiai/dokai:23.05-pytorch
 ```
 
 Check available GPUs inside container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:22.11-pytorch \
+    ghcr.io/osai-ai/dokai:23.05-pytorch \
     nvidia-smi
 ```
 
@@ -46,6 +46,51 @@ Example of using dokai image for DL pipeline you can find [here](https://github.
 <!---
 ==================================== BASE ====================================
 -->
+
+<details><summary style="margin-left: 20px;">dokai:23.05-base</summary>
+<div style="margin-left: 20px;">
+
+[ghcr.io/osai-ai/dokai:23.05-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/93763687?tag=23.05-base)
+
+Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89).  
+
+CUDA (11.8.0), cuDNN (8.7.0)
+FFmpeg (n6.0), nv-codec-headers (n12.0.16.0)  
+Python (3.10.6)  
+CMake (3.22.1)  
+
+pip==23.1.2  
+setuptools==67.7.2  
+packaging==23.1
+numpy==1.24.3  
+opencv-python==4.7.0.72  
+sympy==1.12  
+scipy==1.10.1  
+matplotlib==3.7.1  
+pandas==2.0.1  
+scikit-learn==1.2.2  
+scikit-image==0.20.0  
+Pillow==9.5.0  
+librosa==0.10.0.post2  
+albumentations==1.3.0  
+pyzmq==25.0.2  
+Cython==0.29.34  
+numba==0.57.0  
+requests==2.30.0  
+psutil==5.9.5  
+pydantic==1.10.7  
+PyYAML==6.0  
+notebook==6.5.2  
+ipywidgets==8.0.6  
+tqdm==4.65.0  
+pytest==7.3.1  
+pytest-cov==4.0.0  
+mypy==1.3.0  
+flake8==6.0.0  
+pre-commit==3.3.1  
+
+</div>
+</details>
 
 <details><summary style="margin-left: 20px;">dokai:22.11-base</summary>
 <div style="margin-left: 20px;">
@@ -132,51 +177,48 @@ flake8==4.0.1
 </details>
 
 
-<details><summary style="margin-left: 20px;">dokai:21.11-base</summary>
-<div style="margin-left: 20px;">
-
-[ghcr.io/osai-ai/dokai:21.11-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097475?tag=21.11-base)
-
-CUDA (11.4.2), cuDNN (8.2.4)  
-FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
-Python (3.8.10)  
-CMake (3.21.4)  
-
-pip==21.3.1  
-setuptools==58.5.3  
-packaging==21.2  
-numpy==1.21.4  
-opencv-python==4.5.4.58  
-scipy==1.7.2  
-matplotlib==3.4.3  
-pandas==1.3.4  
-scikit-learn==1.0.1  
-scikit-image==0.18.3  
-Pillow==8.4.0  
-librosa==0.8.1  
-albumentations==1.1.0  
-pyzmq==22.3.0  
-Cython==0.29.24  
-numba==0.53.1  
-requests==2.26.0  
-psutil==5.8.0  
-pydantic==1.8.2  
-PyYAML==6.0  
-notebook==6.4.5  
-ipywidgets==7.6.5  
-tqdm==4.62.3  
-pytest==6.2.5  
-mypy==0.910  
-flake8==4.0.1  
-
-</div>
-</details>
-
-
 <details><summary style="margin-left: 20px;">Older versions</summary>
 <div style="margin-left: 40px;">
 
-*   <details><summary>dokai:21.09-base</summary>
+* <details><summary style="margin-left: 20px;">dokai:21.11-base</summary>
+
+    [ghcr.io/osai-ai/dokai:21.11-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097475?tag=21.11-base)
+    
+    CUDA (11.4.2), cuDNN (8.2.4)  
+    FFmpeg (release/4.4), nv-codec-headers (sdk/11.0)  
+    Python (3.8.10)  
+    CMake (3.21.4)  
+    
+    pip==21.3.1  
+    setuptools==58.5.3  
+    packaging==21.2  
+    numpy==1.21.4  
+    opencv-python==4.5.4.58  
+    scipy==1.7.2  
+    matplotlib==3.4.3  
+    pandas==1.3.4  
+    scikit-learn==1.0.1  
+    scikit-image==0.18.3  
+    Pillow==8.4.0  
+    librosa==0.8.1  
+    albumentations==1.1.0  
+    pyzmq==22.3.0  
+    Cython==0.29.24  
+    numba==0.53.1  
+    requests==2.26.0  
+    psutil==5.8.0  
+    pydantic==1.8.2  
+    PyYAML==6.0  
+    notebook==6.4.5  
+    ipywidgets==7.6.5  
+    tqdm==4.62.3  
+    pytest==6.2.5  
+    mypy==0.910  
+    flake8==4.0.1  
+
+    </details>
+
+* <details><summary>dokai:21.09-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.09-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/8318925?tag=21.09-base)
     
@@ -213,7 +255,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:21.08-base</summary>
+* <details><summary>dokai:21.08-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.08-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484719)
 
@@ -250,7 +292,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:21.07-base</summary>
+* <details><summary>dokai:21.07-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.07-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600567)
 
@@ -288,7 +330,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:21.05-base</summary>
+* <details><summary>dokai:21.05-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.05-base](https://github.com/orgs/osai-ai/packages/container/dokai/2467512?tag=21.05-base)
 
@@ -326,7 +368,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:21.03-base</summary>
+* <details><summary>dokai:21.03-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.03-base](https://github.com/orgs/osai-ai/packages/container/dokai/1661596)
 
@@ -364,7 +406,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:21.02-base</summary>
+* <details><summary>dokai:21.02-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.02-base](https://github.com/orgs/osai-ai/packages/container/dokai/1242092)
 
@@ -402,7 +444,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:21.01-base</summary>
+* <details><summary>dokai:21.01-base</summary>
 
     [ghcr.io/osai-ai/dokai:21.01-base](https://github.com/orgs/osai-ai/packages/container/dokai/858256)
 
@@ -433,7 +475,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:20.12-base</summary>
+* <details><summary>dokai:20.12-base</summary>
 
     [ghcr.io/osai-ai/dokai:20.12-base](https://github.com/orgs/osai-ai/packages/container/dokai/623505)
 
@@ -464,7 +506,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:20.10-base</summary>
+* <details><summary>dokai:20.10-base</summary>
 
     [ghcr.io/osai-ai/dokai:20.10-base](https://github.com/orgs/osai-ai/packages/container/dokai/176382)
 
@@ -495,7 +537,7 @@ flake8==4.0.1
 
     </details>
 
-*   <details><summary>dokai:20.09-base</summary>
+* <details><summary>dokai:20.09-base</summary>
 
     [ghcr.io/osai-ai/dokai:20.09-base](https://github.com/orgs/osai-ai/packages/container/dokai/89195)
 
@@ -532,6 +574,31 @@ flake8==4.0.1
 <!---
 ==================================== PYTORCH ====================================
 -->
+
+<details><summary style="margin-left: 20px;">dokai:23.05-pytorch</summary>
+<div style="margin-left: 20px;">
+
+[ghcr.io/osai-ai/dokai:23.05-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/93785571?tag=23.05-pytorch)
+
+additionally to `dokai:23.05-base`:
+
+TensorRT (8.6.1)  
+MAGMA (2.7.1)  
+
+torch==2.0.1 (source, v2.0.1)  
+torch_tensorrt (source, release/1.4)  
+torchvision==0.15.2 (source, v0.15.2 tag)  
+torchaudio==2.0.2 (source, v2.0.2 tag)  
+pytorch-ignite==0.4.12  
+pytorch-argus==1.0.0  
+pretrainedmodels==0.7.4  
+efficientnet-pytorch==0.7.1  
+pytorch-toolbelt==0.6.3  
+kornia==0.6.12  
+timm==0.9.2  
+
+</div>
+</details>
 
 <details><summary style="margin-left: 20px;">dokai:22.11-pytorch</summary>
 <div style="margin-left: 20px;">
@@ -582,33 +649,31 @@ kornia==0.6.3
 </details>
 
 
-<details><summary style="margin-left: 20px;">dokai:21.11-pytorch</summary>
-<div style="margin-left: 20px;">
-
-[ghcr.io/osai-ai/dokai:21.11-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097671?tag=21.11-pytorch)
-
-additionally to `dokai:21.11-base`:
-
-MAGMA (2.6.1)
-
-torch==1.10.0 (source, v1.10.0 tag)  
-torchvision==0.11.1 (source, v0.11.1 tag)  
-torchaudio==0.10.0 (source, v0.10.0 tag)  
-pytorch-ignite==0.4.7  
-pytorch-argus==1.0.0  
-pretrainedmodels==0.7.4  
-efficientnet-pytorch==0.7.1  
-timm==0.4.12  
-segmentation-models-pytorch==0.2.0  
-kornia==0.6.1  
-
-</div>
-</details>
-
 <details><summary style="margin-left: 20px;">Older versions</summary>
 <div style="margin-left: 40px;">
 
-*   <details><summary>dokai:21.09-pytorch</summary>
+* <details><summary style="margin-left: 20px;">dokai:21.11-pytorch</summary>
+    
+    [ghcr.io/osai-ai/dokai:21.11-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097671?tag=21.11-pytorch)
+    
+    additionally to `dokai:21.11-base`:
+    
+    MAGMA (2.6.1)
+    
+    torch==1.10.0 (source, v1.10.0 tag)  
+    torchvision==0.11.1 (source, v0.11.1 tag)  
+    torchaudio==0.10.0 (source, v0.10.0 tag)  
+    pytorch-ignite==0.4.7  
+    pytorch-argus==1.0.0  
+    pretrainedmodels==0.7.4  
+    efficientnet-pytorch==0.7.1  
+    timm==0.4.12  
+    segmentation-models-pytorch==0.2.0  
+    kornia==0.6.1  
+    
+    </details>
+
+* <details><summary>dokai:21.09-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.09-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/8319003?tag=21.09-pytorch)
     
@@ -630,7 +695,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:21.08-pytorch</summary>
+* <details><summary>dokai:21.08-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.08-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484815)
 
@@ -652,7 +717,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:21.07-pytorch</summary>
+* <details><summary>dokai:21.07-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.07-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600591)
 
@@ -671,7 +736,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:21.05-pytorch</summary>
+* <details><summary>dokai:21.05-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.05-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/2467547?tag=21.05-pytorch)
 
@@ -690,7 +755,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:21.03-pytorch</summary>
+* <details><summary>dokai:21.03-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.03-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/1661643)
 
@@ -709,7 +774,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:21.02-pytorch</summary>
+* <details><summary>dokai:21.02-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.02-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/1242106)
 
@@ -727,7 +792,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:21.01-pytorch</summary>
+* <details><summary>dokai:21.01-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:21.01-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/858271)
 
@@ -742,7 +807,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:20.12-pytorch</summary>
+* <details><summary>dokai:20.12-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:20.12-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/623509)
 
@@ -757,7 +822,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:20.10-pytorch</summary>
+* <details><summary>dokai:20.10-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:20.10-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/176388)
 
@@ -771,7 +836,7 @@ kornia==0.6.1
 
     </details>
 
-*   <details><summary>dokai:20.09-pytorch</summary>
+* <details><summary>dokai:20.09-pytorch</summary>
 
     [ghcr.io/osai-ai/dokai:20.09-pytorch](https://github.com/orgs/osai-ai/packages/container/dokai/89197)
 
@@ -793,6 +858,18 @@ kornia==0.6.1
 <!---
 ==================================== TENSOR-STREAM ====================================
 -->
+
+<details><summary style="margin-left: 20px;">dokai:23.05-tensor-stream</summary>
+<div style="margin-left: 20px;">
+
+[ghcr.io/osai-ai/dokai:23.05-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/93785583?tag=23.05-tensor-stream)
+
+additionally to `dokai:23.05-pytorch`:
+
+tensor-stream==0.5.0 (source, 0.5.0 tag)
+
+</div>
+</details>
 
 <details><summary style="margin-left: 20px;">dokai:22.11-tensor-stream</summary>
 <div style="margin-left: 20px;">
@@ -818,22 +895,21 @@ tensor-stream==0.4.6 (source, dev branch)
 </div>
 </details>
 
-<details><summary style="margin-left: 20px;">dokai:21.11-tensor-stream</summary>
-<div style="margin-left: 20px;">
-
-[ghcr.io/osai-ai/dokai:21.11-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097674?tag=21.11-tensor-stream)
-
-additionally to `dokai:21.11-pytorch`:
-
-tensor-stream==0.4.6 (source, dev branch)
-
-</div>
-</details>
 
 <details><summary style="margin-left: 20px;">Older versions</summary>
 <div style="margin-left: 40px;">
 
-*   <details><summary>dokai:21.09-tensor-stream</summary>
+* <details><summary style="margin-left: 20px;">dokai:21.11-tensor-stream</summary>
+    
+    [ghcr.io/osai-ai/dokai:21.11-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/10097674?tag=21.11-tensor-stream)
+    
+    additionally to `dokai:21.11-pytorch`:
+    
+    tensor-stream==0.4.6 (source, dev branch)
+    
+    </details>
+
+* <details><summary>dokai:21.09-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.09-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/8319006?tag=21.09-tensor-stream)
     
@@ -843,7 +919,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:21.08-tensor-stream</summary>
+* <details><summary>dokai:21.08-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.08-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/6484817)
 
@@ -853,7 +929,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:21.07-tensor-stream</summary>
+* <details><summary>dokai:21.07-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.07-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/3600595)
 
@@ -863,7 +939,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:21.05-tensor-stream</summary>
+* <details><summary>dokai:21.05-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.05-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/2467549?tag=21.05-tensor-stream)
 
@@ -873,7 +949,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:21.03-tensor-stream</summary>
+* <details><summary>dokai:21.03-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.03-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/1661648)
 
@@ -883,7 +959,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:21.02-tensor-stream</summary>
+* <details><summary>dokai:21.02-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.02-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/1242107)
 
@@ -893,7 +969,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:21.01-tensor-stream</summary>
+* <details><summary>dokai:21.01-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:21.01-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/858272)
 
@@ -903,7 +979,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:20.12-tensor-stream</summary>
+* <details><summary>dokai:20.12-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:20.12-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/623510)
 
@@ -913,7 +989,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:20.10-tensor-stream</summary>
+* <details><summary>dokai:20.10-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:20.10-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/176389)
 
@@ -923,7 +999,7 @@ tensor-stream==0.4.6 (source, dev branch)
 
     </details>
 
-*   <details><summary>dokai:20.09-tensor-stream</summary>
+* <details><summary>dokai:20.09-tensor-stream</summary>
 
     [ghcr.io/osai-ai/dokai:20.09-tensor-stream](https://github.com/orgs/osai-ai/packages/container/dokai/89200)
 
@@ -932,6 +1008,24 @@ tensor-stream==0.4.6 (source, dev branch)
     tensor-stream==0.4.6 (dev)
 
     </details>
+
+</div>
+</details>
+
+
+### vpf
+<!---
+==================================== VPF ====================================
+-->
+
+<details><summary style="margin-left: 20px;">dokai:23.05-vpf</summary>
+<div style="margin-left: 20px;">
+
+[ghcr.io/osai-ai/dokai:23.05-vpf](https://github.com/osai-ai/dokai/pkgs/container/dokai/93785850?tag=23.05-vpf)
+
+additionally to `dokai:23.05-pytorch`:
+
+VideoProcessingFramework (source, v2.0.0 tag)
 
 </div>
 </details>

@@ -17,6 +17,3 @@ class TestImports:
         import pytorch_toolbelt
         import kornia
         import timm
-        import segmentation_models_pytorch
-
-        import tensor_stream
