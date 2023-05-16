@@ -3,15 +3,17 @@ FROM dokai:base
 ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9"
 
 # Install TensorRT GA and build TensorRT OSS
-RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.5.3.1 TRT_OSS_VERSION=8.5.3 && \
+RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.6.1.6 TRT_OSS_VERSION=v8.6.1 && \
     GPU_ARCHS="60 61 70 75 80 86 89" && \
-    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub && \
-    apt-get update && \
-    v="${TRT_GA_VERSION%.*}-1+cuda${CUDA_VERSION%.*}" && \
-    apt-get install -y \
+    v="${TRT_GA_VERSION}-1+cuda${CUDA_VERSION%.*}" &&\
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub &&\
+    apt-get update &&\
+    apt-get -y install \
     libnvinfer8=${v} libnvonnxparsers8=${v} libnvparsers8=${v} libnvinfer-plugin8=${v} \
     libnvinfer-dev=${v} libnvonnxparsers-dev=${v} libnvparsers-dev=${v} libnvinfer-plugin-dev=${v} \
-    python3-libnvinfer=${v} && \
+    python3-libnvinfer=${v} libnvinfer-dispatch8=${v} libnvinfer-dispatch-dev=${v} libnvinfer-lean8=${v} \
+    libnvinfer-lean-dev=${v} libnvinfer-vc-plugin8=${v} libnvinfer-vc-plugin-dev=${v} \
+    libnvinfer-headers-dev=${v} libnvinfer-headers-plugin-dev=${v} && \
     git clone --depth=1 --branch="$TRT_OSS_VERSION" --single-branch https://github.com/nvidia/TensorRT && \
     cd TensorRT && \
     git submodule sync && git submodule update --init --recursive && \
@@ -50,7 +52,7 @@ RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytor
 
 # Install Torch-TensorRT
 COPY docker/torchtrt/WORKSPACE WORKSPACE
-RUN git clone --depth=1 --branch=v1.3.0 --single-branch https://github.com/pytorch/TensorRT.git && \
+RUN git clone --depth=1 --branch=release/1.4 --single-branch https://github.com/pytorch/TensorRT.git && \
     cp WORKSPACE TensorRT/ && cd TensorRT && \
     bazel build //:libtorchtrt --compilation_mode opt && \
     cd py && python3 setup.py install --use-cxx11-abi && \

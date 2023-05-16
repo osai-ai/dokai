@@ -10,9 +10,10 @@ Collection of Docker images for ML/DL and video processing projects.
 
 Three types of images differ by tag postfix:
 
-* `base`: Python with ML and CV packages, CUDA (11.8.0), cuDNN (8.6.0), FFmpeg (4.4) with NVENC/NVDEC support
-* `pytorch`: TensorRT (8.5.1) , PyTorch (1.13.0), torchvision (0.14.0), torchaudio (0.13.0) and torch based libraries
-* `tensor-stream`: Tensor Stream for real-time video streams decoding on GPU
+* `base`: Python with ML and CV packages, CUDA (11.8.0), cuDNN (8.7.0), FFmpeg (6.0) with NVENC/NVDEC support
+* `pytorch`: TensorRT (8.6.1) , PyTorch (2.0.1), torchvision (0.15.2), torchaudio (2.0.2) and torch based libraries
+* `tensor-stream`: Tensor Stream (0.5.0) for real-time video streams decoding on GPU
+* `vpf`: VideoProcessingFramework (2.0.0) for full HW acceleration for video decoding and encoding 
 
 Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89).  
 You can identify the architecture of your GPU [here](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
