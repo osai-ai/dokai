@@ -11,9 +11,9 @@ Collection of Docker images for ML/DL and video processing projects.
 Several types of images are presented:
 
 * `base`: Python with ML and CV packages, CUDA (11.8.0), cuDNN (8.7.0), FFmpeg (6.0) with NVENC/NVDEC support
-* `pytorch`: TensorRT (8.6.1) , PyTorch (2.0.1), torchvision (0.15.2), torchaudio (2.0.2) and torch based libraries
+* `pytorch`: TensorRT (8.6.1), PyTorch (2.0.1), torchvision (0.15.2), torchaudio (2.0.2) and torch based libraries
 * `tensor-stream`: Tensor Stream (0.5.0) for real-time video streams decoding on GPU
-* `vpf`: VideoProcessingFramework (2.0.0) for full HW acceleration for video decoding and encoding 
+* `vpf`: VideoProcessingFramework (2.0.0) full HW acceleration for video decoding and encoding 
 
 Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89).  
 You can identify the architecture of your GPU [here](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
@@ -578,7 +578,7 @@ flake8==4.0.1
 <details><summary style="margin-left: 20px;">dokai:23.05-pytorch</summary>
 <div style="margin-left: 20px;">
 
-[ghcr.io/osai-ai/dokai:23.05-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/93785571?tag=23.05-pytorch)
+[ghcr.io/osai-ai/dokai:23.05-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/93954953?tag=23.05-pytorch)
 
 additionally to `dokai:23.05-base`:
 
@@ -862,7 +862,7 @@ kornia==0.6.3
 <details><summary style="margin-left: 20px;">dokai:23.05-tensor-stream</summary>
 <div style="margin-left: 20px;">
 
-[ghcr.io/osai-ai/dokai:23.05-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/93785583?tag=23.05-tensor-stream)
+[ghcr.io/osai-ai/dokai:23.05-tensor-stream](https://github.com/osai-ai/dokai/pkgs/container/dokai/93954979?tag=23.05-tensor-stream)
 
 additionally to `dokai:23.05-pytorch`:
 
@@ -1021,7 +1021,7 @@ tensor-stream==0.4.6 (source, dev branch)
 <details><summary style="margin-left: 20px;">dokai:23.05-vpf</summary>
 <div style="margin-left: 20px;">
 
-[ghcr.io/osai-ai/dokai:23.05-vpf](https://github.com/osai-ai/dokai/pkgs/container/dokai/93785850?tag=23.05-vpf)
+[ghcr.io/osai-ai/dokai:23.05-vpf](https://github.com/osai-ai/dokai/pkgs/container/dokai/93955272?tag=23.05-vpf)
 
 additionally to `dokai:23.05-pytorch`:
 

@@ -71,8 +71,9 @@ RUN git clone --depth=1 --branch=v2.0.2 --single-branch https://github.com/pytor
     python3 setup.py install && \
     cd .. && rm -rf audio
 
-# Install PyTorch based packages
+# Install Triton and PyTorch based packages
 RUN pip3 install --no-cache-dir \
+    triton==2.0.0.post1 \
     pytorch-ignite==0.4.12 \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
