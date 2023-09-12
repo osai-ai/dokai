@@ -54,7 +54,7 @@ RANLIB    = ranlib
 
 # set our GPU targets
 ifeq ($(BACKEND),cuda)
-    GPU_TARGET = sm_60 sm_61 sm_70 sm_75 sm_80 sm_86 sm_89
+    GPU_TARGET = sm_60 sm_61 sm_70 sm_75 sm_80 sm_86 sm_89 sm_90
 else ifeq ($(BACKEND),hip)
     GPU_TARGET = gfx900 gfx906 gfx908
 endif

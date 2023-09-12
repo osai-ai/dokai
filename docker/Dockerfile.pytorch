@@ -1,10 +1,10 @@
 FROM dokai:base
 
-ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9"
+ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
 
 # Install TensorRT GA and build TensorRT OSS
-RUN CUDA_VERSION=11.8.0 TRT_GA_VERSION=8.6.1.6 TRT_OSS_VERSION=v8.6.1 && \
-    GPU_ARCHS="60 61 70 75 80 86 89" && \
+RUN CUDA_VERSION=12.0.0 TRT_GA_VERSION=8.6.1.6 TRT_OSS_VERSION=v8.6.1 && \
+    GPU_ARCHS="60 61 70 75 80 86 89 90" && \
     v="${TRT_GA_VERSION}-1+cuda${CUDA_VERSION%.*}" &&\
     apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub &&\
     apt-get update &&\
@@ -42,11 +42,9 @@ RUN MAGMA_VERSION=2.7.1 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-# Fix compilation fail with GCC 11
-RUN git clone --depth=1 --branch=v2.0.1 --single-branch https://github.com/pytorch/pytorch.git && \
+RUN git clone --depth=1 --branch=release/2.1 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
     git submodule sync && git submodule update --init --recursive && \
-    sed -i 's/Store::kDefaultTimeout/::c10d::Store::kDefaultTimeout/' torch/csrc/distributed/c10d/ProcessGroupGloo.hpp && \
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
@@ -59,13 +57,13 @@ RUN git clone --depth=1 --branch=release/1.4 --single-branch https://github.com/
     cd ../.. && rm -rf TensorRT WORKSPACE
 
 # Install torchvision
-RUN git clone --depth=1 --branch=v0.15.2 --single-branch https://github.com/pytorch/vision.git && \
+RUN git clone --depth=1 --branch=v0.16.0-rc3 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
     FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install && \
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth=1 --branch=v2.0.2 --single-branch https://github.com/pytorch/audio.git && \
+RUN git clone --depth=1 --branch=v2.1.0-rc3 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
     python3 setup.py install && \
@@ -73,11 +71,11 @@ RUN git clone --depth=1 --branch=v2.0.2 --single-branch https://github.com/pytor
 
 # Install Triton and PyTorch based packages
 RUN pip3 install --no-cache-dir \
-    triton==2.0.0.post1 \
+    triton==2.1.0 \
     pytorch-ignite==0.4.12 \
     pytorch-argus==1.0.0 \
     pretrainedmodels==0.7.4 \
     efficientnet-pytorch==0.7.1 \
     pytorch-toolbelt==0.6.3 \
-    kornia==0.6.12 \
-    timm==0.9.2
+    kornia==0.7.0 \
+    timm==0.9.7

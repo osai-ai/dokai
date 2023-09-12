@@ -77,7 +77,8 @@ RUN git clone --depth=1 --branch=n6.0 --single-branch https://github.com/FFmpeg/
  -gencode=arch=compute_80,code=sm_80 \
  -gencode=arch=compute_86,code=sm_86 \
  -gencode=arch=compute_89,code=sm_89 \
- -gencode=arch=compute_89,code=compute_89" && \
+ -gencode=arch=compute_90,code=sm_90 \
+ -gencode=arch=compute_90,code=compute_90" && \
     make -j$(nproc) && make install && ldconfig && \
     cd ../.. && rm -rf FFmpeg
 
