@@ -103,7 +103,7 @@ INC       +=
 ifeq ($(BACKEND),cuda)
     -include make.check-cuda
 
-    DEVCCFLAGS += -Xcompiler "$(FPIC)" -std=c++11
+    DEVCCFLAGS += -Xcompiler "$(FPIC)" -std=c++11 -Xfatbin -compress-all
 
     # link with cuda specific libraries
     INC    += -I$(CUDADIR)/include
