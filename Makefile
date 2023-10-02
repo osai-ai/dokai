@@ -18,6 +18,7 @@ endef
 
 .PHONY: build
 build:
+	$(call docker_build,slim)
 	$(call docker_build,base)
 	$(call docker_build,pytorch)
 	$(call docker_build,vpf)

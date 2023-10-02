@@ -1,0 +1,42 @@
+FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
+
+ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
+ENV PYTHONPATH $PYTHONPATH:/workdir
+WORKDIR /workdir
+
+# Install Python and apt-get packages
+RUN apt-get update && apt -y upgrade && \
+    apt-get -y install software-properties-common apt-utils && \
+    add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \
+    apt-get -y install \
+    build-essential yasm nasm ninja-build cmake \
+    unzip git wget curl nano vim tmux \
+    sysstat libtcmalloc-minimal4 pkgconf \
+    autoconf libtool flex bison \
+    libsm6 libxext6 libxrender1 libgl1-mesa-glx \
+    libx264-dev libsndfile1 libssl-dev \
+    python3.11 python3.11-dev python3.11-distutils python3.11-tk \
+    libpng-dev libjpeg-dev libmp3lame-dev \
+    liblapack-dev libopenblas-dev gfortran && \
+    ln -s /usr/bin/python3.11 /usr/bin/python && \
+    ln -sf /usr/bin/python3.11 /usr/bin/python3 && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+
+# Install pip
+RUN PYTHON_PIP_VERSION=23.2.1 && \
+    PYTHON_SETUPTOOLS_VERSION=68.2.1 && \
+    wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py && \
+	export PYTHONDONTWRITEBYTECODE=1 && \
+	python get-pip.py \
+		--disable-pip-version-check \
+		--no-cache-dir \
+		--no-compile \
+		"pip==$PYTHON_PIP_VERSION" \
+		"setuptools==$PYTHON_SETUPTOOLS_VERSION" && \
+	rm -f get-pip.py && \
+	pip --version
