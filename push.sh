@@ -1,5 +1,5 @@
-docker tag dokai:tensor-stream "$1:$2-slim"
-docker push "$1:$2-slim"
+docker tag dokai:tensor-stream "$1:$2-core"
+docker push "$1:$2-core"
 docker tag dokai:base "$1:$2-base"
 docker push "$1:$2-base"
 docker tag dokai:pytorch "$1:$2-pytorch"

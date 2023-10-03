@@ -1,5 +1,5 @@
 NAME?=dokai
-TAG?=vpf
+TAG?=base
 COMMAND?=bash
 
 GPUS?=all
@@ -18,7 +18,7 @@ endef
 
 .PHONY: build
 build:
-	$(call docker_build,slim)
+	$(call docker_build,core)
 	$(call docker_build,base)
 	$(call docker_build,pytorch)
 	$(call docker_build,vpf)
