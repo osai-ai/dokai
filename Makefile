@@ -1,5 +1,5 @@
 NAME?=dokai
-TAG?=base
+TAG?=vpf
 COMMAND?=bash
 
 GPUS?=all

@@ -3,9 +3,7 @@ FROM dokai:base
 ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
 
 # Install TensorRT GA and build TensorRT OSS
-RUN CUDA_VERSION=12.0.0 TRT_GA_VERSION=8.6.1.6 TRT_OSS_VERSION=v8.6.1 && \
-    GPU_ARCHS="60 61 70 75 80 86 89 90" && \
-    v="${TRT_GA_VERSION}-1+cuda${CUDA_VERSION%.*}" &&\
+RUN v="8.6.1.6-1+cuda12.0" &&\
     apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub &&\
     apt-get update &&\
     apt-get -y install \
@@ -14,15 +12,19 @@ RUN CUDA_VERSION=12.0.0 TRT_GA_VERSION=8.6.1.6 TRT_OSS_VERSION=v8.6.1 && \
     python3-libnvinfer=${v} libnvinfer-dispatch8=${v} libnvinfer-dispatch-dev=${v} libnvinfer-lean8=${v} \
     libnvinfer-lean-dev=${v} libnvinfer-vc-plugin8=${v} libnvinfer-vc-plugin-dev=${v} \
     libnvinfer-headers-dev=${v} libnvinfer-headers-plugin-dev=${v} && \
-    git clone --depth=1 --branch="$TRT_OSS_VERSION" --single-branch https://github.com/nvidia/TensorRT && \
+    git clone --depth=1 --branch=release/8.6 --single-branch https://github.com/nvidia/TensorRT && \
     cd TensorRT && \
     git submodule sync && git submodule update --init --recursive && \
     mkdir -p build && cd build && \
-    cmake .. -DGPU_ARCHS="$GPU_ARCHS" -DBUILD_SAMPLES=ON \
+    cmake .. -DGPU_ARCHS="60 61 70 75 80 86 89 90" -DBUILD_SAMPLES=ON \
     -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DTRT_OUT_DIR=/usr/lib/x86_64-linux-gnu && \
     make -j$(nproc) && \
     cd ../.. && rm -rf TensorRT && \
     ln -s /usr/lib/x86_64-linux-gnu/trtexec /usr/bin/trtexec && \
+    pip3 install --no-cache-dir tensorrt-bindings==8.6.1 && \
+    cd /usr/local/lib/python3.11/dist-packages && \
+    cp -r tensorrt_bindings tensorrt && \
+    cp -r tensorrt_bindings-8.6.1.dist-info tensorrt-8.6.1.dist-info && \
     apt-get clean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
