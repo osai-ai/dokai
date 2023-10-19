@@ -12,7 +12,7 @@ RUN apt-get update && apt -y upgrade && \
     add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \
     apt-get -y install \
     build-essential yasm nasm ninja-build cmake \
-    unzip git wget curl nano vim tmux \
+    unzip git wget curl nano vim tmux htop nvtop \
     sysstat libtcmalloc-minimal4 pkgconf \
     autoconf libtool flex bison \
     libsm6 libxext6 libxrender1 libgl1-mesa-glx \
@@ -28,7 +28,7 @@ RUN apt-get update && apt -y upgrade && \
     rm -rf /var/cache/apt/archives/*
 
 # Install pip
-RUN PYTHON_PIP_VERSION=23.2.1 && \
+RUN PYTHON_PIP_VERSION=23.3 && \
     PYTHON_SETUPTOOLS_VERSION=68.2.2 && \
     wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py && \
 	export PYTHONDONTWRITEBYTECODE=1 && \
