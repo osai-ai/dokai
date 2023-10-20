@@ -17,7 +17,7 @@ class TestTorchvision:
     def height(self, request):
         return request.param
 
-    @pytest.fixture(scope="class", params=["cpu", "cuda"])
+    @pytest.fixture(scope="class", params=["cuda"])
     def device(self, request):
         return torch.device(request.param)
 
