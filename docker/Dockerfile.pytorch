@@ -6,7 +6,9 @@ ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
 RUN wget -nv https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/secure/9.1.0/tars/tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
     tar -xf tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
     cp -a TensorRT-9.1.0.4/lib/*.so* /usr/lib/x86_64-linux-gnu && \
+    cp -a TensorRT-9.1.0.4/include/*.h /usr/include/x86_64-linux-gnu && \
     pip3 install TensorRT-9.1.0.4/python/tensorrt-9.1.0.post12.dev4-cp311-none-linux_x86_64.whl && \
+    pip3 install TensorRT-9.1.0.4/onnx_graphsurgeon/onnx_graphsurgeon-0.4.0-py2.py3-none-any.whl && \
     rm -rf TensorRT-9.1.0.4 tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
     git clone --depth=1 --branch=v9.1.0 --single-branch https://github.com/nvidia/TensorRT && \
     cd TensorRT && \
