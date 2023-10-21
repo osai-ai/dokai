@@ -10,7 +10,7 @@ RUN wget -nv https://developer.nvidia.com/downloads/compute/machine-learning/ten
     rm -rf TensorRT-9.1.0.4 tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
     git clone --depth=1 --branch=v9.1.0 --single-branch https://github.com/nvidia/TensorRT && \
     cd TensorRT && \
-    git submodule sync && git submodule update --init --recursive # && \
+    git submodule sync && git submodule update --init --recursive && \
     mkdir -p build && cd build && \
     cmake .. -DGPU_ARCHS="60 61 70 75 80 86 89 90" -DBUILD_SAMPLES=ON \
     -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu \
@@ -29,7 +29,7 @@ ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
 COPY docker/magma/make.inc make.inc
 RUN MAGMA_VERSION=2.7.1 && \
     ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so && \
-    wget https://bitbucket.org/icl/magma/get/v${MAGMA_VERSION}.tar.gz && \
+    wget -nv https://bitbucket.org/icl/magma/get/v${MAGMA_VERSION}.tar.gz && \
     mkdir magma-${MAGMA_VERSION}/ && \
     tar -xzf v${MAGMA_VERSION}.tar.gz -C magma-${MAGMA_VERSION}/ --strip-components=1 && \
     cp make.inc magma-${MAGMA_VERSION} && \
@@ -65,13 +65,14 @@ RUN git clone --depth=1 --branch=v2.1.0 --single-branch https://github.com/pytor
     python3 setup.py install && \
     cd .. && rm -rf audio
 
-# Install Triton and PyTorch based packages
+# Install GPU and DL packages
 RUN pip3 install --no-cache-dir \
     triton==2.1.0 \
+    cupy-cuda12x==12.2.0 \
     pytorch-ignite==0.4.12 \
     pytorch-argus==1.0.0 \
-    pretrainedmodels==0.7.4 \
-    efficientnet-pytorch==0.7.1 \
-    pytorch-toolbelt==0.6.3 \
     kornia==0.7.0 \
-    timm==0.9.7
+    timm==0.9.8 \
+    onnx==1.14.1 \
+    onnxruntime==1.16.1 \
+    onnxsim==0.4.34
