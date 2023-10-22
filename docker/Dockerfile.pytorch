@@ -3,24 +3,28 @@ FROM dokai:base
 ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
 
 # Install TensorRT GA and build TensorRT OSS
-RUN wget -nv https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/secure/9.1.0/tars/tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
-    tar -xf tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
-    cp -a TensorRT-9.1.0.4/lib/*.so* /usr/lib/x86_64-linux-gnu && \
-    cp -a TensorRT-9.1.0.4/include/*.h /usr/include/x86_64-linux-gnu && \
-    pip3 install TensorRT-9.1.0.4/python/tensorrt-9.1.0.post12.dev4-cp311-none-linux_x86_64.whl && \
-    pip3 install TensorRT-9.1.0.4/onnx_graphsurgeon/onnx_graphsurgeon-0.4.0-py2.py3-none-any.whl && \
-    rm -rf TensorRT-9.1.0.4 tensorrt-9.1.0.4.linux.x86_64-gnu.cuda-12.2.tar.gz && \
-    git clone --depth=1 --branch=v9.1.0 --single-branch https://github.com/nvidia/TensorRT && \
+RUN v="8.6.1.6-1+cuda12.0" &&\
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub &&\
+    apt-get update &&\
+    apt-get -y install \
+    libnvinfer8=${v} libnvonnxparsers8=${v} libnvparsers8=${v} libnvinfer-plugin8=${v} \
+    libnvinfer-dev=${v} libnvonnxparsers-dev=${v} libnvparsers-dev=${v} libnvinfer-plugin-dev=${v} \
+    python3-libnvinfer=${v} libnvinfer-dispatch8=${v} libnvinfer-dispatch-dev=${v} libnvinfer-lean8=${v} \
+    libnvinfer-lean-dev=${v} libnvinfer-vc-plugin8=${v} libnvinfer-vc-plugin-dev=${v} \
+    libnvinfer-headers-dev=${v} libnvinfer-headers-plugin-dev=${v} && \
+    git clone --depth=1 --branch=release/8.6 --single-branch https://github.com/nvidia/TensorRT && \
     cd TensorRT && \
     git submodule sync && git submodule update --init --recursive && \
     mkdir -p build && cd build && \
     cmake .. -DGPU_ARCHS="60 61 70 75 80 86 89 90" -DBUILD_SAMPLES=ON \
-    -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu \
-    -DTRT_OUT_DIR=/usr/lib/x86_64-linux-gnu \
-    -DCUDNN_ROOT_DIR=/usr/lib/x86_64-linux-gnu && \
+    -DTRT_LIB_DIR=/usr/lib/x86_64-linux-gnu -DTRT_OUT_DIR=/usr/lib/x86_64-linux-gnu && \
     make -j$(nproc) && \
     cd ../.. && rm -rf TensorRT && \
     ln -s /usr/lib/x86_64-linux-gnu/trtexec /usr/bin/trtexec && \
+    pip3 install --no-cache-dir tensorrt-bindings==8.6.1 && \
+    cd /usr/local/lib/python3.11/dist-packages && \
+    cp -r tensorrt_bindings tensorrt && \
+    cp -r tensorrt_bindings-8.6.1.dist-info tensorrt-8.6.1.dist-info && \
     apt-get clean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
