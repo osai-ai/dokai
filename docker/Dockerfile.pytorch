@@ -4,8 +4,8 @@ ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
 
 # Install TensorRT GA and build TensorRT OSS
 RUN v="8.6.1.6-1+cuda12.0" &&\
-    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub &&\
-    apt-get update &&\
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub && \
+    apt-get update && \
     apt-get -y install \
     libnvinfer8=${v} libnvonnxparsers8=${v} libnvparsers8=${v} libnvinfer-plugin8=${v} \
     libnvinfer-dev=${v} libnvonnxparsers-dev=${v} libnvparsers-dev=${v} libnvinfer-plugin-dev=${v} \
@@ -75,10 +75,10 @@ RUN git clone --depth=1 --branch=v2.1.0 --single-branch https://github.com/pytor
 RUN pip3 install --no-cache-dir \
     triton==2.1.0 \
     cupy-cuda12x==12.2.0 \
-    pytorch-ignite==0.4.12 \
+    pytorch-ignite==0.4.13 \
     pytorch-argus==1.0.0 \
     kornia==0.7.0 \
     timm==0.9.8 \
     onnx==1.14.1 \
     onnxruntime==1.16.1 \
-    onnxsim==0.4.34
+    onnxsim==0.4.35
