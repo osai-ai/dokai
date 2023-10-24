@@ -1,5 +1,5 @@
 NAME?=dokai
-TAG?=vpf
+TAG?=video
 COMMAND?=bash
 
 GPUS?=all
@@ -21,7 +21,7 @@ build:
 	$(call docker_build,core)
 	$(call docker_build,base)
 	$(call docker_build,pytorch)
-	$(call docker_build,vpf)
+	$(call docker_build,video)
 
 .PHONY: stop
 stop:

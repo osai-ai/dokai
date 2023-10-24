@@ -1,8 +1,10 @@
-docker tag dokai:tensor-stream "$1:$2-core"
-docker push "$1:$2-core"
-docker tag dokai:base "$1:$2-base"
-docker push "$1:$2-base"
-docker tag dokai:pytorch "$1:$2-pytorch"
-docker push "$1:$2-pytorch"
-docker tag dokai:vpf "$1:$2-vpf"
-docker push "$1:$2-vpf"
+#!/bin/bash
+
+REGISTRY=${1}
+VERSION=${2}
+
+for TYPE in core base pytorch video
+do
+  docker tag dokai:tensor-stream "$REGISTRY:$VERSION-$TYPE"
+  docker push "$REGISTRY:$VERSION-$TYPE"
+done
