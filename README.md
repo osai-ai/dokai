@@ -39,7 +39,7 @@ docker run --rm \
 <details><summary>dokai:23.10-core</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.10-core]()
+[ghcr.io/osai-ai/dokai:23.10-core](https://github.com/osai-ai/dokai/pkgs/container/dokai/141936207?tag=23.10-core)
 
 CUDA (12.2.2), cuDNN (8.9.5)  
 Python (3.11.6)
@@ -52,7 +52,7 @@ Bazelisk (1.18.0)
 <details><summary>dokai:23.10-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.10-base]()
+[ghcr.io/osai-ai/dokai:23.10-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/141937303?tag=23.10-base)
 
 additionally to `dokai:23.10-core`:
 
@@ -93,7 +93,7 @@ pre-commit==3.5.0
 <details><summary>dokai:23.10-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.10-pytorch]()
+[ghcr.io/osai-ai/dokai:23.10-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/141941717?tag=23.10-pytorch)
 
 additionally to `dokai:23.10-base`:
 
@@ -120,7 +120,7 @@ onnxsim==0.4.35
 <details><summary>dokai:23.10-video</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.10-video]()
+[ghcr.io/osai-ai/dokai:23.10-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/141941799?tag=23.10-video)
 
 additionally to `dokai:23.10-pytorch`:
 
