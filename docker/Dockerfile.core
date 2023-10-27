@@ -40,3 +40,8 @@ RUN PYTHON_PIP_VERSION=23.3.1 && \
 		"setuptools==$PYTHON_SETUPTOOLS_VERSION" && \
 	rm -f get-pip.py && \
 	pip --version
+
+# Install bazelisk
+RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.18.0/bazelisk-linux-amd64 && \
+    chmod +x bazelisk-linux-amd64 && \
+    mv bazelisk-linux-amd64 /usr/local/bin/bazel
