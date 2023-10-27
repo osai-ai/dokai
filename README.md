@@ -16,8 +16,8 @@ You can identify the architecture of your GPU [here](https://arnon.dk/matching-s
 
 ## Example
 
-Pull an image from GitHub Container registry
-```Bash
+Pull an image from the GitHub Container registry
+```bash
 docker pull ghcr.io/osai-ai/dokai:23.10-pytorch
 ```
 
@@ -45,6 +45,8 @@ An example of using dokai image for the DL pipeline can be found [here](https://
 
 CUDA (12.2.2), cuDNN (8.9.5)  
 Python (3.11.6)
+CMake (3.22.1)
+Bazelisk (1.18.0)
 
 </p>
 </details>
@@ -129,3 +131,5 @@ tensor-stream==0.5.0 (source, 0.5.0)
 
 </p>
 </details>
+
+Versions for past releases can be found [here](https://github.com/osai-ai/dokai/releases).
