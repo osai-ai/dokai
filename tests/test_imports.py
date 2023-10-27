@@ -12,8 +12,5 @@ class TestImports:
 
         import ignite
         import argus
-        import pretrainedmodels
-        import efficientnet_pytorch
-        import pytorch_toolbelt
         import kornia
         import timm

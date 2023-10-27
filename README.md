@@ -34,8 +34,6 @@ docker run --rm \
     nvidia-smi
 ```
 
-An example of using dokai image for the DL pipeline can be found [here](https://github.com/osai-ai/dokai/tree/master/example).
-
 ## Package versions
 
 <details><summary>dokai:23.10-core</summary>
@@ -132,4 +130,4 @@ tensor-stream==0.5.0 (source, 0.5.0)
 </p>
 </details>
 
-Versions for past releases can be found [here](https://github.com/osai-ai/dokai/releases).
+Versions for past releases can be found in [release descriptions](https://github.com/osai-ai/dokai/releases).
