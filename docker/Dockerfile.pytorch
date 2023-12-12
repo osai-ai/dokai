@@ -26,28 +26,20 @@ RUN MAGMA_VERSION=2.7.1 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone --depth=1 --branch=v2.1.0 --single-branch https://github.com/pytorch/pytorch.git && \
+RUN git clone --depth=1 --branch=v2.1.1 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
     git submodule sync && git submodule update --init --recursive && \
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
-# Install Torch-TensorRT
-COPY docker/torchtrt/WORKSPACE WORKSPACE
-RUN git clone --depth=1 --branch=v2.1.0-rc3 --single-branch https://github.com/pytorch/TensorRT.git && \
-    cp WORKSPACE TensorRT/ && cd TensorRT && \
-    bazel build //:libtorchtrt --compilation_mode opt && \
-    python3 setup.py install --use-cxx11-abi && \
-    cd .. && rm -rf TensorRT WORKSPACE
-
 # Install torchvision
-RUN git clone --depth=1 --branch=v0.16.0 --single-branch https://github.com/pytorch/vision.git && \
+RUN git clone --depth=1 --branch=v0.16.1 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
     FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install && \
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth=1 --branch=v2.1.0 --single-branch https://github.com/pytorch/audio.git && \
+RUN git clone --depth=1 --branch=v2.1.1 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
     python3 setup.py install && \
@@ -56,11 +48,11 @@ RUN git clone --depth=1 --branch=v2.1.0 --single-branch https://github.com/pytor
 # Install GPU and DL packages
 RUN pip3 install --no-cache-dir \
     triton==2.1.0 \
-    cupy-cuda12x==12.2.0 \
+    cupy-cuda12x==12.3.0 \
     pytorch-ignite==0.4.13 \
     pytorch-argus==1.0.0 \
     kornia==0.7.0 \
-    timm==0.9.8 \
-    onnx==1.14.1 \
-    onnxruntime==1.16.1 \
+    timm==0.9.12 \
+    onnx==1.15.0 \
+    onnxruntime==1.16.3 \
     onnxsim==0.4.35
