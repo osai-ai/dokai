@@ -6,12 +6,15 @@ RUN git clone --depth=1 --branch=n12.1.14.0 --single-branch https://github.com/F
     cd .. && rm -rf nv-codec-headers
 
 # Build FFmpeg with NVENC support
-RUN git clone --depth=1 --branch=n6.0 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
+RUN git clone --depth=1 --branch=n6.1 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
     cd FFmpeg && \
     mkdir ffmpeg_build && cd ffmpeg_build && \
     ../configure \
     --enable-cuda \
     --enable-cuvid \
+    --enable-ffnvcodec \
+    --enable-nvdec \
+    --enable-nvenc \
     --enable-shared \
     --disable-static \
     --disable-doc \
