@@ -29,7 +29,7 @@ RUN apt-get update && apt -y upgrade && \
 
 # Install pip
 RUN PYTHON_PIP_VERSION=23.3.1 && \
-    PYTHON_SETUPTOOLS_VERSION=68.2.2 && \
+    PYTHON_SETUPTOOLS_VERSION=69.0.2 && \
     wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py && \
 	export PYTHONDONTWRITEBYTECODE=1 && \
 	python get-pip.py \
@@ -42,6 +42,6 @@ RUN PYTHON_PIP_VERSION=23.3.1 && \
 	pip --version
 
 # Install bazelisk
-RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.18.0/bazelisk-linux-amd64 && \
+RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.19.0/bazelisk-linux-amd64 && \
     chmod +x bazelisk-linux-amd64 && \
     mv bazelisk-linux-amd64 /usr/local/bin/bazel
