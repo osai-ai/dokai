@@ -26,20 +26,20 @@ RUN MAGMA_VERSION=2.7.1 && \
     cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
 
 # Install PyTorch
-RUN git clone --depth=1 --branch=v2.1.1 --single-branch https://github.com/pytorch/pytorch.git && \
+RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
     git submodule sync && git submodule update --init --recursive && \
     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
 # Install torchvision
-RUN git clone --depth=1 --branch=v0.16.1 --single-branch https://github.com/pytorch/vision.git && \
+RUN git clone --depth=1 --branch=v0.16.2 --single-branch https://github.com/pytorch/vision.git && \
     cd vision && \
     FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install && \
     cd .. && rm -rf vision
 
 # Install torchaudio
-RUN git clone --depth=1 --branch=v2.1.1 --single-branch https://github.com/pytorch/audio.git && \
+RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytorch/audio.git && \
     cd audio && \
     git submodule sync && git submodule update --init --recursive && \
     python3 setup.py install && \
