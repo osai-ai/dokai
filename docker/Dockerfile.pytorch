@@ -29,7 +29,8 @@ RUN MAGMA_VERSION=2.7.1 && \
 RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytorch/pytorch.git && \
     cd pytorch && \
     git submodule sync && git submodule update --init --recursive && \
-    PYTORCH_BUILD_VERSION=2.1.2 TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
+    PYTORCH_BUILD_VERSION=2.1.2 PYTORCH_BUILD_NUMBER=0 \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install && \
     cd .. && rm -rf pytorch
 
 # Install torchvision
