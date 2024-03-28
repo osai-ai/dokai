@@ -18,30 +18,30 @@ You can identify the architecture of your GPU [here](https://arnon.dk/matching-s
 
 Pull an image from the GitHub Container registry
 ```bash
-docker pull ghcr.io/osai-ai/dokai:23.12-pytorch
+docker pull ghcr.io/osai-ai/dokai:24.03-pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:23.12-pytorch
+docker pull osaiai/dokai:24.03-pytorch
 ```
 
 Check available GPUs inside the container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:23.12-pytorch \
+    ghcr.io/osai-ai/dokai:24.03-pytorch \
     nvidia-smi
 ```
 
 ## Package versions
 
-### Docker images built from sources
+### Built from sources
 
-<details><summary>dokai:23.12-core</summary>
+<details><summary>dokai:24.03-core</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.12-core](https://github.com/osai-ai/dokai/pkgs/container/dokai/160087553?tag=23.12-core)
+[ghcr.io/osai-ai/dokai:24.03-core](https://github.com/osai-ai/dokai/pkgs/container/dokai/160087553?tag=24.03-core)
 
 Image based on `nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04` which includes:
 
@@ -90,12 +90,12 @@ On top of that packages are installed, here's a brief description and purpose of
 </p>
 </details>
 
-<details><summary>dokai:23.12-base</summary>
+<details><summary>dokai:24.03-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.12-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/160090648?tag=23.12-base)
+[ghcr.io/osai-ai/dokai:24.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/160090648?tag=24.03-base)
 
-Image based on `ghcr.io/osai-ai/dokai:23.12-core`:
+Image based on `ghcr.io/osai-ai/dokai:24.03-core`:
 
 Additionally, installed:
 
@@ -134,12 +134,12 @@ Additionally, installed:
 </p>
 </details>
 
-<details><summary>dokai:23.12-pytorch</summary>
+<details><summary>dokai:24.03-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.12-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107248?tag=23.12-pytorch)
+[ghcr.io/osai-ai/dokai:24.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107248?tag=24.03-pytorch)
 
-Image based on `ghcr.io/osai-ai/dokai:23.12-base`:
+Image based on `ghcr.io/osai-ai/dokai:24.03-base`:
 
 TensorRT (9.2.0)  
 MAGMA (2.7.1)  
@@ -160,12 +160,12 @@ onnxsim==0.4.35
 </p>
 </details>
 
-<details><summary>dokai:23.12-video</summary>
+<details><summary>dokai:24.03-video</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:23.12-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107462?tag=23.12-video)
+[ghcr.io/osai-ai/dokai:24.03-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107462?tag=24.03-video)
 
-additionally to `dokai:23.12-pytorch`:
+additionally to `dokai:24.03-pytorch`:
 
 VideoProcessingFramework==2.0.0 (source, v2.0.0)  
 tensor-stream==0.5.0 (source, 0.5.0)
@@ -173,6 +173,47 @@ tensor-stream==0.5.0 (source, 0.5.0)
 </p>
 </details>
 
-### Docker images optimised
+### Optimized
+
+Initially this set is composed from the previous one but based on lighter NVIDIA `runtime` base image.  
+
+<details><summary>dokai:24.03-core.opt</summary>
+<p>
+
+Image based on `nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04` and includes the same
+additionally installed packages as `dokai:24.03-core`.
+
+</p>
+</details>
+
+
+<details><summary>dokai:24.03-base.opt</summary>
+<p>
+
+Image based on `dokai:24.03-core.opt`  and includes the same
+additionally installed packages as `dokai:24.03-base`.
+
+</p>
+</details>
+
+
+<details><summary>dokai:24.03-pytorch.opt</summary>
+<p>
+
+Image based on `dokai:24.03-base.opt`  and includes the same
+additionally installed packages as `dokai:24.03-pytorch`.
+
+</p>
+</details>
+
+
+<details><summary>dokai:24.03-pytorch.opt</summary>
+<p>
+
+Image based on `dokai:24.03-pytorch.opt`  and includes the same
+additionally installed packages as `dokai:24.03-video`.
+
+</p>
+</details>
 
 Versions for past releases can be found in [release descriptions](https://github.com/osai-ai/dokai/releases).
