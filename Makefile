@@ -1,5 +1,5 @@
 NAME?=dokai
-LABEL?=.opt
+LABEL?=
 TAG?=video$(LABEL)
 COMMAND?=bash
 
@@ -14,9 +14,13 @@ endif
 all: stop build run
 
 define docker_build
-	docker build --no-cache -f \
+	docker build -f \
 		./docker/$(if $(LABEL),optimized/,source/)Dockerfile.$(1)$(LABEL) \
 		-t $(NAME):$(1)$(LABEL) . 2>&1 | tee logs/build_$(1)${LABEL}.log
+endef
+
+define docker_image_size
+	docker inspect -f "{{ .Size }}" $(NAME):$(1)$(LABEL) | numfmt --to=si
 endef
 
 .PHONY: build
@@ -63,3 +67,10 @@ test:
 		--name=$(NAME) \
 		$(NAME):$(TAG) \
 		pytest --cov=tests
+
+.PHONY: inspect
+inspect:
+	$(call docker_image_size,core) && \
+	$(call docker_image_size,base) && \
+	$(call docker_image_size,pytorch) && \
+	$(call docker_image_size,video)
