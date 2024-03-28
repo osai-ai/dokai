@@ -1,0 +1,98 @@
+FROM ghcr.io/osai-ai/dokai:23.12-pytorch AS source
+
+FROM dokai:cbase
+
+ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
+
+# Copy TensorRT
+COPY --from=source /usr/bin/trtexec /usr/bin/trtexec
+COPY --from=source /usr/include/x86_64-linux-gnu/Nv* /usr/include/x86_64-linux-gnu/
+COPY --from=source /usr/lib/x86_64-linux-gnu/libnv* /usr/lib/x86_64-linux-gnu/
+COPY --from=source /usr/local/bin/backend-test-tools /usr/local/bin/backend-test-tools
+COPY --from=source /usr/local/bin/check-model /usr/local/bin/check-model
+COPY --from=source /usr/local/bin/check-node /usr/local/bin/check-node
+COPY --from=source /usr/local/lib/python3.11/dist-packages/google /usr/local/lib/python3.11/dist-packages/google
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx /usr/local/lib/python3.11/dist-packages/onnx
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx-1.15.0.dist-info /usr/local/lib/python3.11/dist-packages/onnx-1.15.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon-0.4.0.dist-info /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon-0.4.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/protobuf-4.25.1.dist-info /usr/local/lib/python3.11/dist-packages/protobuf-4.25.1.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/tensorrt /usr/local/lib/python3.11/dist-packages/tensorrt
+COPY --from=source /usr/local/lib/python3.11/dist-packages/tensorrt-9.2.0.post12.dev5.dist-info /usr/local/lib/python3.11/dist-packages/tensorrt-9.2.0.post12.dev5.dist-info
+
+# Fix for torch, which does not work without it
+COPY --from=source /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12 /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12
+
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
+
+# Copy MAGMA
+COPY --from=source /usr/lib/libcudart.so /usr/lib/libcudart.so
+COPY --from=source /usr/local/magma /usr/local/magma
+
+# Copy torch-related files
+COPY --from=source /usr/local/bin/convert-caffe2-to-onnx /usr/local/bin/convert-caffe2-to-onnx
+COPY --from=source /usr/local/bin/convert-onnx-to-caffe2 /usr/local/bin/convert-onnx-to-caffe2
+COPY --from=source /usr/local/bin/torchrun /usr/local/bin/torchrun
+COPY --from=source /usr/local/lib/python3.11/dist-packages/functorch /usr/local/lib/python3.11/dist-packages/functorch
+COPY --from=source /usr/local/lib/python3.11/dist-packages/nvfuser /usr/local/lib/python3.11/dist-packages/nvfuser
+COPY --from=source /usr/local/lib/python3.11/dist-packages/torch /usr/local/lib/python3.11/dist-packages/torch
+COPY --from=source /usr/local/lib/python3.11/dist-packages/torch-2.1.2-py3.11.egg-info /usr/local/lib/python3.11/dist-packages/torch-2.1.2-py3.11.egg-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/torchgen /usr/local/lib/python3.11/dist-packages/torchgen
+
+# Copy torchvision-related files
+COPY --from=source /usr/local/bin/f2py /usr/local/bin/f2py
+COPY --from=source /usr/local/bin/isympy /usr/local/bin/isympy
+COPY --from=source /usr/local/bin/normalizer /usr/bin/normalizer
+COPY --from=source /usr/local/lib/python3.11/dist-packages/fsspec-2023.12.2-py3.11.egg /usr/local/lib/python3.11/dist-packages/fsspec-2023.12.2-py3.11.egg
+COPY --from=source /usr/local/lib/python3.11/dist-packages/torchvision-0.16.2-py3.11-linux-x86_64.egg /usr/local/lib/python3.11/dist-packages/torchvision-0.16.2-py3.11-linux-x86_64.egg
+
+# Copy all torch packages
+COPY --from=source /usr/local/lib/python3.11/dist-packages/easy-install.pth /usr/local/lib/python3.11/dist-packages/easy-install.pth
+COPY --from=source /usr/local/lib/python3.11/dist-packages/torchaudio-2.1.2-py3.11-linux-x86_64.egg /usr/local/lib/python3.11/dist-packages/torchaudio-2.1.2-py3.11-linux-x86_64.egg
+
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/local/lib/python3.11/dist-packages/torch/lib/"
+
+# Copy GPU and DL packages
+COPY --from=source /usr/local/bin/coloredlogs /usr/local/bin/coloredlogs
+COPY --from=source /usr/local/bin/huggingface-cli /usr/local/bin/huggingface-cli
+COPY --from=source /usr/local/bin/humanfriendly /usr/local/bin/humanfriendly
+COPY --from=source /usr/local/bin/markdown-it /usr/local/bin/markdown-it
+COPY --from=source /usr/local/bin/onnxruntime_test /usr/local/bin/onnxruntime_test
+COPY --from=source /usr/local/bin/onnxsim /usr/local/bin/onnxsim
+COPY --from=source /usr/local/lib/python3.11/dist-packages/argus /usr/local/lib/python3.11/dist-packages/argus
+COPY --from=source /usr/local/lib/python3.11/dist-packages/coloredlogs /usr/local/lib/python3.11/dist-packages/coloredlogs
+COPY --from=source /usr/local/lib/python3.11/dist-packages/coloredlogs-15.0.1.dist-info /usr/local/lib/python3.11/dist-packages/coloredlogs-15.0.1.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/coloredlogs.pth /usr/local/lib/python3.11/dist-packages/coloredlogs.pth
+COPY --from=source /usr/local/lib/python3.11/dist-packages/cupy /usr/local/lib/python3.11/dist-packages/cupy
+COPY --from=source /usr/local/lib/python3.11/dist-packages/cupy_backends /usr/local/lib/python3.11/dist-packages/cupy_backends
+COPY --from=source /usr/local/lib/python3.11/dist-packages/cupy_cuda12x-12.3.0.dist-info /usr/local/lib/python3.11/dist-packages/cupy_cuda12x-12.3.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/cupyx /usr/local/lib/python3.11/dist-packages/cupyx
+COPY --from=source /usr/local/lib/python3.11/dist-packages/fastrlock /usr/local/lib/python3.11/dist-packages/fastrlock
+COPY --from=source /usr/local/lib/python3.11/dist-packages/fastrlock-0.8.2.dist-info /usr/local/lib/python3.11/dist-packages/fastrlock-0.8.2.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/flatbuffers /usr/local/lib/python3.11/dist-packages/flatbuffers
+COPY --from=source /usr/local/lib/python3.11/dist-packages/flatbuffers-23.5.26.dist-info /usr/local/lib/python3.11/dist-packages/flatbuffers-23.5.26.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/huggingface_hub /usr/local/lib/python3.11/dist-packages/huggingface_hub
+COPY --from=source /usr/local/lib/python3.11/dist-packages/huggingface_hub-0.20.1.dist-info /usr/local/lib/python3.11/dist-packages/huggingface_hub-0.20.1.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/humanfriendly /usr/local/lib/python3.11/dist-packages/humanfriendly
+COPY --from=source /usr/local/lib/python3.11/dist-packages/humanfriendly-10.0.dist-info /usr/local/lib/python3.11/dist-packages/humanfriendly-10.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/ignite /usr/local/lib/python3.11/dist-packages/ignite
+COPY --from=source /usr/local/lib/python3.11/dist-packages/kornia /usr/local/lib/python3.11/dist-packages/kornia
+COPY --from=source /usr/local/lib/python3.11/dist-packages/kornia-0.7.0.dist-info /usr/local/lib/python3.11/dist-packages/kornia-0.7.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/markdown_it /usr/local/lib/python3.11/dist-packages/markdown_it
+COPY --from=source /usr/local/lib/python3.11/dist-packages/markdown_it_py-3.0.0.dist-info /usr/local/lib/python3.11/dist-packages/markdown_it_py-3.0.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/mdurl /usr/local/lib/python3.11/dist-packages/mdurl
+COPY --from=source /usr/local/lib/python3.11/dist-packages/mdurl-0.1.2.dist-info /usr/local/lib/python3.11/dist-packages/mdurl-0.1.2.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxruntime /usr/local/lib/python3.11/dist-packages/onnxruntime
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxruntime-1.16.3.dist-info /usr/local/lib/python3.11/dist-packages/onnxruntime-1.16.3.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxsim /usr/local/lib/python3.11/dist-packages/onnxsim
+COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxsim-0.4.35.dist-info /usr/local/lib/python3.11/dist-packages/onnxsim-0.4.35.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/pytorch_argus-1.0.0.dist-info /usr/local/lib/python3.11/dist-packages/pytorch_argus-1.0.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/pytorch_ignite-0.4.13.dist-info /usr/local/lib/python3.11/dist-packages/pytorch_ignite-0.4.13.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/rich /usr/local/lib/python3.11/dist-packages/rich
+COPY --from=source /usr/local/lib/python3.11/dist-packages/rich-13.7.0.dist-info /usr/local/lib/python3.11/dist-packages/rich-13.7.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/safetensors /usr/local/lib/python3.11/dist-packages/safetensors
+COPY --from=source /usr/local/lib/python3.11/dist-packages/safetensors-0.4.1.dist-info /usr/local/lib/python3.11/dist-packages/safetensors-0.4.1.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/timm /usr/local/lib/python3.11/dist-packages/timm
+COPY --from=source /usr/local/lib/python3.11/dist-packages/timm-0.9.12.dist-info /usr/local/lib/python3.11/dist-packages/timm-0.9.12.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/triton /usr/local/lib/python3.11/dist-packages/triton
+COPY --from=source /usr/local/lib/python3.11/dist-packages/triton-2.1.0.dist-info /usr/local/lib/python3.11/dist-packages/triton-2.1.0.dist-info

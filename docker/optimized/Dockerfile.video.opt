@@ -1,7 +1,7 @@
 FROM ghcr.io/osai-ai/dokai:23.12-video AS source
 
 #FROM ghcr.io/osai-ai/dokai:23.12-pytorch
-FROM dokai:bpytorch
+FROM dokai:cpytorch
 
 # Copy VideoProcessingFramework
 COPY --from=source /usr/local/lib/python3.11/dist-packages/PytorchNvCodec /usr/local/lib/python3.11/dist-packages/PytorchNvCodec

@@ -1,0 +1,43 @@
+FROM ghcr.io/osai-ai/dokai:23.12-base AS source
+
+FROM dokai:ccore
+
+# Copy nvidia codec headers and FFmpeg with NVENC support
+COPY --from=source /etc/ld.so.cache /etc/ld.so.cache
+COPY --from=source /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
+COPY --from=source /usr/local/bin/ffprobe /usr/local/bin/ffprobe
+COPY --from=source /usr/local/include /usr/local/include
+COPY --from=source /usr/local/lib/lib* /usr/local/lib/
+COPY --from=source /usr/local/lib/pkgconfig /usr/local/lib/pkgconfig
+COPY --from=source /usr/local/share/ffmpeg /usr/local/share/ffmpeg
+
+# Install Python packages
+RUN pip3 install --no-cache-dir \
+    packaging==23.2 \
+    numpy==1.26.2 \
+    opencv-python==4.8.1.78 \
+    sympy==1.12 \
+    scipy==1.11.4 \
+    matplotlib==3.8.2 \
+    pandas==2.1.4 \
+    scikit-learn==1.3.2 \
+    scikit-image==0.22.0 \
+    Pillow==10.1.0 \
+    av==11.0.0 \
+    librosa==0.10.1 \
+    albumentations==1.3.1 \
+    pyzmq==25.1.2 \
+    Cython==3.0.6 \
+    numba==0.58.1 \
+    requests==2.31.0 \
+    psutil==5.9.7 \
+    pydantic==2.5.2 \
+    PyYAML==6.0.1 \
+    notebook==7.0.6 \
+    ipywidgets==8.1.1 \
+    tqdm==4.66.1 \
+    pytest==7.4.3 \
+    pytest-cov==4.1.0 \
+    mypy==1.7.1 \
+    flake8==6.1.0 \
+    pre-commit==3.6.0

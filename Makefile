@@ -1,5 +1,6 @@
 NAME?=dokai
-TAG?=bvideo
+LABEL?=.opt
+TAG?=video$(LABEL)
 COMMAND?=bash
 
 GPUS?=all
@@ -13,15 +14,17 @@ endif
 all: stop build run
 
 define docker_build
-	docker build -f ./docker/binaries/Dockerfile.$(1) -t $(NAME):$(1) . 2>&1 | tee logs/build_$(1).log
+	docker build --no-cache -f \
+		./docker/$(if $(LABEL),optimized/,source/)Dockerfile.$(1)$(LABEL) \
+		-t $(NAME):$(1)$(LABEL) . 2>&1 | tee logs/build_$(1)${LABEL}.log
 endef
 
 .PHONY: build
 build:
-	$(call docker_build,bcore)
-	$(call docker_build,bbase)
-	$(call docker_build,bpytorch)
-	$(call docker_build,bvideo)
+	$(call docker_build,core)
+	$(call docker_build,base)
+	$(call docker_build,pytorch)
+	$(call docker_build,video)
 
 .PHONY: stop
 stop:
