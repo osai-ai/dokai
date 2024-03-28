@@ -14,3 +14,6 @@ class TestImports:
         import argus
         import kornia
         import timm
+
+        import PyNvCodec
+        import PytorchNvCodec

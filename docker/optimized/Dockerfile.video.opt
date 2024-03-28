@@ -1,0 +1,14 @@
+FROM dokai:video AS source
+FROM dokai:pytorch.opt
+
+# Copy VideoProcessingFramework
+COPY --from=source /usr/local/lib/python3.11/dist-packages/PytorchNvCodec /usr/local/lib/python3.11/dist-packages/PytorchNvCodec
+COPY --from=source /usr/local/lib/python3.11/dist-packages/PytorchNvCodec-0.0.0.dist-info /usr/local/lib/python3.11/dist-packages/PytorchNvCodec-0.0.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so /usr/local/lib/python3.11/dist-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so
+COPY --from=source /usr/local/lib/python3.11/dist-packages/PyNvCodec /usr/local/lib/python3.11/dist-packages/PyNvCodec
+COPY --from=source /usr/local/lib/python3.11/dist-packages/PyNvCodec-0.1.0.dist-info /usr/local/lib/python3.11/dist-packages/PyNvCodec-0.1.0.dist-info
+
+# Copy TensorStream
+COPY --from=source /usr/local/lib/python3.11/dist-packages/tensor_stream /usr/local/lib/python3.11/dist-packages/tensor_stream
+COPY --from=source /usr/local/lib/python3.11/dist-packages/tensor_stream-0.4.6.dist-info /usr/local/lib/python3.11/dist-packages/tensor_stream-0.4.6.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/TensorStream.cpython-311-x86_64-linux-gnu.so /usr/local/lib/python3.11/dist-packages/TensorStream.cpython-311-x86_64-linux-gnu.so

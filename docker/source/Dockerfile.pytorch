@@ -47,13 +47,5 @@ RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytor
     cd .. && rm -rf audio
 
 # Install GPU and DL packages
-RUN pip3 install --no-cache-dir \
-    triton==2.1.0 \
-    cupy-cuda12x==12.3.0 \
-    pytorch-ignite==0.4.13 \
-    pytorch-argus==1.0.0 \
-    kornia==0.7.0 \
-    timm==0.9.12 \
-    onnx==1.15.0 \
-    onnxruntime==1.16.3 \
-    onnxsim==0.4.35
+COPY docker/requirements/requirements_pytorch.txt requirements_pytorch.txt
+RUN pip3 install --no-cache-dir -r requirements_pytorch.txt && rm requirements_pytorch.txt
