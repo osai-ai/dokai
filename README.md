@@ -139,7 +139,7 @@ Additionally, installed:
 
 [ghcr.io/osai-ai/dokai:24.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107248?tag=24.03-pytorch)
 
-Image based on `ghcr.io/osai-ai/dokai:24.03-base`:
+Image based on `dokai:24.03-base`:
 
 TensorRT (9.2.0)  
 MAGMA (2.7.1)  
