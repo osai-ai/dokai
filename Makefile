@@ -3,6 +3,9 @@ LABEL?=
 TAG?=video$(LABEL)
 COMMAND?=bash
 
+REGISTRY?=osaiai/dokai
+VERSION?=24.03
+
 GPUS?=all
 ifeq ($(GPUS),none)
 	GPUS_OPTION=
@@ -74,3 +77,10 @@ inspect:
 	$(call docker_image_size,base) && \
 	$(call docker_image_size,pytorch) && \
 	$(call docker_image_size,video)
+
+.PHONY: push
+push:
+	for TYPE in core base pytorch video ; do \
+	  docker tag "dokai:$$TYPE$(LABEL)" "$(REGISTRY):$(VERSION)-$$TYPE$(LABEL)" ; \
+	  docker push "$(REGISTRY):$(VERSION)-$$TYPE$(LABEL)" ; \
+	done
