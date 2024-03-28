@@ -139,23 +139,25 @@ Additionally, installed:
 
 [ghcr.io/osai-ai/dokai:24.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107248?tag=24.03-pytorch)
 
-Image based on `dokai:24.03-base`:
+Image based on `dokai:24.03-base`.
 
-TensorRT (9.2.0)  
-MAGMA (2.7.1)  
+Additionally, installed:
 
-torch==2.1.2 (source, v2.1.2)  
-torchvision==0.16.2 (source, v0.16.2)  
-torchaudio==2.1.2 (source, v2.1.2)  
-triton==2.1.0   
-cupy-cuda12x==12.3.0   
-pytorch-ignite==0.4.13   
-pytorch-argus==1.0.0   
-kornia==0.7.0   
-timm==0.9.12   
-onnx==1.15.0   
-onnxruntime==1.16.3   
-onnxsim==0.4.35  
+- TensorRT (9.2.0)
+- MAGMA (2.7.1)
+- torch-related packages:
+  - torch==2.1.2 (source, v2.1.2)  
+  - torchvision==0.16.2 (source, v0.16.2)  
+  - torchaudio==2.1.2 (source, v2.1.2)  
+  - triton==2.1.0   
+  - cupy-cuda12x==12.3.0   
+  - pytorch-ignite==0.4.13   
+  - pytorch-argus==1.0.0   
+  - kornia==0.7.0   
+  - timm==0.9.12   
+  - onnx==1.15.0   
+  - onnxruntime==1.16.3   
+  - onnxsim==0.4.35  
 
 </p>
 </details>
@@ -165,10 +167,12 @@ onnxsim==0.4.35
 
 [ghcr.io/osai-ai/dokai:24.03-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107462?tag=24.03-video)
 
-additionally to `dokai:24.03-pytorch`:
+Image based on `dokai:24.03-pytorch`.
 
-VideoProcessingFramework==2.0.0 (source, v2.0.0)  
-tensor-stream==0.5.0 (source, 0.5.0)
+Additionally, installed:
+
+- VideoProcessingFramework==2.0.0 (source, v2.0.0)  
+- tensor-stream==0.5.0 (source, 0.5.0)
 
 </p>
 </details>
