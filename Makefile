@@ -1,9 +1,13 @@
 NAME?=dokai
-LABEL?=
-TAG?=video$(LABEL)
 COMMAND?=bash
 
-REGISTRY?=osaiai/dokai
+# Empty or `.opt`
+LABEL?=
+TAG?=video$(LABEL)
+
+# Should be `osaiai/dokai` or `ghcr.io/osai-ai/dokai`
+REGISTRY?=
+
 VERSION?=24.03
 
 GPUS?=all
@@ -17,7 +21,7 @@ endif
 all: stop build run
 
 define docker_build
-	docker build --no-cache -f \
+	docker build -f \
 		./docker/$(if $(LABEL),optimized/,source/)Dockerfile.$(1)$(LABEL) \
 		-t $(NAME):$(1)$(LABEL) . 2>&1 | tee logs/build_$(1)${LABEL}.log
 endef

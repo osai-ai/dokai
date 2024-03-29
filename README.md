@@ -204,4 +204,14 @@ additionally installed packages as `dokai:24.03-video`.
 </p>
 </details>
 
+### Size comparison
+
+Docker set |      | *.opt |
+-------- |------|-------|
+dokai:core | 11Gb | 4.5Gb |
+dokai:ffmpeg | 11Gb | 4.6Gb |
+dokai:base | 12Gb | 5.7Gb |
+dokai:pytorch | 17Gb | 12Gb  |
+dokai:video | 17Gb | 12Gb  |
+
 Versions for past releases can be found in [release descriptions](https://github.com/osai-ai/dokai/releases).
