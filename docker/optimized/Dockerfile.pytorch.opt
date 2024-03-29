@@ -51,47 +51,6 @@ COPY --from=source /usr/local/lib/python3.11/dist-packages/torchaudio-2.1.2-py3.
 
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/local/lib/python3.11/dist-packages/torch/lib/"
 
-# Copy GPU and DL packages
-COPY --from=source /usr/local/bin/coloredlogs /usr/local/bin/coloredlogs
-COPY --from=source /usr/local/bin/huggingface-cli /usr/local/bin/huggingface-cli
-COPY --from=source /usr/local/bin/humanfriendly /usr/local/bin/humanfriendly
-COPY --from=source /usr/local/bin/markdown-it /usr/local/bin/markdown-it
-COPY --from=source /usr/local/bin/onnxruntime_test /usr/local/bin/onnxruntime_test
-COPY --from=source /usr/local/bin/onnxsim /usr/local/bin/onnxsim
-COPY --from=source /usr/local/lib/python3.11/dist-packages/argus /usr/local/lib/python3.11/dist-packages/argus
-COPY --from=source /usr/local/lib/python3.11/dist-packages/coloredlogs /usr/local/lib/python3.11/dist-packages/coloredlogs
-COPY --from=source /usr/local/lib/python3.11/dist-packages/coloredlogs-15.0.1.dist-info /usr/local/lib/python3.11/dist-packages/coloredlogs-15.0.1.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/coloredlogs.pth /usr/local/lib/python3.11/dist-packages/coloredlogs.pth
-COPY --from=source /usr/local/lib/python3.11/dist-packages/cupy /usr/local/lib/python3.11/dist-packages/cupy
-COPY --from=source /usr/local/lib/python3.11/dist-packages/cupy_backends /usr/local/lib/python3.11/dist-packages/cupy_backends
-COPY --from=source /usr/local/lib/python3.11/dist-packages/cupy_cuda12x-12.3.0.dist-info /usr/local/lib/python3.11/dist-packages/cupy_cuda12x-12.3.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/cupyx /usr/local/lib/python3.11/dist-packages/cupyx
-COPY --from=source /usr/local/lib/python3.11/dist-packages/fastrlock /usr/local/lib/python3.11/dist-packages/fastrlock
-COPY --from=source /usr/local/lib/python3.11/dist-packages/fastrlock-0.8.2.dist-info /usr/local/lib/python3.11/dist-packages/fastrlock-0.8.2.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/flatbuffers /usr/local/lib/python3.11/dist-packages/flatbuffers
-COPY --from=source /usr/local/lib/python3.11/dist-packages/flatbuffers-23.5.26.dist-info /usr/local/lib/python3.11/dist-packages/flatbuffers-23.5.26.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/huggingface_hub /usr/local/lib/python3.11/dist-packages/huggingface_hub
-COPY --from=source /usr/local/lib/python3.11/dist-packages/huggingface_hub-0.20.1.dist-info /usr/local/lib/python3.11/dist-packages/huggingface_hub-0.20.1.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/humanfriendly /usr/local/lib/python3.11/dist-packages/humanfriendly
-COPY --from=source /usr/local/lib/python3.11/dist-packages/humanfriendly-10.0.dist-info /usr/local/lib/python3.11/dist-packages/humanfriendly-10.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/ignite /usr/local/lib/python3.11/dist-packages/ignite
-COPY --from=source /usr/local/lib/python3.11/dist-packages/kornia /usr/local/lib/python3.11/dist-packages/kornia
-COPY --from=source /usr/local/lib/python3.11/dist-packages/kornia-0.7.0.dist-info /usr/local/lib/python3.11/dist-packages/kornia-0.7.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/markdown_it /usr/local/lib/python3.11/dist-packages/markdown_it
-COPY --from=source /usr/local/lib/python3.11/dist-packages/markdown_it_py-3.0.0.dist-info /usr/local/lib/python3.11/dist-packages/markdown_it_py-3.0.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/mdurl /usr/local/lib/python3.11/dist-packages/mdurl
-COPY --from=source /usr/local/lib/python3.11/dist-packages/mdurl-0.1.2.dist-info /usr/local/lib/python3.11/dist-packages/mdurl-0.1.2.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxruntime /usr/local/lib/python3.11/dist-packages/onnxruntime
-COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxruntime-1.16.3.dist-info /usr/local/lib/python3.11/dist-packages/onnxruntime-1.16.3.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxsim /usr/local/lib/python3.11/dist-packages/onnxsim
-COPY --from=source /usr/local/lib/python3.11/dist-packages/onnxsim-0.4.35.dist-info /usr/local/lib/python3.11/dist-packages/onnxsim-0.4.35.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/pytorch_argus-1.0.0.dist-info /usr/local/lib/python3.11/dist-packages/pytorch_argus-1.0.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/pytorch_ignite-0.4.13.dist-info /usr/local/lib/python3.11/dist-packages/pytorch_ignite-0.4.13.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/rich /usr/local/lib/python3.11/dist-packages/rich
-COPY --from=source /usr/local/lib/python3.11/dist-packages/rich-13.7.0.dist-info /usr/local/lib/python3.11/dist-packages/rich-13.7.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/safetensors /usr/local/lib/python3.11/dist-packages/safetensors
-COPY --from=source /usr/local/lib/python3.11/dist-packages/safetensors-0.4.1.dist-info /usr/local/lib/python3.11/dist-packages/safetensors-0.4.1.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/timm /usr/local/lib/python3.11/dist-packages/timm
-COPY --from=source /usr/local/lib/python3.11/dist-packages/timm-0.9.12.dist-info /usr/local/lib/python3.11/dist-packages/timm-0.9.12.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/triton /usr/local/lib/python3.11/dist-packages/triton
-COPY --from=source /usr/local/lib/python3.11/dist-packages/triton-2.1.0.dist-info /usr/local/lib/python3.11/dist-packages/triton-2.1.0.dist-info
+# Install GPU and DL packages
+COPY docker/requirements/requirements_pytorch.txt requirements_pytorch.txt
+RUN pip3 install --no-cache-dir -r requirements_pytorch.txt && rm requirements_pytorch.txt

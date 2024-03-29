@@ -1,14 +1,4 @@
-FROM dokai:base AS source
-FROM dokai:core.opt
-
-# Copy nvidia codec headers and FFmpeg with NVENC support
-COPY --from=source /etc/ld.so.cache /etc/ld.so.cache
-COPY --from=source /usr/local/bin/ffmpeg /usr/local/bin/ffmpeg
-COPY --from=source /usr/local/bin/ffprobe /usr/local/bin/ffprobe
-COPY --from=source /usr/local/include /usr/local/include
-COPY --from=source /usr/local/lib/lib* /usr/local/lib/
-COPY --from=source /usr/local/lib/pkgconfig /usr/local/lib/pkgconfig
-COPY --from=source /usr/local/share/ffmpeg /usr/local/share/ffmpeg
+FROM dokai:ffmpeg.opt
 
 # Install Python packages
 COPY docker/requirements/requirements_base.txt requirements_base.txt

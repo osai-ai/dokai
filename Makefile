@@ -1,5 +1,5 @@
 NAME?=dokai
-LABEL?=
+LABEL?=.opt
 TAG?=video$(LABEL)
 COMMAND?=bash
 
@@ -17,7 +17,7 @@ endif
 all: stop build run
 
 define docker_build
-	docker build -f \
+	docker build --no-cache -f \
 		./docker/$(if $(LABEL),optimized/,source/)Dockerfile.$(1)$(LABEL) \
 		-t $(NAME):$(1)$(LABEL) . 2>&1 | tee logs/build_$(1)${LABEL}.log
 endef
@@ -29,6 +29,7 @@ endef
 .PHONY: build
 build:
 	$(call docker_build,core)
+	$(call docker_build,ffmpeg)
 	$(call docker_build,base)
 	$(call docker_build,pytorch)
 	$(call docker_build,video)
@@ -74,13 +75,14 @@ test:
 .PHONY: inspect
 inspect:
 	$(call docker_image_size,core) && \
+	$(call docker_image_size,ffmpeg) && \
 	$(call docker_image_size,base) && \
 	$(call docker_image_size,pytorch) && \
 	$(call docker_image_size,video)
 
 .PHONY: push
 push:
-	for TYPE in core base pytorch video ; do \
+	for TYPE in core ffmpeg base pytorch video ; do \
 	  docker tag "dokai:$$TYPE$(LABEL)" "$(REGISTRY):$(VERSION)-$$TYPE$(LABEL)" ; \
 	  docker push "$(REGISTRY):$(VERSION)-$$TYPE$(LABEL)" ; \
 	done

@@ -1,0 +1,41 @@
+FROM dokai:core
+
+# Build nvidia codec headers
+RUN git clone --depth=1 --branch=n12.1.14.0 --single-branch https://github.com/FFmpeg/nv-codec-headers.git && \
+    cd nv-codec-headers && make install && \
+    cd .. && rm -rf nv-codec-headers
+
+# Build FFmpeg with NVENC support
+RUN git clone --depth=1 --branch=n6.1 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
+    cd FFmpeg && \
+    mkdir ffmpeg_build && cd ffmpeg_build && \
+    ../configure \
+    --enable-cuda \
+    --enable-cuvid \
+    --enable-ffnvcodec \
+    --enable-nvdec \
+    --enable-nvenc \
+    --enable-shared \
+    --disable-static \
+    --disable-doc \
+    --extra-cflags=-I/usr/local/cuda/include \
+    --extra-ldflags=-L/usr/local/cuda/lib64 \
+    --enable-gpl \
+    --enable-libx264 \
+    --enable-libmp3lame \
+    --extra-libs=-lpthread \
+    --enable-openssl \
+    --enable-nonfree \
+    --nvccflags="-arch=sm_60 \
+ -gencode=arch=compute_60,code=sm_60 \
+ -gencode=arch=compute_61,code=sm_61 \
+ -gencode=arch=compute_70,code=sm_70 \
+ -gencode=arch=compute_75,code=sm_75 \
+ -gencode=arch=compute_80,code=sm_80 \
+ -gencode=arch=compute_86,code=sm_86 \
+ -gencode=arch=compute_89,code=sm_89 \
+ -gencode=arch=compute_90,code=sm_90 \
+ -gencode=arch=compute_90,code=compute_90" && \
+    make -j$(nproc) && make install && ldconfig && \
+    cd ../.. && rm -rf FFmpeg
+
