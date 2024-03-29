@@ -44,7 +44,7 @@ docker run --rm \
 <details><summary>dokai:24.03-core</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-core](https://github.com/osai-ai/dokai/pkgs/container/dokai/160087553?tag=24.03-core)
+[ghcr.io/osai-ai/dokai:24.03-core](https://github.com/osai-ai/dokai/pkgs/container/dokai/197439540?tag=24.03-core)
 
 Image based on `nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04` which includes:
 
@@ -96,9 +96,9 @@ On top of that packages are installed, here's a brief description and purpose of
 <details><summary>dokai:24.03-ffmpeg</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-ffmpeg](https://github.com/osai-ai/dokai/pkgs/container/dokai/160090648?tag=24.03-ffmpeg)
+[ghcr.io/osai-ai/dokai:24.03-ffmpeg](https://github.com/osai-ai/dokai/pkgs/container/dokai/197439597?tag=24.03-ffmpeg)
 
-Image based on `ghcr.io/osai-ai/dokai:24.03-core`:
+Image based on `dokai:24.03-core`:
 
 Additionally, installed:
 
@@ -111,7 +111,7 @@ Additionally, installed:
 <details><summary>dokai:24.03-base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/160090648?tag=24.03-base)
+[ghcr.io/osai-ai/dokai:24.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/197440417?tag=24.03-base)
 
 Image based on `ghcr.io/osai-ai/dokai:24.03-ffmpeg`:
 
@@ -125,7 +125,7 @@ Additionally, installed:
 <details><summary>dokai:24.03-pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107248?tag=24.03-pytorch)
+[ghcr.io/osai-ai/dokai:24.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/197441065?tag=24.03-pytorch)
 
 Image based on `dokai:24.03-base`.
 
@@ -141,7 +141,7 @@ Additionally, installed:
 <details><summary>dokai:24.03-video</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/160107462?tag=24.03-video)
+[ghcr.io/osai-ai/dokai:24.03-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/197441254?tag=24.03-video)
 
 Image based on `dokai:24.03-pytorch`.
 
@@ -160,6 +160,8 @@ Initially this set is composed of the previous one but based on lighter NVIDIA `
 <details><summary>dokai:24.03-core.opt</summary>
 <p>
 
+[ghcr.io/osai-ai/dokai:24.03-core.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197442036?tag=24.03-core.opt)
+
 Image based on `nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04` and includes the same
 additionally installed packages as `dokai:24.03-core`.
 
@@ -169,6 +171,8 @@ additionally installed packages as `dokai:24.03-core`.
 
 <details><summary>dokai:24.03-ffmpeg.opt</summary>
 <p>
+
+[ghcr.io/osai-ai/dokai:24.03-ffmpeg.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197442139?tag=24.03-ffmpeg.opt)
 
 Image based on `dokai:24.03-core.opt`  and includes the same
 additionally installed packages as `dokai:24.03-ffmpeg`.
@@ -180,6 +184,8 @@ additionally installed packages as `dokai:24.03-ffmpeg`.
 <details><summary>dokai:24.03-base.opt</summary>
 <p>
 
+[ghcr.io/osai-ai/dokai:24.03-base.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197442735?tag=24.03-base.opt)
+
 Image based on `dokai:24.03-ffmpeg.opt`  and includes the same
 additionally installed packages as `dokai:24.03-base`.
 
@@ -190,6 +196,8 @@ additionally installed packages as `dokai:24.03-base`.
 <details><summary>dokai:24.03-pytorch.opt</summary>
 <p>
 
+[ghcr.io/osai-ai/dokai:24.03-pytorch.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197444201?tag=24.03-pytorch.opt)
+
 Image based on `dokai:24.03-base.opt`  and includes the same
 additionally installed packages as `dokai:24.03-pytorch`.
 
@@ -199,6 +207,8 @@ additionally installed packages as `dokai:24.03-pytorch`.
 
 <details><summary>dokai:24.03-video.opt</summary>
 <p>
+
+[ghcr.io/osai-ai/dokai:24.03-video.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197444391?tag=24.03-video.opt)
 
 Image based on `dokai:24.03-pytorch.opt`  and includes the same
 additionally installed packages as `dokai:24.03-video`.
