@@ -113,7 +113,7 @@ Additionally, installed:
 
 [ghcr.io/osai-ai/dokai:24.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/197440417?tag=24.03-base)
 
-Image based on `ghcr.io/osai-ai/dokai:24.03-ffmpeg`:
+Image based on `dokai:24.03-ffmpeg`:
 
 Additionally, installed:
 
