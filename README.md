@@ -37,7 +37,9 @@ docker run --rm \
 
 ## Package versions
 
-### Built from sources
+![img.png](pics/comparison.png)
+
+### Built from source
 
 <details><summary>dokai:24.03-core</summary>
 <p>
