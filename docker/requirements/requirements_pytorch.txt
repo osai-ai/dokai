@@ -1,6 +1,4 @@
 triton==2.1.0
-cupy-cuda12x==12.3.0
-pytorch-ignite==0.4.13
 pytorch-argus==1.0.0
 kornia==0.7.0
 timm==0.9.12

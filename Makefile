@@ -1,5 +1,5 @@
 NAME?=dokai
-LABEL?=.opt
+LABEL?=
 TAG?=video$(LABEL)
 COMMAND?=bash
 
