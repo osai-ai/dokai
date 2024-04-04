@@ -1,0 +1,5 @@
+FROM dokai:ffmpeg.opt
+
+# Install Python packages
+COPY docker/requirements/requirements_base.txt requirements_base.txt
+RUN pip3 install --no-cache-dir -r requirements_base.txt && rm requirements_base.txt
