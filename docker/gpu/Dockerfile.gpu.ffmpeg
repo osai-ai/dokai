@@ -1,4 +1,4 @@
-FROM dokai:core
+FROM dokai:gpu.core
 
 # Build nvidia codec headers
 RUN git clone --depth=1 --branch=n12.1.14.0 --single-branch https://github.com/FFmpeg/nv-codec-headers.git && \
@@ -38,4 +38,3 @@ RUN git clone --depth=1 --branch=n6.1 --single-branch https://github.com/FFmpeg/
  -gencode=arch=compute_90,code=compute_90" && \
     make -j$(nproc) && make install && ldconfig && \
     cd ../.. && rm -rf FFmpeg
-

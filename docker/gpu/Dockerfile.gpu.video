@@ -1,4 +1,4 @@
-FROM dokai:pytorch
+FROM dokai:gpu.pytorch
 
 # Install VideoProcessingFramework
 RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/NVIDIA/VideoProcessingFramework && \

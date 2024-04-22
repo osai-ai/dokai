@@ -7,19 +7,22 @@ ENV PYTHONPATH $PYTHONPATH:/workdir
 WORKDIR /workdir
 
 # Install Python and apt-get packages
+COPY docker/apt-packages/builders.txt builders.txt
+COPY docker/apt-packages/ffmpeg.txt ffmpeg.txt
+COPY docker/apt-packages/libs.txt libs.txt
+COPY docker/apt-packages/python.txt python.txt
+COPY docker/apt-packages/utils.txt utils.txt
+COPY docker/apt-packages/xwindow.txt xwindow.txt
 RUN apt-get update && apt -y upgrade && \
     apt-get -y install software-properties-common apt-utils && \
     add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \
-    apt-get -y install \
-    build-essential yasm nasm ninja-build cmake \
-    unzip git wget curl nano vim tmux htop nvtop \
-    sysstat libtcmalloc-minimal4 pkgconf \
-    autoconf libtool flex bison \
-    libsm6 libxext6 libxrender1 libgl1-mesa-glx \
-    libx264-dev libsndfile1 libssl-dev \
-    python3.11 python3.11-dev python3.11-distutils python3.11-tk \
-    libpng-dev libjpeg-dev libmp3lame-dev \
-    liblapack-dev libopenblas-dev gfortran && \
+    xargs apt-get -y install < builders.txt && \
+    xargs apt-get -y install < ffmpeg.txt && \
+    xargs apt-get -y install < python.txt && \
+    xargs apt-get -y install < libs.txt && \
+    xargs apt-get -y install < utils.txt && \
+    xargs apt-get -y install < xwindow.txt && \
+    rm builders.txt ffmpeg.txt libs.txt python.txt utils.txt xwindow.txt && \
     ln -s /usr/bin/python3.11 /usr/bin/python && \
     ln -sf /usr/bin/python3.11 /usr/bin/python3 && \
     apt-get clean && \
@@ -39,4 +42,5 @@ RUN PYTHON_PIP_VERSION=23.3.2 && \
 		"pip==$PYTHON_PIP_VERSION" \
 		"setuptools==$PYTHON_SETUPTOOLS_VERSION" && \
 	rm -f get-pip.py && \
+    pip install --upgrade pip && \
 	pip --version

@@ -1,5 +1,5 @@
-FROM dokai:video AS source
-FROM dokai:pytorch.opt
+FROM dokai:gpu.video AS source
+FROM dokai:gpu.pytorch.opt
 
 # Copy VideoProcessingFramework
 COPY --from=source /usr/local/lib/python3.11/dist-packages/PytorchNvCodec /usr/local/lib/python3.11/dist-packages/PytorchNvCodec
