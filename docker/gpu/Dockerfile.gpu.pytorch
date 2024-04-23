@@ -1,4 +1,4 @@
-FROM dokai:base
+FROM dokai:gpu.base
 
 ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
 
@@ -47,5 +47,5 @@ RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytor
     cd .. && rm -rf audio
 
 # Install GPU and DL packages
-COPY docker/requirements/requirements_pytorch.txt requirements_pytorch.txt
-RUN pip3 install --no-cache-dir -r requirements_pytorch.txt && rm requirements_pytorch.txt
+COPY docker/pip-packages/pytorch.txt pytorch.txt
+RUN pip3 install --no-cache-dir -r pytorch.txt && rm pytorch.txt

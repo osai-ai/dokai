@@ -2,36 +2,47 @@
 
 Collection of Docker images for ML/DL and video processing projects.
 
-## Overview of images
+## Overview of CPU.* images
 
 Several types of images are presented:
 
-* `core`: CUDA (12.2.2), cuDNN (8.9.6), Python (3.11.7)
+* `core`: Python (3.11.9)
+* `ffmpeg`: FFmpeg (6.1)
+* `base`: Python ML and CV packages listed [here](docker/pip-packages/base.txt)
+
+## Overview of GPU.* images
+
+Several types of images are presented:
+
+* `core`: CUDA (12.2.2), cuDNN (8.9.6), Python (3.11.9)
 * `ffmpeg`: FFmpeg (6.1) with NVENC/NVDEC support
-* `base`: Python ML and CV packages listed [here](docker/requirements/requirements_base.txt)
-* `pytorch`: TensorRT (9.2.0), PyTorch (2.1.2), torchvision (0.16.2), torchaudio (2.1.2) and torch based libraries listed [here](docker/requirements/requirements_pytorch.txt)
+* `base`: Python ML and CV packages listed [here](docker/pip-packages/base.txt)
+* `pytorch`: TensorRT (9.2.0), PyTorch (2.1.2), torchvision (0.16.2), torchaudio (2.1.2) and torch based libraries listed [here](docker/pip-packages/pytorch.txt)
 * `video`: VideoProcessingFramework (2.0.0) and Tensor Stream (0.5.0) for full HW acceleration of video decoding 
 
 Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89), Hopper (sm_90).  
 You can identify the architecture of your GPU [here](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
 
+There are also optimized GPU images which have the same packages and libraries installed as stated above.
+To install them add `.opt` suffix at the end of the docker image name, e.g. `dokai:gpu.pytorch.opt`.
+
 ## Example
 
 Pull an image from the GitHub Container registry
 ```bash
-docker pull ghcr.io/osai-ai/dokai:24.03-pytorch
+docker pull ghcr.io/osai-ai/dokai:24.04-gpu.pytorch
 ```
 
 Docker Hub [mirror](https://hub.docker.com/r/osaiai/dokai/tags)
 ```bash
-docker pull osaiai/dokai:24.03-pytorch
+docker pull osaiai/dokai:24.04-gpu.pytorch
 ```
 
 Check available GPUs inside the container
 ```bash
 docker run --rm \
     --gpus=all \
-    ghcr.io/osai-ai/dokai:24.03-pytorch \
+    ghcr.io/osai-ai/dokai:24.04-gpu.pytorch \
     nvidia-smi
 ```
 
@@ -39,12 +50,66 @@ docker run --rm \
 
 ![img.png](pics/comparison.png)
 
-### Built from source
+### CPU images
 
-<details><summary>dokai:24.03-core</summary>
+<details><summary>dokai:24.04-cpu.core</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-core](https://github.com/osai-ai/dokai/pkgs/container/dokai/197439540?tag=24.03-core)
+[ghcr.io/osai-ai/dokai:24.04-cpu.core](https://github.com/osai-ai/dokai/pkgs/container/dokai)
+
+Image based on `python:3.11.9-slim-bookworm` which includes:
+
+- Debian Bookworm Operational System;
+- Python 3.11.9;
+- etc..
+
+On top of that packages are installed, here's a brief description and purpose of each:
+
+**Utilities:**
+- **nano, vim, tmux** are text editors and terminal multiplexers used for editing files and managing terminal sessions.
+- **unzip** is a utility used to decompress ZIP archives, commonly used for extracting files from compressed archives.
+- **git** is a distributed version control system used for tracking changes in source code during software development.
+- **wget, curl** are command-line tools used for downloading files from the internet, commonly used in scripts and automation tasks.
+- **htop** is interactive system monitoring tool used for displaying system resource usage.
+- **sysstat** collects and reports system performance statistics, including CPU, memory, and disk usage.
+
+</p>
+</details>
+
+<details><summary>dokai:24.04-cpu.ffmpeg</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:24.04-cpu.ffmpeg](https://github.com/osai-ai/dokai/pkgs/container/dokai)
+
+Image based on `dokai:24.04-cpu.core`:
+
+Additionally, installed:
+
+- FFmpeg (n6.1)
+
+</p>
+</details>
+
+<details><summary>dokai:24.04-cpu.base</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:24.04-cpu.base](https://github.com/osai-ai/dokai/pkgs/container/dokai)
+
+Image based on `dokai:24.04-cpu.ffmpeg`:
+
+Additionally, installed:
+
+- Python ML and CV packages: [requirements.txt](./docker/pip-packages/base.txt)
+
+</p>
+</details>
+
+### GPU images built from source
+
+<details><summary>dokai:24.04-gpu.core</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:24.04-gpu.core](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
 Image based on `nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04` which includes:
 
@@ -56,7 +121,7 @@ Image based on `nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04` which includes:
 
 On top of that packages are installed, here's a brief description and purpose of each:
 
-**Python (3.11.8):**
+**Python (3.11.9):**
 - **python3.11** is a programming language used for scripting and software development.
 - **python3.11-dev** contains header files and development tools for building Python extensions.
 - **python3.11-distutils** contains utilities for distributing and installing Python packages.
@@ -93,12 +158,12 @@ On top of that packages are installed, here's a brief description and purpose of
 </p>
 </details>
 
-<details><summary>dokai:24.03-ffmpeg</summary>
+<details><summary>dokai:24.04-gpu.ffmpeg</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-ffmpeg](https://github.com/osai-ai/dokai/pkgs/container/dokai/197439597?tag=24.03-ffmpeg)
+[ghcr.io/osai-ai/dokai:24.04-gpu.ffmpeg](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-core`:
+Image based on `dokai:24.04-gpu.core`:
 
 Additionally, installed:
 
@@ -108,42 +173,42 @@ Additionally, installed:
 </p>
 </details>
 
-<details><summary>dokai:24.03-base</summary>
+<details><summary>dokai:24.04-gpu.base</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-base](https://github.com/osai-ai/dokai/pkgs/container/dokai/197440417?tag=24.03-base)
+[ghcr.io/osai-ai/dokai:24.04-gpu.base](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-ffmpeg`:
+Image based on `dokai:24.04-gpu.ffmpeg`:
 
 Additionally, installed:
 
-- Python ML and CV packages: [requirements.txt](./docker/requirements/requirements_base.txt)
+- Python ML and CV packages: [requirements.txt](./docker/pip-packages/base.txt)
 
 </p>
 </details>
 
-<details><summary>dokai:24.03-pytorch</summary>
+<details><summary>dokai:24.04-gpu.pytorch</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai/197441065?tag=24.03-pytorch)
+[ghcr.io/osai-ai/dokai:24.04-gpu.pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-base`.
+Image based on `dokai:24.04-gpu.base`.
 
 Additionally, installed:
 
 - TensorRT (9.2.0)
 - MAGMA (2.7.1)
-- Pytorch-related packages: [requirements.txt](./docker/requirements/requirements_pytorch.txt)
+- Pytorch-related packages: [requirements.txt](./docker/pip-packages/pytorch.txt)
 
 </p>
 </details>
 
-<details><summary>dokai:24.03-video</summary>
+<details><summary>dokai:24.04-gpu.video</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-video](https://github.com/osai-ai/dokai/pkgs/container/dokai/197441254?tag=24.03-video)
+[ghcr.io/osai-ai/dokai:24.04-gpu.video](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-pytorch`.
+Image based on `dokai:24.04-gpu.pytorch`.
 
 Additionally, installed:
 
@@ -153,77 +218,77 @@ Additionally, installed:
 </p>
 </details>
 
-### Optimized
+### GPU images optimized
 
-Initially this set is composed of the previous one but based on lighter NVIDIA `runtime` base image.  
+Optimized set is composed of the previous one but based on lighter NVIDIA `runtime` base image.  
 
-<details><summary>dokai:24.03-core.opt</summary>
+<details><summary>dokai:24.04-gpu.core.opt</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-core.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197442036?tag=24.03-core.opt)
+[ghcr.io/osai-ai/dokai:24.04-gpu.core.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
 Image based on `nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04` and includes the same
-additionally installed packages as `dokai:24.03-core`.
+additionally installed packages as `dokai:24.04-gpu.core`.
 
 </p>
 </details>
 
 
-<details><summary>dokai:24.03-ffmpeg.opt</summary>
+<details><summary>dokai:24.04-gpu.ffmpeg.opt</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-ffmpeg.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197442139?tag=24.03-ffmpeg.opt)
+[ghcr.io/osai-ai/dokai:24.04-gpu.ffmpeg.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-core.opt`  and includes the same
-additionally installed packages as `dokai:24.03-ffmpeg`.
+Image based on `dokai:24.04-gpu.core.opt` and includes the same
+additionally installed packages as `dokai:24.04-gpu.ffmpeg`.
 
 </p>
 </details>
 
 
-<details><summary>dokai:24.03-base.opt</summary>
+<details><summary>dokai:24.04-gpu.base.opt</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-base.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197442735?tag=24.03-base.opt)
+[ghcr.io/osai-ai/dokai:24.04-gpu.base.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-ffmpeg.opt`  and includes the same
-additionally installed packages as `dokai:24.03-base`.
+Image based on `dokai:24.04-gpu.ffmpeg.opt`  and includes the same
+additionally installed packages as `dokai:24.04-gpu.base`.
 
 </p>
 </details>
 
 
-<details><summary>dokai:24.03-pytorch.opt</summary>
+<details><summary>dokai:24.04-gpu.pytorch.opt</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-pytorch.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197444201?tag=24.03-pytorch.opt)
+[ghcr.io/osai-ai/dokai:24.04-gpu.pytorch.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-base.opt`  and includes the same
-additionally installed packages as `dokai:24.03-pytorch`.
+Image based on `dokai:24.04-gpu.base.opt`  and includes the same
+additionally installed packages as `dokai:24.04-gpu.pytorch`.
 
 </p>
 </details>
 
 
-<details><summary>dokai:24.03-video.opt</summary>
+<details><summary>dokai:24.04-gpu.video.opt</summary>
 <p>
 
-[ghcr.io/osai-ai/dokai:24.03-video.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai/197444391?tag=24.03-video.opt)
+[ghcr.io/osai-ai/dokai:24.04-gpu.video.opt](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 
-Image based on `dokai:24.03-pytorch.opt`  and includes the same
-additionally installed packages as `dokai:24.03-video`.
+Image based on `dokai:24.04-gpu.pytorch.opt`  and includes the same
+additionally installed packages as `dokai:24.04-gpu.video`.
 
 </p>
 </details>
 
 ### Size comparison
 
-| Image         |      | *.opt |
-|---------------|------|-------|
-| dokai:core    | 11Gb | 4.5Gb |
-| dokai:ffmpeg  | 11Gb | 4.6Gb |
-| dokai:base    | 12Gb | 5.7Gb |
-| dokai:pytorch | 17Gb | 12Gb  |
-| dokai:video   | 17Gb | 12Gb  |
+| Image   | cpu.*  | gpu.* | gpu.*.opt |
+|---------|--------|-------|-----------|
+| core    | 0.49Gb | 11Gb  | 4.5Gb     |
+| ffmpeg  | 0.53Gb | 11Gb  | 4.6Gb     |
+| base    | 1.6Gb  | 12Gb  | 5.7Gb     |
+| pytorch | -      | 17Gb  | 12Gb      |
+| video   | -      | 17Gb  | 12Gb      |
 
 Versions for past releases can be found in [release descriptions](https://github.com/osai-ai/dokai/releases).

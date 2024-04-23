@@ -1,0 +1,9 @@
+build-essential
+yasm
+nasm
+ninja-build
+cmake
+pkgconf
+autoconf
+gfortran
+libtool

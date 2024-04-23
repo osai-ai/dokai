@@ -1,0 +1,3 @@
+libmp3lame-dev
+libx264-dev
+libssl-dev

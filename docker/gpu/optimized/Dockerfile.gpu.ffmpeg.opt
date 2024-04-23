@@ -1,5 +1,5 @@
-FROM dokai:ffmpeg AS source
-FROM dokai:core.opt
+FROM dokai:gpu.ffmpeg AS source
+FROM dokai:gpu.core.opt
 
 # Copy nvidia codec headers and FFmpeg with NVENC support
 COPY --from=source /etc/ld.so.cache /etc/ld.so.cache

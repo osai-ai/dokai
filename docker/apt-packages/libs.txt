@@ -1,0 +1,5 @@
+libsndfile1
+libpng-dev
+libjpeg-dev
+liblapack-dev
+libopenblas-dev
