@@ -1,14 +1,9 @@
 NAME?=dokai
 COMMAND?=bash
 
-# Empty or `.opt`
-LABEL?=
-TAG?=video$(LABEL)
+TAG?=gpu.video.opt
 
-# Should be `osaiai/dokai` or `ghcr.io/osai-ai/dokai`
-REGISTRY?=
-
-VERSION?=24.03
+VERSION?=24.04
 
 GPUS?=all
 ifeq ($(GPUS),none)
@@ -22,21 +17,40 @@ all: stop build run
 
 define docker_build
 	docker build -f \
-		./docker/$(if $(LABEL),optimized/,source/)Dockerfile.$(1)$(LABEL) \
-		-t $(NAME):$(1)$(LABEL) . 2>&1 | tee logs/build_$(1)${LABEL}.log
+		./docker/$(1)/$(if $(3),optimized/,)Dockerfile.$(1).$(2)$(3) \
+		-t $(NAME):$(1).$(2)$(3) . 2>&1 | tee logs/build_$(1).$(2)$(3).log
 endef
 
 define docker_image_size
-	docker inspect -f "{{ .Size }}" $(NAME):$(1)$(LABEL) | numfmt --to=si
+	printf "$(NAME):$(1).$(2)$(3): " ; \
+	docker inspect -f "{{ .Size }}" $(NAME):$(1).$(2)$(3) | numfmt --to=si
 endef
 
+define docker_push
+	docker tag "dokai:$(2).$(3)$(4)" "$(1):$(VERSION)-$(2).$(3)$(4)" ; \
+	docker push "$(1):$(VERSION)-$(2).$(3)$(4)"
+endef
+
+.PHONY: build-cpu
+build-cpu:
+	for NAME in core ffmpeg base ; do \
+	  $(call docker_build,cpu,$$NAME,) ; \
+	done
+
+.PHONY: build-gpu
+build-gpu:
+	for NAME in core ffmpeg base pytorch video ; do \
+	  $(call docker_build,gpu,$$NAME,) ; \
+	done
+
+.PHONY: build-gpu-opt
+build-gpu-opt:
+	for NAME in core ffmpeg base pytorch video ; do \
+	  $(call docker_build,gpu,$$NAME,.opt) ; \
+	done
+
 .PHONY: build
-build:
-	$(call docker_build,core)
-	$(call docker_build,ffmpeg)
-	$(call docker_build,base)
-	$(call docker_build,pytorch)
-	$(call docker_build,video)
+build: build-cpu build-gpu build-gpu-opt
 
 .PHONY: stop
 stop:
@@ -78,15 +92,24 @@ test:
 
 .PHONY: inspect
 inspect:
-	$(call docker_image_size,core) && \
-	$(call docker_image_size,ffmpeg) && \
-	$(call docker_image_size,base) && \
-	$(call docker_image_size,pytorch) && \
-	$(call docker_image_size,video)
+	for TYPE in core ffmpeg base ; do \
+		$(call docker_image_size,cpu,$$TYPE,) ; \
+	done ; \
+	for OPT in "" ".opt" ; do \
+		for TYPE in core ffmpeg base pytorch video ; do \
+			$(call docker_image_size,gpu,$$TYPE,$$OPT) ; \
+		done \
+  	done
 
 .PHONY: push
 push:
-	for TYPE in core ffmpeg base pytorch video ; do \
-	  docker tag "dokai:$$TYPE$(LABEL)" "$(REGISTRY):$(VERSION)-$$TYPE$(LABEL)" ; \
-	  docker push "$(REGISTRY):$(VERSION)-$$TYPE$(LABEL)" ; \
+	for REGISTRY in "osaiai/dokai" "ghcr.io/osai-ai/dokai" ; do \
+		for TYPE in core ffmpeg base ; do \
+			$(call docker_push,$$REGISTRY,cpu,$$TYPE,) ; \
+		done ; \
+		for OPT in "" ".opt" ; do \
+			for TYPE in core ffmpeg base pytorch video ; do \
+				$(call docker_push,$$REGISTRY,gpu,$$TYPE,$$OPT) ; \
+			done ; \
+		done ; \
 	done

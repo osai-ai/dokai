@@ -1,0 +1,5 @@
+FROM dokai:gpu.ffmpeg
+
+# Install Python packages
+COPY docker/pip-packages/base.txt base.txt
+RUN pip3 install --no-cache-dir -r base.txt && rm base.txt

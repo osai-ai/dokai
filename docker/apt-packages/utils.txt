@@ -1,0 +1,9 @@
+unzip
+git
+wget
+curl
+nano
+vim
+tmux
+htop
+sysstat
