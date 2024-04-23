@@ -3,9 +3,6 @@ COMMAND?=bash
 
 TAG?=gpu.video.opt
 
-# Should be `osaiai/dokai` or `ghcr.io/osai-ai/dokai`
-REGISTRY?=osaiai/dokai
-
 VERSION?=24.04
 
 GPUS?=all
