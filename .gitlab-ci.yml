@@ -1,0 +1,40 @@
+---
+include:
+  - project: ${AC_CICD_TEMPLATES}
+    file: ['code-quality.yml']
+    ref: 'v0.3.1'
+
+stages:
+  - code_quality
+  - mirror
+
+mirror:
+  stage: mirror
+  parallel:
+    matrix:
+      - IMAGE_NAME:
+          - "cpu.core"
+          - "cpu.ffmpeg"
+          - "cpu.base"
+          - "gpu.core"
+          - "gpu.ffmpeg"
+          - "gpu.base"
+          - "gpu.pytorch"
+          - "gpu.video"
+          - "gpu.core.opt"
+          - "gpu.ffmpeg.opt"
+          - "gpu.base.opt"
+          - "gpu.pytorch.opt"
+          - "gpu.video.opt"
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint: [""]
+  variables:
+    GIT_STRATEGY: none
+    VERSION: "24.04"
+  script:
+    - crane auth login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+    - crane cp ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME} ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
+  only:
+    refs:
+      - tags
