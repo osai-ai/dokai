@@ -40,5 +40,6 @@ mirror:
     - crane cp
       ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME}
       ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
-  rules:
-    - when: always
+  only:
+    refs:
+      - tags
