@@ -34,7 +34,8 @@ mirror:
     VERSION: "24.04"
   script:
     - crane auth login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
-    - crane cp ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME} ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
-  only:
-    refs:
-      - tags
+    - crane cp \
+        ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME} \
+        ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
+  rules:
+    - when: always
