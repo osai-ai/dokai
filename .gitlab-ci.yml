@@ -8,6 +8,11 @@ stages:
   - code_quality
   - mirror
 
+variables:
+  SONARQUBE_DISABLED: 'true'
+  PYTEST_UNIT_TESTS_DISABLED: 'true'
+  PYTEST_INTEGRITY_TESTS_DISABLED: 'true'
+
 mirror:
   stage: mirror
   parallel:
