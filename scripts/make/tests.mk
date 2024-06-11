@@ -16,9 +16,19 @@ test-gpu:		## Runs GPU docker images tests
 		-v $(shell pwd):/workdir \
 		--name=$(NAME) \
 		dokai:gpu.video \
-		pytest --cov=tests/gpu
+		pytest --cov=tests/gpu tests/gpu
+
+.PHONY: test-gpu-opt
+test-gpu-opt:		## Runs optimized GPU docker images tests
+	docker run --rm -it \
+		$(GPUS_OPTION) \
+		-v $(shell pwd):/workdir \
+		--name=$(NAME) \
+		dokai:gpu.video.opt \
+		pytest --cov=tests/gpu tests/gpu
 
 .PHONY: test
 test:		## Runs all tests
 	make test-cpu
 	make test-gpu
+	make test-gpu-opt
