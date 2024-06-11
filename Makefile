@@ -1,7 +1,7 @@
 NAME?=dokai
 COMMAND?=bash
 
-TAG?=cpu.base
+TAG?=gpu.video.opt
 
 VERSION?=24.04
 
