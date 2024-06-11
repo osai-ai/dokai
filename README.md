@@ -286,8 +286,8 @@ additionally installed packages as `dokai:24.04-gpu.video`.
 | Image   | cpu.*  | gpu.* | gpu.*.opt |
 |---------|--------|-------|-----------|
 | core    | 0.49Gb | 11Gb  | 4.5Gb     |
-| ffmpeg  | 0.53Gb | 11Gb  | 4.6Gb     |
-| base    | 1.6Gb  | 12Gb  | 5.7Gb     |
+| ffmpeg  | 0.74Gb | 11Gb  | 4.6Gb     |
+| base    | 2.0Gb  | 12Gb  | 5.7Gb     |
 | pytorch | -      | 17Gb  | 12Gb      |
 | video   | -      | 17Gb  | 12Gb      |
 

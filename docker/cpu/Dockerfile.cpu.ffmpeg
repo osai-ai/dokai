@@ -24,8 +24,6 @@ RUN apt-get update && apt -y upgrade && \
     make -j$(nproc) && make install && ldconfig && \
     cd ../.. && rm -rf FFmpeg && \
     xargs apt-get purge --auto-remove -y < builders.txt && \
-    xargs apt-get purge --auto-remove -y < ffmpeg.txt && \
-    xargs apt-get purge --auto-remove -y < libs.txt && \
     rm builders.txt ffmpeg.txt libs.txt && \
     apt-get clean && \
     apt-get -y autoremove && \

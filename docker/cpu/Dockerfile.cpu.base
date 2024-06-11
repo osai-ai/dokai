@@ -1,5 +1,15 @@
 FROM dokai:cpu.ffmpeg
 
+# Install libraries requirements
+COPY docker/apt-packages/xwindow.txt xwindow.txt
+RUN apt-get update && apt -y upgrade && \
+    xargs apt-get -y install < xwindow.txt && \
+    rm xwindow.txt && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+
 # Install Python packages
 COPY docker/pip-packages/base.txt base.txt
 RUN pip3 install --no-cache-dir -r base.txt && rm base.txt
