@@ -1,0 +1,14 @@
+FROM dokai:gpu.video.rootless AS source
+FROM dokai:gpu.pytorch.opt.rootless
+
+# Copy VideoProcessingFramework
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec-0.0.0.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec-0.0.0.dist-info
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so /home/$UNAME/.local/lib/python3.11/site-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-0.1.0.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-0.1.0.dist-info
+
+# Copy TensorStream
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream-0.4.6.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream-0.4.6.dist-info
+COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/TensorStream.cpython-311-x86_64-linux-gnu.so /home/$UNAME/.local/lib/python3.11/site-packages/TensorStream.cpython-311-x86_64-linux-gnu.so

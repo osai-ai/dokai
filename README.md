@@ -8,7 +8,7 @@ Several types of images are presented:
 
 * `core`: Python (3.11.9)
 * `ffmpeg`: FFmpeg (6.1)
-* `base`: Python ML and CV packages listed [here](docker/pip-packages/base.txt)
+* `base`: Python ML and CV packages listed [here](requirements/pip/base.txt)
 
 ## Overview of GPU.* images
 
@@ -16,8 +16,8 @@ Several types of images are presented:
 
 * `core`: CUDA (12.2.2), cuDNN (8.9.6), Python (3.11.9)
 * `ffmpeg`: FFmpeg (6.1) with NVENC/NVDEC support
-* `base`: Python ML and CV packages listed [here](docker/pip-packages/base.txt)
-* `pytorch`: TensorRT (9.2.0), PyTorch (2.1.2), torchvision (0.16.2), torchaudio (2.1.2) and torch based libraries listed [here](docker/pip-packages/pytorch.txt)
+* `base`: Python ML and CV packages listed [here](requirements/pip/base.txt)
+* `pytorch`: TensorRT (9.2.0), PyTorch (2.1.2), torchvision (0.16.2), torchaudio (2.1.2) and torch based libraries listed [here](requirements/pip/pytorch.txt)
 * `video`: VideoProcessingFramework (2.0.0) and Tensor Stream (0.5.0) for full HW acceleration of video decoding 
 
 Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89), Hopper (sm_90).  
@@ -99,7 +99,7 @@ Image based on `dokai:24.04-cpu.ffmpeg`:
 
 Additionally, installed:
 
-- Python ML and CV packages: [requirements.txt](./docker/pip-packages/base.txt)
+- Python ML and CV packages: [requirements.txt](requirements/pip/base.txt)
 
 </p>
 </details>
@@ -182,7 +182,7 @@ Image based on `dokai:24.04-gpu.ffmpeg`:
 
 Additionally, installed:
 
-- Python ML and CV packages: [requirements.txt](./docker/pip-packages/base.txt)
+- Python ML and CV packages: [requirements.txt](requirements/pip/base.txt)
 
 </p>
 </details>
@@ -198,7 +198,7 @@ Additionally, installed:
 
 - TensorRT (9.2.0)
 - MAGMA (2.7.1)
-- Pytorch-related packages: [requirements.txt](./docker/pip-packages/pytorch.txt)
+- Pytorch-related packages: [requirements.txt](requirements/pip/pytorch.txt)
 
 </p>
 </details>

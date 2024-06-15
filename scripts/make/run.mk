@@ -1,11 +1,9 @@
 .PHONY: run
 run:		## Runs docker container in an interactive mode
-	docker run --rm -dit \
+	docker run --rm -it \
 		$(GPUS_OPTION) \
-		--net=host \
-		--ipc=host \
-		-v $(shell pwd):/workdir \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
 		--name=$(NAME) \
 		$(NAME):$(TAG) \
 		$(COMMAND)
-	docker attach $(NAME)

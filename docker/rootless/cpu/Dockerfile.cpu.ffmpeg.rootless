@@ -1,9 +1,11 @@
-FROM dokai:cpu.core
+FROM dokai:cpu.core.rootless
+
+USER root
 
 # Build FFmpeg
-COPY docker/apt-packages/builders.txt builders.txt
-COPY docker/apt-packages/ffmpeg.txt ffmpeg.txt
-COPY docker/apt-packages/libs.txt libs.txt
+COPY requirements/apt/builders.txt builders.txt
+COPY requirements/apt/ffmpeg.txt ffmpeg.txt
+COPY requirements/apt/libs.txt libs.txt
 RUN apt-get update && apt -y upgrade && \
     xargs apt-get -y install < builders.txt && \
     xargs apt-get -y install < ffmpeg.txt && \
@@ -29,3 +31,5 @@ RUN apt-get update && apt -y upgrade && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/archives/*
+
+USER $UNAME

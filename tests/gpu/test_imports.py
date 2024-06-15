@@ -34,5 +34,6 @@ class TestImports:
         import PytorchNvCodec
 
     def test_cuda_is_available(self):
+        import torch
         assert torch.cuda.is_available()
         assert torch.backends.cudnn.is_available()

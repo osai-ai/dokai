@@ -15,7 +15,7 @@ COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx /usr/local/lib/p
 COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx-1.15.0.dist-info /usr/local/lib/python3.11/dist-packages/onnx-1.15.0.dist-info
 COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon
 COPY --from=source /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon-0.4.0.dist-info /usr/local/lib/python3.11/dist-packages/onnx_graphsurgeon-0.4.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/protobuf-5.26.1.dist-info  /usr/local/lib/python3.11/dist-packages/protobuf-5.26.1.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/protobuf-5.27.1.dist-info  /usr/local/lib/python3.11/dist-packages/protobuf-5.27.1.dist-info
 COPY --from=source /usr/local/lib/python3.11/dist-packages/tensorrt /usr/local/lib/python3.11/dist-packages/tensorrt
 COPY --from=source /usr/local/lib/python3.11/dist-packages/tensorrt-9.2.0.post12.dev5.dist-info /usr/local/lib/python3.11/dist-packages/tensorrt-9.2.0.post12.dev5.dist-info
 
@@ -23,6 +23,7 @@ COPY --from=source /usr/local/lib/python3.11/dist-packages/tensorrt-9.2.0.post12
 COPY --from=source /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12 /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12
 
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/local/cuda-12.2/compat"
 
 # Copy MAGMA
 COPY --from=source /usr/lib/libcudart.so /usr/lib/libcudart.so
@@ -42,7 +43,7 @@ COPY --from=source /usr/local/lib/python3.11/dist-packages/torchgen /usr/local/l
 COPY --from=source /usr/local/bin/f2py /usr/local/bin/f2py
 COPY --from=source /usr/local/bin/isympy /usr/local/bin/isympy
 COPY --from=source /usr/local/bin/normalizer /usr/bin/normalizer
-COPY --from=source /usr/local/lib/python3.11/dist-packages/fsspec-2024.3.1-py3.11.egg /usr/local/lib/python3.11/dist-packages/fsspec-2024.3.1-py3.11.egg
+COPY --from=source /usr/local/lib/python3.11/dist-packages/fsspec-2024.6.0-py3.11.egg /usr/local/lib/python3.11/dist-packages/fsspec-2024.6.0-py3.11.egg
 COPY --from=source /usr/local/lib/python3.11/dist-packages/torchvision-0.16.2-py3.11-linux-x86_64.egg /usr/local/lib/python3.11/dist-packages/torchvision-0.16.2-py3.11-linux-x86_64.egg
 
 # Copy all torch packages
@@ -52,5 +53,5 @@ COPY --from=source /usr/local/lib/python3.11/dist-packages/torchaudio-2.1.2-py3.
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/local/lib/python3.11/dist-packages/torch/lib/"
 
 # Install GPU and DL packages
-COPY docker/pip-packages/pytorch.txt pytorch.txt
+COPY requirements/pip/pytorch.txt pytorch.txt
 RUN pip3 install --no-cache-dir -r pytorch.txt && rm pytorch.txt
