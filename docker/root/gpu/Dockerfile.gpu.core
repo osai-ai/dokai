@@ -16,7 +16,6 @@ COPY requirements/apt/xwindow.txt xwindow.txt
 RUN apt-get update && apt -y upgrade && \
     apt-get -y install software-properties-common apt-utils && \
     add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \
-    ## /
     xargs apt-get -y install < builders.txt && \
     xargs apt-get -y install < ffmpeg.txt && \
     xargs apt-get -y install < python.txt && \

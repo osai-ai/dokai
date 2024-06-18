@@ -8,7 +8,7 @@ RUN apt-get update && apt -y upgrade && \
     xargs apt-get -y install < builders.txt && \
     xargs apt-get -y install < ffmpeg.txt && \
     xargs apt-get -y install < libs.txt && \
-    git clone --depth=1 --branch=n6.1 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
+    git clone --depth=1 --branch=n7.0.1 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
     cd FFmpeg && \
     mkdir ffmpeg_build && cd ffmpeg_build && \
     ../configure \

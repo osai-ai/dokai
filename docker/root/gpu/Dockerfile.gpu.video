@@ -1,14 +1,14 @@
 FROM dokai:gpu.pytorch
 
-# Install VideoProcessingFramework
-RUN git clone --depth=1 --branch=v2.0.0 --single-branch https://github.com/NVIDIA/VideoProcessingFramework && \
-    cd VideoProcessingFramework && \
-    pip3 install . && \
-    pip3 install src/PytorchNvCodec && \
-    cd .. && rm -rf VideoProcessingFramework
+# Install VALI
+RUN git clone --depth=1 --branch=v3.1.1 --single-branch https://github.com/RomanArzumanyan/VALI.git && \
+    cd VALI && \
+    git submodule update --init --recursive && \
+    pip3 install --no-cache-dir . && \
+    cd .. && rm -rf VALI
 
 # Install TensorStream
 RUN git clone --depth=1 --branch=0.5.0 --single-branch https://github.com/osai-ai/tensor-stream.git && \
     cd tensor-stream && \
-    pip3 install . && \
+    pip3 install --no-cache-dir . && \
     cd .. && rm -rf tensor-stream

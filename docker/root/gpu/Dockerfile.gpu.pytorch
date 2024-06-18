@@ -47,7 +47,3 @@ RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytor
     git submodule sync && git submodule update --init --recursive && \
     BUILD_VERSION=2.1.2 python3 setup.py install && \
     cd .. && rm -rf audio
-
-# Install GPU and DL packages
-COPY requirements/pip/pytorch.txt pytorch.txt
-RUN pip3 install --no-cache-dir -r pytorch.txt && rm pytorch.txt

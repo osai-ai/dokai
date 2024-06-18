@@ -15,8 +15,7 @@ RUN wget -nv https://developer.nvidia.com/downloads/compute/machine-learning/ten
     rm -rf TensorRT-9.2.0.5 tensorrt-9.2.0.5.linux.x86_64-gnu.cuda-12.2.tar.gz
 
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/x86_64-linux-gnu"
-ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/local/cuda-12.2/compat"
-ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/dokai/.local/lib/python3.11/site-packages/torch/lib/"
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/python3.11/site-packages/torch/lib/"
 
 # Build MAGMA
 COPY requirements/magma/make.inc make.inc
@@ -54,3 +53,4 @@ RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytor
 # Install GPU and DL packages
 COPY requirements/pip/pytorch.txt pytorch.txt
 RUN pip3 install --no-cache-dir --user -r pytorch.txt && rm pytorch.txt
+

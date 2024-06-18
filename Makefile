@@ -28,6 +28,3 @@ all: stop build test run
 .PHONY: help
 help:  ## Show help
 	@grep -hE '^[A-Za-z0-9_ \-]*?:.*##.*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-#/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/home/dokai/.local/lib/x86_64-linux-gnu:/usr/local/cuda-12.2/compat
-#/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/lib/x86_64-linux-gnu:/usr/local/cuda-12.2/compat
