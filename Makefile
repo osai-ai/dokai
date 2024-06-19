@@ -1,9 +1,9 @@
 NAME?=dokai
 COMMAND?=bash
 
-TAG?=gpu.video.rootless
+TAG?=cpu.core.rootless
 UNAME?=dokai
-VERSION?=24.04
+VERSION?=24.06
 
 GPUS?=all
 ifeq ($(GPUS),none)

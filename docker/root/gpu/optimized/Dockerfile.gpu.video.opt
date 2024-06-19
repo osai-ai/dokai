@@ -1,12 +1,9 @@
 FROM dokai:gpu.video AS source
 FROM dokai:gpu.pytorch.opt
 
-# Copy VideoProcessingFramework
-COPY --from=source /usr/local/lib/python3.11/dist-packages/PytorchNvCodec /usr/local/lib/python3.11/dist-packages/PytorchNvCodec
-COPY --from=source /usr/local/lib/python3.11/dist-packages/PytorchNvCodec-0.0.0.dist-info /usr/local/lib/python3.11/dist-packages/PytorchNvCodec-0.0.0.dist-info
-COPY --from=source /usr/local/lib/python3.11/dist-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so /usr/local/lib/python3.11/dist-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so
+# Copy VALI
 COPY --from=source /usr/local/lib/python3.11/dist-packages/PyNvCodec /usr/local/lib/python3.11/dist-packages/PyNvCodec
-COPY --from=source /usr/local/lib/python3.11/dist-packages/PyNvCodec-0.1.0.dist-info /usr/local/lib/python3.11/dist-packages/PyNvCodec-0.1.0.dist-info
+COPY --from=source /usr/local/lib/python3.11/dist-packages/PyNvCodec-3.1.1.dist-info /usr/local/lib/python3.11/dist-packages/PyNvCodec-3.1.1.dist-info
 
 # Copy TensorStream
 COPY --from=source /usr/local/lib/python3.11/dist-packages/tensor_stream /usr/local/lib/python3.11/dist-packages/tensor_stream

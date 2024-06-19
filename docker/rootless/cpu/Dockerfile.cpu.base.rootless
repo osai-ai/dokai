@@ -17,4 +17,3 @@ USER $UNAME
 # Install Python packages
 COPY requirements/pip/base.txt base.txt
 RUN pip3 install --no-cache-dir --user -r base.txt
-ENV PATH $PATH:/home/$UNAME/.local/bin

@@ -36,7 +36,7 @@ mirror:
     entrypoint: [""]
   variables:
     GIT_STRATEGY: none
-    VERSION: "24.04"
+    VERSION: "24.06"
   script:
     - crane auth login
       -u ${CI_REGISTRY_USER}
