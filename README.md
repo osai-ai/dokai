@@ -60,10 +60,8 @@ docker run --rm \
 
 In case of `*.rootless` images there may permission problems happen within docker container.
 
-If the source code is copied to the container with the command `COPY . .` make sure to change the owner
-of the copied files and folder with additional flag: `COPY --chown=$UID:$GID ./ ./`.
-
-For example:
+If the source code is copied to the container with the command `COPY`, make sure to change the owner
+of the copied files and folders with additional flag, for example:
 
 ```bash
 FROM dokai:gpu.video.opt.rootless
