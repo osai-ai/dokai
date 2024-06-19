@@ -136,5 +136,5 @@ test:		## Test all Docker images
 	make test-cpu.rootless
 	make test-gpu
 	make test-gpu.rootless
-	make test-gpu-opt
-	make test-gpu-opt.rootless
+	make test-gpu.opt
+	make test-gpu.opt.rootless
