@@ -36,7 +36,7 @@ Nvidia's CUDA images come in three flavors and are available through the NVIDIA 
 * **runtime**: extends the base image by adding all the shared libraries from the CUDA toolkit. Use this image if you have a pre-built application using multiple CUDA libraries.
 * **devel**: extends the runtime image by adding the compiler toolchain, the debugging tools, the headers, and the static libraries. Use this image to compile a CUDA application from sources.
 
-![img.png](pics/nvidia.png)
+![Comparison of NVIDIA images](pics/nvidia.png)
 
 **Runtime** and **devel** are the ones that are mostly used and the differences between them are the image sizes (~3Gb), presence of compilers, and debugging tools.
 </p>
@@ -100,7 +100,7 @@ And make sure that the mounted volume has enough permission for the `dokai` user
 
 ## Package versions
 
-![img.png](pics/comparison.png)
+![Dokai images overview](pics/comparison.png)
 
 ### CPU images
 
