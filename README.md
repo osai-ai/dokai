@@ -38,7 +38,7 @@ The name of the user is set to `dokai` and it has `1000` set as UID/GID.
 
 Sooner or later these images will fully replace root-based ones as they are more secure.
 
-## Example
+## Examples
 
 Pull an image from the GitHub Container registry
 ```bash
@@ -58,11 +58,37 @@ docker run --rm \
     nvidia-smi
 ```
 
+In case of `*.rootless` images there may permission problems happen within docker container.
+
+If the source code is copied to the container with the command `COPY . .` make sure to change the owner
+of the copied files and folder with additional flag: `COPY --chown=$UID:$GID ./ ./`.
+
+For example:
+
+```bash
+FROM dokai:gpu.video.opt.rootless
+
+WORKDIR /home/UNAME/workdir
+COPY --chown=$UID:$GID ./ ./
+
+...
+```
+
+If the source code is mounter as a volume with the flag `-v` make sure to mount it to the correct 
+user home directory path, for example like this:
+
+```bash
+docker run --rm -dit \
+	-v $(shell pwd):/home/dokai/workdir \
+	ghcr.io/osai-ai/dokai:24.06-gpu.pytorch.opt.rootless \
+	bash
+```
+
+And make sure that the mounted volume has enough permission for the `dokai` user to work. 
+
 ## Package versions
 
 ![img.png](pics/comparison.png)
-
-## Root privileged images
 
 ### CPU images
 
