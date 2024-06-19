@@ -25,8 +25,22 @@ You can identify the architecture of your GPU [here](https://arnon.dk/matching-s
 
 ## Overview of `gpu.*.opt` images
 
-There are also optimized GPU images which have the same packages and libraries installed as stated above.
+There are also optimized GPU images based on `nvidia-runtime` images, which have the same packages and libraries installed as stated above.
 To install them add `.opt` suffix at the end of the docker image name, e.g. `dokai:gpu.pytorch.opt`.
+
+<details><summary>Difference between `nvidia-devel` and `nvidia-runtime` images</summary>
+<p>
+Nvidia's CUDA images come in three flavors and are available through the NVIDIA public hub repository.
+
+* **base**: starting from CUDA 9.0, contains the bare minimum (libcudart) to deploy a pre-built CUDA application. Use this image if you want to select which CUDA packages you want to install manually.
+* **runtime**: extends the base image by adding all the shared libraries from the CUDA toolkit. Use this image if you have a pre-built application using multiple CUDA libraries.
+* **devel**: extends the runtime image by adding the compiler toolchain, the debugging tools, the headers, and the static libraries. Use this image to compile a CUDA application from sources.
+
+![img.png](pics/nvidia.png)
+
+**Runtime** and **devel** are the ones that are mostly used and the differences between them are the image sizes (~3Gb), presence of compilers, and debugging tools.
+</p>
+</details>
 
 ## Overview of `*.rootless` images
 
