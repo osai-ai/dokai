@@ -2,7 +2,7 @@
 
 Collection of Docker images for ML/DL and video processing projects.
 
-## Overview of CPU.* images
+## Overview of `cpu.*` images
 
 Several types of images are presented:
 
@@ -10,7 +10,7 @@ Several types of images are presented:
 * `ffmpeg`: FFmpeg (6.1)
 * `base`: Python ML and CV packages listed [here](requirements/pip/base.txt)
 
-## Overview of GPU.* images
+## Overview of `gpu.*` images
 
 Several types of images are presented:
 
@@ -23,19 +23,18 @@ Several types of images are presented:
 Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89), Hopper (sm_90).  
 You can identify the architecture of your GPU [here](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
 
-## Overview of gpu.*.opt images
+## Overview of `gpu.*.opt` images
 
 There are also optimized GPU images which have the same packages and libraries installed as stated above.
 To install them add `.opt` suffix at the end of the docker image name, e.g. `dokai:gpu.pytorch.opt`.
 
-## Overview of *.rootless images
+## Overview of `*.rootless` images
 
-Initially, all Dokai images were root-based, meaning that they have root-privileges inside of the docker container.
+Initially, all Dokai images were root-based, meaning that they had root privileges inside of the docker container.
 According to the [Docker best-practices](https://docs.docker.com/build/building/best-practices/#user)
-it is better to run docker containers without sudo rights with explicitly set user.
-
-Because of that `*.rootless` images were added to duplicate all existing ones, but without sudo privileges.
-The name of the user is `dokai` and it has `1000` set as UID/GID.
+it is better to run docker containers without sudo rights with explicitly set user. Because of that 
+`*.rootless` images were added to duplicate all existing images, but without sudo privileges.
+The name of the user is set to `dokai` and it has `1000` set as UID/GID.
 
 Sooner or later these images will fully replace root-based ones as they are more secure.
 
@@ -62,6 +61,8 @@ docker run --rm \
 ## Package versions
 
 ![img.png](pics/comparison.png)
+
+## Root privileged images
 
 ### CPU images
 
