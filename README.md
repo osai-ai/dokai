@@ -72,7 +72,7 @@ COPY --chown=$UID:$GID ./ ./
 ...
 ```
 
-If the source code is mounter as a volume with the flag `-v` make sure to mount it to the correct 
+If the source code is mounted as a volume with the flag `-v` make sure to mount it to the correct 
 user home directory path, for example like this:
 
 ```bash
