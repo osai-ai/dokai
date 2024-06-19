@@ -8,7 +8,7 @@ define docker_build
 endef
 
 define docker_build_rootless
-	docker build --no-cache \
+	docker build \
 		-f ./docker/rootless/$(1)/$(if $(3),optimized/,)Dockerfile.$(1).$(2)$(3).rootless \
 		-t $(NAME):$(1).$(2)$(3).rootless . 2>&1 | tee logs/build_$(1).$(2)$(3).rootless.log
 endef

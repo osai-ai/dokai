@@ -25,10 +25,10 @@ test-cpu.rootless:		## Test rootless CPU-based set of Docker images
 		dokai:cpu.base.rootless \
 		ffmpeg -version ; \
 	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
 		--name=$(NAME) \
 		dokai:cpu.base.rootless \
-		pytest /root/workdir/tests/cpu
+		pytest /home/$(UNAME)/workdir/tests/cpu
 
 .PHONY: test-gpu
 test-gpu:		## Test GPU-based set of Docker images
@@ -94,16 +94,16 @@ test-gpu.rootless:		## Test rootless GPU-based set of Docker images
 		ffmpeg -version ; \
 	docker run --rm -it \
 		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/${UNAME}/workdir \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
 		--name=$(NAME) \
 		dokai:gpu.base.rootless \
-		pytest /home/${UNAME}/workdir/tests/cpu ; \
+		pytest /home/$(UNAME)/workdir/tests/cpu ; \
 	docker run --rm -it \
 		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/${UNAME}/workdir \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
 		--name=$(NAME) \
 		dokai:gpu.video.rootless \
-		pytest /home/${UNAME}/workdir/tests
+		pytest /home/$(UNAME)/workdir/tests
 
 .PHONY: test-gpu.opt.rootless
 test-gpu.opt.rootless:		## Test rootless optimized GPU-based set of Docker images
@@ -119,16 +119,16 @@ test-gpu.opt.rootless:		## Test rootless optimized GPU-based set of Docker image
 		ffmpeg -version ; \
 	docker run --rm -it \
 		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/${UNAME}/workdir \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
 		--name=$(NAME) \
 		dokai:gpu.base.opt.rootless \
-		pytest /home/${UNAME}/workdir/tests/cpu ; \
+		pytest /home/$(UNAME)/workdir/tests/cpu ; \
 	docker run --rm -it \
 		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/${UNAME}/workdir \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
 		--name=$(NAME) \
 		dokai:gpu.video.opt.rootless \
-		pytest /home/${UNAME}/workdir/tests
+		pytest /home/$(UNAME)/workdir/tests
 
 .PHONY: test
 test:		## Test all Docker images

@@ -54,7 +54,7 @@ Sooner or later these images will fully replace root-based ones as they are more
 
 ## Examples
 
-Pull an image from the GitHub Container registry
+Pull an image from the GitHub Container [registry](https://github.com/osai-ai/dokai/pkgs/container/dokai)
 ```bash
 docker pull ghcr.io/osai-ai/dokai:24.06-gpu.pytorch
 ```
