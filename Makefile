@@ -1,9 +1,9 @@
 NAME?=dokai
 COMMAND?=bash
 
-TAG?=gpu.video.opt
-
-VERSION?=24.04
+TAG?=gpu.video
+UNAME?=dokai
+VERSION?=24.06
 
 GPUS?=all
 ifeq ($(GPUS),none)

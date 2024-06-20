@@ -11,10 +11,11 @@ RUN wget -nv https://developer.nvidia.com/downloads/compute/machine-learning/ten
     pip3 install TensorRT-9.2.0.5/python/tensorrt-9.2.0.post12.dev5-cp311-none-linux_x86_64.whl && \
     pip3 install TensorRT-9.2.0.5/onnx_graphsurgeon/onnx_graphsurgeon-0.4.0-py2.py3-none-any.whl && \
     rm -rf TensorRT-9.2.0.5 tensorrt-9.2.0.5.linux.x86_64-gnu.cuda-12.2.tar.gz
+
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
 
 # Build MAGMA
-COPY docker/magma/make.inc make.inc
+COPY requirements/magma/make.inc make.inc
 RUN MAGMA_VERSION=2.7.1 && \
     ln -s /usr/local/cuda/lib64/libcudart.so /usr/lib/libcudart.so && \
     wget -nv https://bitbucket.org/icl/magma/get/v${MAGMA_VERSION}.tar.gz && \
@@ -47,5 +48,5 @@ RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytor
     cd .. && rm -rf audio
 
 # Install GPU and DL packages
-COPY docker/pip-packages/pytorch.txt pytorch.txt
+COPY requirements/pip/pytorch.txt pytorch.txt
 RUN pip3 install --no-cache-dir -r pytorch.txt && rm pytorch.txt

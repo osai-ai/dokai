@@ -1,0 +1,17 @@
+FROM python:3.11.9-slim-bookworm
+
+ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV PYTHONPATH $PYTHONPATH:/root
+WORKDIR /root
+
+COPY requirements/apt/utils.txt utils.txt
+RUN apt-get update && apt -y upgrade && \
+    apt-get -y install software-properties-common apt-utils python3-launchpadlib && \
+    add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \
+    xargs apt-get -y install < utils.txt && \
+    rm utils.txt && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*

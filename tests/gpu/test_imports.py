@@ -31,8 +31,9 @@ class TestImports:
         import timm
 
         import PyNvCodec
-        import PytorchNvCodec
+        import tensor_stream
 
     def test_cuda_is_available(self):
+        import torch
         assert torch.cuda.is_available()
         assert torch.backends.cudnn.is_available()
