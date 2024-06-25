@@ -1,7 +1,7 @@
 NAME?=dokai
 COMMAND?=bash
 
-TAG?=gpu.video
+TAG?=gpu.video.opt.rootless
 UNAME?=dokai
 VERSION?=24.06
 
