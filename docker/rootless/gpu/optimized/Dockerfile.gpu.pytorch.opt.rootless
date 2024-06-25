@@ -20,7 +20,7 @@ COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-pac
 COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensorrt-9.2.0.post12.dev5.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/tensorrt-9.2.0.post12.dev5.dist-info
 
 # Fix for torch, which does not work without it
-COPY --chown=$UID:$GID --from=source /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12 /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12
+COPY --from=source /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12 /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12
 
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
 ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/x86_64-linux-gnu"
