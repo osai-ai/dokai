@@ -1,9 +1,12 @@
 FROM dokai:gpu.video.rootless AS source
 FROM dokai:gpu.pytorch.opt.rootless
 
-# Copy VALI
+# Copy VideoProcessingFramework
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec-0.0.0.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PytorchNvCodec-0.0.0.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so /home/$UNAME/.local/lib/python3.11/site-packages/_PytorchNvCodec.cpython-311-x86_64-linux-gnu.so
 COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec
-COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-3.1.1.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-3.1.1.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-0.1.0.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-0.1.0.dist-info
 
 # Copy TensorStream
 COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream
