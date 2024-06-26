@@ -1,5 +1,9 @@
+import pytest
+
+
 class TestImports:
 
+    @pytest.mark.gpu_base
     def test_imports(self):
         import numpy
         import cv2
@@ -33,6 +37,7 @@ class TestImports:
         import PyNvCodec
         import tensor_stream
 
+    @pytest.mark.gpu_base
     def test_cuda_is_available(self):
         import torch
         assert torch.cuda.is_available()

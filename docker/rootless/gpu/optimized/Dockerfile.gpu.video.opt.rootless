@@ -2,10 +2,10 @@ FROM dokai:gpu.video.rootless AS source
 FROM dokai:gpu.pytorch.opt.rootless
 
 # Copy VALI
-COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec
-COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-3.1.1.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-3.1.1.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-3.1.1.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/PyNvCodec-3.1.1.dist-info
 
 # Copy TensorStream
-COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream
-COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream-0.4.6.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream-0.4.6.dist-info
-COPY --from=source /home/$UNAME/.local/lib/python3.11/site-packages/TensorStream.cpython-311-x86_64-linux-gnu.so /home/$UNAME/.local/lib/python3.11/site-packages/TensorStream.cpython-311-x86_64-linux-gnu.so
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream-0.4.6.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/tensor_stream-0.4.6.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/TensorStream.cpython-311-x86_64-linux-gnu.so /home/$UNAME/.local/lib/python3.11/site-packages/TensorStream.cpython-311-x86_64-linux-gnu.so

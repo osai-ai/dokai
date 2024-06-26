@@ -5,8 +5,8 @@ endef
 
 .PHONY: push
 push:		## Pushes all built Dokai images to the Github and Docker Hub registries
-	for ROOTLESS in "" ".rootless" ; do \
-		for REGISTRY in "osaiai/dokai" "ghcr.io/osai-ai/dokai" ; do \
+	for REGISTRY in "osaiai/dokai" "ghcr.io/osai-ai/dokai" ; do \
+		for ROOTLESS in "" ".rootless" ; do \
 			for TYPE in core ffmpeg base ; do \
 				$(call docker_push,$$REGISTRY,cpu,$$TYPE,,$$ROOTLESS) ; \
 			done ; \

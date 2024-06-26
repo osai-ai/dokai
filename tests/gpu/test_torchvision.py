@@ -38,6 +38,7 @@ class TestTorchvision:
 
         return torch.cat([ids, x1, y1, x2, y2], dim=1).to(torch.float32)
 
+    @pytest.mark.torchvision
     @pytest.mark.parametrize("aligned", [True, False])
     def test_forward(
         self, inputs: torch.Tensor, boxes: torch.Tensor, device: torch.device, width: int, height: int, aligned: bool

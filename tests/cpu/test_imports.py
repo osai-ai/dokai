@@ -1,5 +1,9 @@
+import pytest
+
+
 class TestImports:
 
+    @pytest.mark.cpu_base
     def test_imports(self):
         import numpy
         import cv2
