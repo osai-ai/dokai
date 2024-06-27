@@ -35,6 +35,7 @@ class TestImports:
         import timm
 
         import PyNvCodec
+        import PytorchNvCodec
         import tensor_stream
 
     @pytest.mark.gpu_base

@@ -18,7 +18,7 @@ Several types of images are presented:
 * `ffmpeg`: FFmpeg (6.1) with NVENC/NVDEC support
 * `base`: Python ML and CV packages listed [here](requirements/pip/base.txt)
 * `pytorch`: TensorRT (9.2.0), PyTorch (2.1.2), torchvision (0.16.2), torchaudio (2.1.2) and torch based libraries listed [here](requirements/pip/pytorch.txt)
-* `video`: [VALI](https://github.com/RomanArzumanyan/VALI) (3.1.1) and [Tensor Stream](https://github.com/osai-ai/tensor-stream) (0.5.0) for full HW acceleration of video decoding 
+* `video`: VideoProcessingFramework (2.0.0) and Tensor Stream (0.5.0) for full HW acceleration of video decoding
 
 Supported NVIDIA architectures: Pascal (sm_60, sm_61), Volta (sm_70), Turing (sm_75), Ampere (sm_80, sm_86), Ada Lovelace (sm_89), Hopper (sm_90).  
 You can identify the architecture of your GPU [here](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
