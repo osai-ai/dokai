@@ -31,6 +31,19 @@ mirror:
           - "gpu.base.opt"
           - "gpu.pytorch.opt"
           - "gpu.video.opt"
+          - "cpu.core.rootless"
+          - "cpu.ffmpeg.rootless"
+          - "cpu.base.rootless"
+          - "gpu.core.rootless"
+          - "gpu.ffmpeg.rootless"
+          - "gpu.base.rootless"
+          - "gpu.pytorch.rootless"
+          - "gpu.video.rootless"
+          - "gpu.core.opt.rootless"
+          - "gpu.ffmpeg.opt.rootless"
+          - "gpu.base.opt.rootless"
+          - "gpu.pytorch.opt.rootless"
+          - "gpu.video.opt.rootless"
   image:
     name: gcr.io/go-containerregistry/crane:debug
     entrypoint: [""]
