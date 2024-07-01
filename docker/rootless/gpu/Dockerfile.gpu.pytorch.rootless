@@ -1,0 +1,56 @@
+FROM dokai:gpu.base.rootless
+
+ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
+
+# Install TensorRT
+RUN wget -nv https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/9.2.0/tensorrt-9.2.0.5.linux.x86_64-gnu.cuda-12.2.tar.gz && \
+    tar -xf tensorrt-9.2.0.5.linux.x86_64-gnu.cuda-12.2.tar.gz && \
+    mkdir -p /home/$UNAME/.local/lib/x86_64-linux-gnu && \
+    mkdir -p /home/$UNAME/.local/include/x86_64-linux-gnu && \
+    cp -a TensorRT-9.2.0.5/lib/*.so* /home/$UNAME/.local/lib/x86_64-linux-gnu && \
+    cp -a TensorRT-9.2.0.5/include/*.h /home/$UNAME/.local/include/x86_64-linux-gnu && \
+    cp -a TensorRT-9.2.0.5/bin/trtexec /home/$UNAME/.local/bin/trtexec && \
+    pip3 install --no-cache-dir --user TensorRT-9.2.0.5/python/tensorrt-9.2.0.post12.dev5-cp311-none-linux_x86_64.whl && \
+    pip3 install --no-cache-dir --user TensorRT-9.2.0.5/onnx_graphsurgeon/onnx_graphsurgeon-0.4.0-py2.py3-none-any.whl && \
+    rm -rf TensorRT-9.2.0.5 tensorrt-9.2.0.5.linux.x86_64-gnu.cuda-12.2.tar.gz
+
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/x86_64-linux-gnu"
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/python3.11/site-packages/torch/lib/"
+
+# Build MAGMA
+COPY requirements/magma/make.inc make.inc
+RUN MAGMA_VERSION=2.7.1 && \
+    ln -s /usr/local/cuda/lib64/libcudart.so /home/$UNAME/.local/lib/x86_64-linux-gnu/libcudart.so && \
+    wget -nv https://bitbucket.org/icl/magma/get/v${MAGMA_VERSION}.tar.gz && \
+    mkdir magma-${MAGMA_VERSION}/ && \
+    tar -xzf v${MAGMA_VERSION}.tar.gz -C magma-${MAGMA_VERSION}/ --strip-components=1 && \
+    cp make.inc magma-${MAGMA_VERSION} && \
+    cd magma-${MAGMA_VERSION} && \
+    make -j$(nproc) && prefix=/home/$UNAME/.local/magma make install && \
+    cd .. && rm -rf magma-${MAGMA_VERSION} v${MAGMA_VERSION}.tar.gz make.inc
+
+# Install PyTorch
+RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytorch/pytorch.git && \
+    cd pytorch && \
+    git submodule sync && git submodule update --init --recursive && \
+    PYTORCH_BUILD_VERSION=2.1.2 PYTORCH_BUILD_NUMBER=0 \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" python3 setup.py install --user && \
+    cd .. && rm -rf pytorch
+
+# Install torchvision
+RUN git clone --depth=1 --branch=v0.16.2 --single-branch https://github.com/pytorch/vision.git && \
+    cd vision && \
+    BUILD_VERSION=0.16.2 FORCE_CUDA=1 TORCHVISION_USE_FFMPEG=0 python3 setup.py install --user && \
+    cd .. && rm -rf vision
+
+# Install torchaudio
+RUN git clone --depth=1 --branch=v2.1.2 --single-branch https://github.com/pytorch/audio.git && \
+    cd audio && \
+    git submodule sync && git submodule update --init --recursive && \
+    BUILD_VERSION=2.1.2 python3 setup.py install --user && \
+    cd .. && rm -rf audio
+
+# Install GPU and DL packages
+COPY requirements/pip/pytorch.txt pytorch.txt
+RUN pip3 install --no-cache-dir --user -r pytorch.txt && rm pytorch.txt
+

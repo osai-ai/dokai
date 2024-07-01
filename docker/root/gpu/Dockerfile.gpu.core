@@ -1,18 +1,18 @@
-FROM nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04
+FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
-ENV PYTHONPATH $PYTHONPATH:/workdir
-WORKDIR /workdir
+ENV PYTHONPATH $PYTHONPATH:/root
+WORKDIR /root
 
 # Install Python and apt-get packages
-COPY docker/apt-packages/builders.txt builders.txt
-COPY docker/apt-packages/ffmpeg.txt ffmpeg.txt
-COPY docker/apt-packages/libs.txt libs.txt
-COPY docker/apt-packages/python.txt python.txt
-COPY docker/apt-packages/utils.txt utils.txt
-COPY docker/apt-packages/xwindow.txt xwindow.txt
+COPY requirements/apt/builders.txt builders.txt
+COPY requirements/apt/ffmpeg.txt ffmpeg.txt
+COPY requirements/apt/libs.txt libs.txt
+COPY requirements/apt/python.txt python.txt
+COPY requirements/apt/utils.txt utils.txt
+COPY requirements/apt/xwindow.txt xwindow.txt
 RUN apt-get update && apt -y upgrade && \
     apt-get -y install software-properties-common apt-utils && \
     add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \

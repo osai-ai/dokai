@@ -1,0 +1,56 @@
+FROM nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04
+
+ENV UNAME=dokai
+ENV UID=1000
+ENV GID=1000
+
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -s /bin/bash $UNAME
+
+ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV NVIDIA_DRIVER_CAPABILITIES video,compute,utility
+ENV PYTHONPATH $PYTHONPATH:/home/$UNAME
+WORKDIR /home/$UNAME
+
+# Install Python and apt-get packages
+COPY requirements/apt/builders.txt builders.txt
+COPY requirements/apt/ffmpeg.txt ffmpeg.txt
+COPY requirements/apt/libs.txt libs.txt
+COPY requirements/apt/python.txt python.txt
+COPY requirements/apt/utils.txt utils.txt
+COPY requirements/apt/xwindow.txt xwindow.txt
+RUN apt-get update && apt -y upgrade && \
+    apt-get -y install software-properties-common apt-utils && \
+    add-apt-repository -y ppa:deadsnakes/ppa && apt-get update && \
+    xargs apt-get -y install < builders.txt && \
+    xargs apt-get -y install < ffmpeg.txt && \
+    xargs apt-get -y install < python.txt && \
+    xargs apt-get -y install < libs.txt && \
+    xargs apt-get -y install < utils.txt && \
+    xargs apt-get -y install < xwindow.txt && \
+    rm builders.txt ffmpeg.txt libs.txt python.txt utils.txt xwindow.txt && \
+    ln -s /usr/bin/python3.11 /usr/bin/python && \
+    ln -sf /usr/bin/python3.11 /usr/bin/python3 && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+
+USER $UNAME
+
+# Install pip
+ENV PATH $PATH:/home/$UNAME/.local/bin
+RUN PYTHON_PIP_VERSION=23.3.2 && \
+    PYTHON_SETUPTOOLS_VERSION=69.0.2 && \
+    wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py && \
+	export PYTHONDONTWRITEBYTECODE=1 && \
+	python get-pip.py \
+		--disable-pip-version-check \
+		--no-cache-dir \
+		--no-compile \
+		"pip==$PYTHON_PIP_VERSION" \
+		"setuptools==$PYTHON_SETUPTOOLS_VERSION" && \
+	rm -f get-pip.py && \
+    pip install --no-cache-dir --user --upgrade pip && \
+	pip --version

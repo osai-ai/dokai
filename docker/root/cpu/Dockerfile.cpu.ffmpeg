@@ -1,0 +1,31 @@
+FROM dokai:cpu.core
+
+# Build FFmpeg
+COPY requirements/apt/builders.txt builders.txt
+COPY requirements/apt/ffmpeg.txt ffmpeg.txt
+COPY requirements/apt/libs.txt libs.txt
+RUN apt-get update && apt -y upgrade && \
+    xargs apt-get -y install < builders.txt && \
+    xargs apt-get -y install < ffmpeg.txt && \
+    xargs apt-get -y install < libs.txt && \
+    git clone --depth=1 --branch=n6.1 --single-branch https://github.com/FFmpeg/FFmpeg.git && \
+    cd FFmpeg && \
+    mkdir ffmpeg_build && cd ffmpeg_build && \
+    ../configure \
+    --enable-shared \
+    --disable-static \
+    --disable-doc \
+    --enable-gpl \
+    --enable-libx264 \
+    --enable-libmp3lame \
+    --extra-libs=-lpthread \
+    --enable-openssl \
+    --enable-nonfree && \
+    make -j$(nproc) && make install && ldconfig && \
+    cd ../.. && rm -rf FFmpeg && \
+    xargs apt-get purge --auto-remove -y < builders.txt && \
+    rm builders.txt ffmpeg.txt libs.txt && \
+    apt-get clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*

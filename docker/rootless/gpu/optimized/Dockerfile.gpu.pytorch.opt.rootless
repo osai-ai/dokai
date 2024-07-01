@@ -1,0 +1,56 @@
+FROM dokai:gpu.pytorch.rootless AS source
+FROM dokai:gpu.base.opt.rootless
+
+ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
+
+# Copy TensorRT
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/trtexec /home/$UNAME/.local/bin/trtexec
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/include/x86_64-linux-gnu/Nv* /home/$UNAME/.local/include/x86_64-linux-gnu/
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/x86_64-linux-gnu/libnv* /home/$UNAME/.local/lib/x86_64-linux-gnu/
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/backend-test-tools /home/$UNAME/.local/bin/backend-test-tools
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/check-model /home/$UNAME/.local/bin/check-model
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/check-node /home/$UNAME/.local/bin/check-node
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/google /home/$UNAME/.local/lib/python3.11/site-packages/google
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/onnx /home/$UNAME/.local/lib/python3.11/site-packages/onnx
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/onnx-1.15.0.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/onnx-1.15.0.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/onnx_graphsurgeon /home/$UNAME/.local/lib/python3.11/site-packages/onnx_graphsurgeon
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/onnx_graphsurgeon-0.4.0.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/onnx_graphsurgeon-0.4.0.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/protobuf-5.27.1.dist-info  /home/$UNAME/.local/lib/python3.11/site-packages/protobuf-5.27.1.dist-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensorrt /home/$UNAME/.local/lib/python3.11/site-packages/tensorrt
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/tensorrt-9.2.0.post12.dev5.dist-info /home/$UNAME/.local/lib/python3.11/site-packages/tensorrt-9.2.0.post12.dev5.dist-info
+
+# Fix for torch, which does not work without it
+COPY --from=source /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12 /usr/local/cuda-12.2/targets/x86_64-linux/lib/libcupti.so.12
+
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/x86_64-linux-gnu"
+
+# Copy MAGMA
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/magma /home/$UNAME/.local/magma
+
+# Copy torch-related files
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/convert-caffe2-to-onnx /home/$UNAME/.local/bin/convert-caffe2-to-onnx
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/convert-onnx-to-caffe2 /home/$UNAME/.local/bin/convert-onnx-to-caffe2
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/torchrun /home/$UNAME/.local/bin/torchrun
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/functorch /home/$UNAME/.local/lib/python3.11/site-packages/functorch
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/nvfuser /home/$UNAME/.local/lib/python3.11/site-packages/nvfuser
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/torch /home/$UNAME/.local/lib/python3.11/site-packages/torch
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/torch-2.1.2-py3.11.egg-info /home/$UNAME/.local/lib/python3.11/site-packages/torch-2.1.2-py3.11.egg-info
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/torchgen /home/$UNAME/.local/lib/python3.11/site-packages/torchgen
+
+# Copy torchvision-related files
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/f2py /home/$UNAME/.local/bin/f2py
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/isympy /home/$UNAME/.local/bin/isympy
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/bin/normalizer /usr/bin/normalizer
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/fsspec-2024.6.0-py3.11.egg /home/$UNAME/.local/lib/python3.11/site-packages/fsspec-2024.6.0-py3.11.egg
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/torchvision-0.16.2-py3.11-linux-x86_64.egg /home/$UNAME/.local/lib/python3.11/site-packages/torchvision-0.16.2-py3.11-linux-x86_64.egg
+
+# Copy all torch packages
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/easy-install.pth /home/$UNAME/.local/lib/python3.11/site-packages/easy-install.pth
+COPY --chown=$UID:$GID --from=source /home/$UNAME/.local/lib/python3.11/site-packages/torchaudio-2.1.2-py3.11-linux-x86_64.egg /home/$UNAME/.local/lib/python3.11/site-packages/torchaudio-2.1.2-py3.11-linux-x86_64.egg
+
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/home/$UNAME/.local/lib/python3.11/site-packages/torch/lib/"
+
+# Install GPU and DL packages
+COPY requirements/pip/pytorch.txt pytorch.txt
+RUN pip3 install --no-cache-dir --user -r pytorch.txt && rm pytorch.txt
