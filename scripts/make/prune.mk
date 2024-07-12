@@ -1,12 +1,12 @@
 .PHONY: prune-cpu
 prune-cpu:		## Prune CPU-based set of Docker images
-	for NAME in core ffmpeg base ; do \
+	for NAME in core ffmpeg base pytorch ; do \
 	  docker image rm $(NAME):cpu.$$NAME ; \
 	done
 
 .PHONY: prune-cpu.rootless
 prune-cpu.rootless:		## Prune rootless CPU-based set of Docker images
-	for NAME in core ffmpeg base ; do \
+	for NAME in core ffmpeg base pytorch ; do \
 	  docker image rm $(NAME):cpu.$$NAME.rootless ; \
 	done
 

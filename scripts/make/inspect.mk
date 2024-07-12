@@ -5,7 +5,7 @@ endef
 
 .PHONY: inspect-sizes
 inspect-sizes:		## Inspects docker images sizes and prints them out
-	for TYPE in core ffmpeg base ; do \
+	for TYPE in core ffmpeg base pytorch ; do \
 		for ROOTLESS in "" ".rootless" ; do \
 			$(call docker_image_size,cpu,$$TYPE,,$$ROOTLESS) ; \
 		done ; \

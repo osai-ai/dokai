@@ -15,15 +15,13 @@ endef
 
 .PHONY: build-cpu
 build-cpu:		## Build CPU-based set of Docker images
-	for NAME in core ffmpeg base ; do \
+	for NAME in core ffmpeg base pytorch ; do \
 	  $(call docker_build,cpu,$$NAME,) ; \
-	  $(call docker_build_rootless,cpu,$$NAME,) ; \
 	done
 
 .PHONY: build-cpu.rootless
 build-cpu.rootless:		## Build rootless CPU-based set of Docker images
-	for NAME in core ffmpeg base ; do \
-	  $(call docker_build,cpu,$$NAME,) ; \
+	for NAME in core ffmpeg base pytorch ; do \
 	  $(call docker_build_rootless,cpu,$$NAME,) ; \
 	done
 
