@@ -1,134 +1,128 @@
 .PHONY: test-cpu
 test-cpu:		## Test CPU-based set of Docker images
 	docker run --rm -it \
+		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
 		--name=$(NAME) \
-		dokai:cpu.core \
-		python --version ; \
-	docker run --rm -it \
-		--name=$(NAME) \
-		dokai:cpu.base \
-		ffmpeg -version ; \
+		$(NAME):cpu.core \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and core and rootful'" && \
 	docker run --rm -it \
 		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
 		--name=$(NAME) \
-		dokai:cpu.base \
-		pytest /root/workdir/tests/cpu
+		$(NAME):cpu.ffmpeg \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and ffmpeg and rootful'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
+		--name=$(NAME) \
+		$(NAME):cpu.base \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and base and rootful'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
+		--name=$(NAME) \
+		$(NAME):cpu.pytorch \
+		/bin/bash -c "python -m pytest -v -m 'cpu and pytorch and rootful'"
 
 .PHONY: test-cpu.rootless
 test-cpu.rootless:		## Test rootless CPU-based set of Docker images
 	docker run --rm -it \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
 		--name=$(NAME) \
-		dokai:cpu.core.rootless \
-		python --version ; \
-	docker run --rm -it \
-		--name=$(NAME) \
-		dokai:cpu.base.rootless \
-		ffmpeg -version ; \
+		$(NAME):cpu.core \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and core and rootless'" && \
 	docker run --rm -it \
 		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
 		--name=$(NAME) \
-		dokai:cpu.base.rootless \
-		pytest /home/$(UNAME)/workdir/tests/cpu
+		$(NAME):cpu.ffmpeg \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and ffmpeg and rootless'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
+		--name=$(NAME) \
+		$(NAME):cpu.base \
+		/bin/bash -c "python -m pytest -v -m 'cpu and base and rootless'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
+		--name=$(NAME) \
+		$(NAME):cpu.pytorch \
+		/bin/bash -c "python -m pytest -v -m 'cpu and pytorch and rootless'"
 
 .PHONY: test-gpu
 test-gpu:		## Test GPU-based set of Docker images
 	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
 		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
 		--name=$(NAME) \
-		dokai:gpu.base \
-		pytest /root/workdir/tests/cpu ; \
+		$(NAME):gpu.core \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and core and rootful'" && \
 	docker run --rm -it \
-		$(GPUS_OPTION) \
 		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
 		--name=$(NAME) \
-		dokai:gpu.video \
-		pytest /root/workdir/tests
-
-.PHONY: test-gpu.opt
-test-gpu.opt:		## Test optimized GPU-based set of Docker images
+		$(NAME):gpu.ffmpeg \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and ffmpeg and rootful'" && \
 	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core.opt \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg.opt \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
 		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
 		--name=$(NAME) \
-		dokai:gpu.base.opt \
-		pytest /root/workdir/tests/cpu ; \
+		$(NAME):gpu.base \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and base and rootful'" && \
 	docker run --rm -it \
-		$(GPUS_OPTION) \
 		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
 		--name=$(NAME) \
-		dokai:gpu.video.opt \
-		pytest /root/workdir/tests
+		$(NAME):gpu.pytorch \
+		/bin/bash -c "python -m pytest -v -m 'gpu and pytorch and rootful'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
+		--name=$(NAME) \
+		$(NAME):gpu.video \
+		/bin/bash -c "python -m pytest -v -m 'gpu and video and rootful'"
 
 .PHONY: test-gpu.rootless
 test-gpu.rootless:		## Test rootless GPU-based set of Docker images
 	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core.rootless \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg.rootless \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
 		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
 		--name=$(NAME) \
-		dokai:gpu.base.rootless \
-		pytest /home/$(UNAME)/workdir/tests/cpu ; \
+		$(NAME):gpu.core.rootless \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and core and rootless'" && \
 	docker run --rm -it \
-		$(GPUS_OPTION) \
 		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
 		--name=$(NAME) \
-		dokai:gpu.video.rootless \
-		pytest /home/$(UNAME)/workdir/tests
+		$(NAME):gpu.ffmpeg.rootless \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and ffmpeg and rootless'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
+		--name=$(NAME) \
+		$(NAME):gpu.base.rootless \
+		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and base and rootless'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
+		--name=$(NAME) \
+		$(NAME):gpu.pytorch.rootless \
+		/bin/bash -c "python -m pytest -v -m 'gpu and pytorch and rootless'" && \
+	docker run --rm -it \
+		-v $(shell pwd):/home/$(UNAME)/workdir \
+		--workdir=/home/$(UNAME)/workdir \
+		--name=$(NAME) \
+		$(NAME):gpu.video.rootless \
+		/bin/bash -c "python -m pytest -v -m 'gpu and video and rootless'"
+
+.PHONY: test-gpu.opt
+test-gpu.opt: test-gpu		## Test optimized GPU-based set of Docker images
 
 .PHONY: test-gpu.opt.rootless
-test-gpu.opt.rootless:		## Test rootless optimized GPU-based set of Docker images
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core.opt.rootless \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg.opt.rootless \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:gpu.base.opt.rootless \
-		pytest /home/$(UNAME)/workdir/tests/cpu ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:gpu.video.opt.rootless \
-		pytest /home/$(UNAME)/workdir/tests
+test-gpu.opt.rootless: test-gpu.rootless		## Test rootless optimized GPU-based set of Docker images
 
 .PHONY: test
 test:		## Test all Docker images

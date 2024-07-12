@@ -13,6 +13,13 @@ class TestOwnership:
             Path("/home/dokai/.local"),
         ]
 
+    @pytest.mark.cpu
+    @pytest.mark.gpu
+    @pytest.mark.core
+    @pytest.mark.ffmpeg
+    @pytest.mark.base
+    @pytest.mark.pytorch
+    @pytest.mark.video
     @pytest.mark.rootless
     def test_ownership(self, paths: List[Path]):
         for path in paths:
