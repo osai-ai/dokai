@@ -5,6 +5,9 @@ TAG?=gpu.video
 UNAME?=dokai
 VERSION?=24.06
 
+UID:=$(shell id -u)
+GID:=$(shell id -g)
+
 GPUS?=all
 ifeq ($(GPUS),none)
 	GPUS_OPTION=

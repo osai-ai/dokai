@@ -1,0 +1,16 @@
+FROM dokai:cpu.base.rootless
+
+ENV TORCH_CUDA_ARCH_LIST "6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
+
+ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu"
+
+# Install PyTorch
+RUN pip3 install --no-cache-dir --user \
+    torch==2.1.2+cpu \
+    torchvision==0.16.2+cpu \
+    torchaudio==2.1.2+cpu \
+    -f https://download.pytorch.org/whl/torch_stable.html
+
+# Install GPU and DL packages
+COPY requirements/pip/pytorch.txt pytorch.txt
+RUN pip3 install --no-cache-dir --user -r pytorch.txt && rm pytorch.txt
