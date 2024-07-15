@@ -1,128 +1,47 @@
+define docker_test
+	docker run --rm -it \
+		-v $(shell pwd):$(if $(filter $(3),rootless),/root/workdir,/home/$UNAME/workdir) \
+		--workdir=$(if $(filter $(3),rootless),/root/workdir,/home/$UNAME/workdir) \
+		--name=$(NAME) \
+		$(NAME):$(1).$(2)$(if $(filter $(3),rootless),,.rootless) \
+		/bin/bash -c "$(if $(filter $(2),core ffmpeg),,pip install pytest && )python -m pytest -v -m '$(1) and $(2) and $(3)'"
+endef
+
 .PHONY: test-cpu
 test-cpu:		## Test CPU-based set of Docker images
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.core \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and core and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.ffmpeg \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and ffmpeg and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.base \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and base and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.pytorch \
-		/bin/bash -c "python -m pytest -v -m 'cpu and pytorch and rootful'"
+	for NAME in core ffmpeg base pytorch ; do \
+	  $(call docker_test,cpu,$$NAME,rootful) ; \
+	done
 
 .PHONY: test-cpu.rootless
 test-cpu.rootless:		## Test rootless CPU-based set of Docker images
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.core \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and core and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.ffmpeg \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'cpu and ffmpeg and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.base \
-		/bin/bash -c "python -m pytest -v -m 'cpu and base and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):cpu.pytorch \
-		/bin/bash -c "python -m pytest -v -m 'cpu and pytorch and rootless'"
+	for NAME in core ffmpeg base pytorch ; do \
+	  $(call docker_test,cpu,$$NAME,rootless) ; \
+	done
 
 .PHONY: test-gpu
 test-gpu:		## Test GPU-based set of Docker images
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.core \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and core and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.ffmpeg \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and ffmpeg and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.base \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and base and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.pytorch \
-		/bin/bash -c "python -m pytest -v -m 'gpu and pytorch and rootful'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--workdir=/root/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.video \
-		/bin/bash -c "python -m pytest -v -m 'gpu and video and rootful'"
+	for NAME in core ffmpeg base pytorch video ; do \
+	  $(call docker_test,gpu,$$NAME,rootful) ; \
+	done
 
 .PHONY: test-gpu.rootless
 test-gpu.rootless:		## Test rootless GPU-based set of Docker images
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.core.rootless \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and core and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.ffmpeg.rootless \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and ffmpeg and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.base.rootless \
-		/bin/bash -c "pip install pytest && python -m pytest -v -m 'gpu and base and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.pytorch.rootless \
-		/bin/bash -c "python -m pytest -v -m 'gpu and pytorch and rootless'" && \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--workdir=/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		$(NAME):gpu.video.rootless \
-		/bin/bash -c "python -m pytest -v -m 'gpu and video and rootless'"
+	for NAME in core ffmpeg base pytorch video ; do \
+	  $(call docker_test,gpu,$$NAME,rootless) ; \
+	done
 
 .PHONY: test-gpu.opt
-test-gpu.opt: test-gpu		## Test optimized GPU-based set of Docker images
+test-gpu.opt:	## Test optimized GPU-based set of Docker images
+	for NAME in core ffmpeg base pytorch video ; do \
+	  $(call docker_test,gpu,$$NAME.opt,rootful) ; \
+	done
 
 .PHONY: test-gpu.opt.rootless
-test-gpu.opt.rootless: test-gpu.rootless		## Test rootless optimized GPU-based set of Docker images
+test-gpu.opt.rootless:	## Test rootless optimized GPU-based set of Docker images
+	for NAME in core ffmpeg base pytorch video ; do \
+	  $(call docker_test,gpu,$$NAME.opt,rootless) ; \
+	done
 
 .PHONY: test
 test:		## Test all Docker images
