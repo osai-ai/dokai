@@ -1,10 +1,19 @@
-import subprocess as sp
+import sys
 import pytest
 
 
 class TestPython:
 
-    @pytest.mark.python
+    @pytest.mark.cpu
+    @pytest.mark.gpu
+    @pytest.mark.core
+    @pytest.mark.ffmpeg
+    @pytest.mark.base
+    @pytest.mark.pytorch
+    @pytest.mark.video
+    @pytest.mark.rootful
+    @pytest.mark.rootless
     def test_python(self):
-        result = sp.run(["python", "--version"], stdout=sp.PIPE)
-        assert result.stdout == b"Python 3.11.9\n"
+        assert sys.version_info.major == 3
+        assert sys.version_info.minor == 11
+        assert sys.version_info.micro == 9
