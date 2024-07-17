@@ -1,5 +1,5 @@
 REGISTRY?=ghcr.io/osai-ai/dokai
-TAG?=23.12-pytorch
+TAG?=24.06-gpu.pytorch
 PRECISION?=float16
 RESULT_PREFIX?=benchmark
 

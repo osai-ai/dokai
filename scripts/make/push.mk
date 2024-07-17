@@ -12,12 +12,12 @@ endef
 push:		## Pushes all built Dokai images to the Github and Docker Hub registries
 	for REGISTRY in $(REGISTRIES) ; do \
 		for ROOTLESS in "" ".rootless" ; do \
-			for TYPE in core ffmpeg base pytorch ; do \
-				$(call docker_push,$$REGISTRY,cpu,$$TYPE,,$$ROOTLESS) ; \
+			for NAME in core ffmpeg base pytorch ; do \
+				$(call docker_push,$$REGISTRY,cpu,$$NAME,,$$ROOTLESS) ; \
 			done ; \
 			for OPT in "" ".opt" ; do \
-				for TYPE in $(GPU_IMAGES) ; do \
-					$(call docker_push,$$REGISTRY,gpu,$$TYPE,$$OPT,$$ROOTLESS) ; \
+				for NAME in $(GPU_IMAGES) ; do \
+					$(call docker_push,$$REGISTRY,gpu,$$NAME,$$OPT,$$ROOTLESS) ; \
 				done ; \
 			done ; \
 		done ; \

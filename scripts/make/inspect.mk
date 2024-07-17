@@ -23,15 +23,15 @@ endef
 
 .PHONY: inspect-sizes
 inspect-sizes:		## Inspects docker images sizes and prints them out
-	for TYPE in $(CPU_IMAGES) ; do \
+	for NAME in $(CPU_IMAGES) ; do \
 		for ROOTLESS in "" ".rootless" ; do \
-			$(call docker_image_size,cpu,$$TYPE,,$$ROOTLESS) ; \
+			$(call docker_image_size,cpu,$$NAME,,$$ROOTLESS) ; \
 		done ; \
 	done ; \
 	for OPT in "" ".opt" ; do \
-		for TYPE in $(GPU_IMAGES) ; do \
+		for NAME in $(GPU_IMAGES) ; do \
 			for ROOTLESS in "" ".rootless" ; do \
-				$(call docker_image_size,gpu,$$TYPE,$$OPT,$$ROOTLESS) ; \
+				$(call docker_image_size,gpu,$$NAME,$$OPT,$$ROOTLESS) ; \
 			done ; \
 		done \
   	done
