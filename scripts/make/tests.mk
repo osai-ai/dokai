@@ -1,134 +1,50 @@
+# 1 - gpu / cpu
+# 2 - [core / ffmpeg / base / pytorch / video] + [ / .opt]
+# 4 - rootful / rootless
+define docker_test
+	docker run --rm -it \
+		-v $(shell pwd):$(if $(filter $(3),rootless),/root/workdir,/home/$UNAME/workdir) \
+		--workdir=$(if $(filter $(3),rootless),/root/workdir,/home/$UNAME/workdir) \
+		--name=$(NAME) \
+		$(NAME):$(1).$(2)$(if $(filter $(3),rootless),,.rootless) \
+		/bin/bash -c "$(if $(filter $(2),core ffmpeg),,pip install pytest && )python -m pytest -v -m '$(1) and $(2) and $(3)'"
+endef
+
 .PHONY: test-cpu
 test-cpu:		## Test CPU-based set of Docker images
-	docker run --rm -it \
-		--name=$(NAME) \
-		dokai:cpu.core \
-		python --version ; \
-	docker run --rm -it \
-		--name=$(NAME) \
-		dokai:cpu.base \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		-v $(shell pwd):/root/workdir \
-		--name=$(NAME) \
-		dokai:cpu.base \
-		pytest /root/workdir/tests/cpu
+	for NAME in core ffmpeg base pytorch ; do \
+	  $(call docker_test,cpu,$$NAME,rootful) ; \
+	done
 
 .PHONY: test-cpu.rootless
 test-cpu.rootless:		## Test rootless CPU-based set of Docker images
-	docker run --rm -it \
-		--name=$(NAME) \
-		dokai:cpu.core.rootless \
-		python --version ; \
-	docker run --rm -it \
-		--name=$(NAME) \
-		dokai:cpu.base.rootless \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:cpu.base.rootless \
-		pytest /home/$(UNAME)/workdir/tests/cpu
+	for NAME in core ffmpeg base pytorch ; do \
+	  $(call docker_test,cpu,$$NAME,rootless) ; \
+	done
 
 .PHONY: test-gpu
 test-gpu:		## Test GPU-based set of Docker images
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/root/workdir \
-		--name=$(NAME) \
-		dokai:gpu.base \
-		pytest /root/workdir/tests/cpu ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/root/workdir \
-		--name=$(NAME) \
-		dokai:gpu.video \
-		pytest /root/workdir/tests
-
-.PHONY: test-gpu.opt
-test-gpu.opt:		## Test optimized GPU-based set of Docker images
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core.opt \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg.opt \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/root/workdir \
-		--name=$(NAME) \
-		dokai:gpu.base.opt \
-		pytest /root/workdir/tests/cpu ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/root/workdir \
-		--name=$(NAME) \
-		dokai:gpu.video.opt \
-		pytest /root/workdir/tests
+	for NAME in $(GPU_IMAGES) ; do \
+	  $(call docker_test,gpu,$$NAME,rootful) ; \
+	done
 
 .PHONY: test-gpu.rootless
 test-gpu.rootless:		## Test rootless GPU-based set of Docker images
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core.rootless \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg.rootless \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:gpu.base.rootless \
-		pytest /home/$(UNAME)/workdir/tests/cpu ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:gpu.video.rootless \
-		pytest /home/$(UNAME)/workdir/tests
+	for NAME in $(GPU_IMAGES) ; do \
+	  $(call docker_test,gpu,$$NAME,rootless) ; \
+	done
+
+.PHONY: test-gpu.opt
+test-gpu.opt:	## Test optimized GPU-based set of Docker images
+	for NAME in $(GPU_IMAGES) ; do \
+	  $(call docker_test,gpu,$$NAME.opt,rootful) ; \
+	done
 
 .PHONY: test-gpu.opt.rootless
-test-gpu.opt.rootless:		## Test rootless optimized GPU-based set of Docker images
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.core.opt.rootless \
-		python --version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		--name=$(NAME) \
-		dokai:gpu.ffmpeg.opt.rootless \
-		ffmpeg -version ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:gpu.base.opt.rootless \
-		pytest /home/$(UNAME)/workdir/tests/cpu ; \
-	docker run --rm -it \
-		$(GPUS_OPTION) \
-		-v $(shell pwd):/home/$(UNAME)/workdir \
-		--name=$(NAME) \
-		dokai:gpu.video.opt.rootless \
-		pytest /home/$(UNAME)/workdir/tests
+test-gpu.opt.rootless:	## Test rootless optimized GPU-based set of Docker images
+	for NAME in $(GPU_IMAGES) ; do \
+	  $(call docker_test,gpu,$$NAME.opt,rootless) ; \
+	done
 
 .PHONY: test
 test:		## Test all Docker images
