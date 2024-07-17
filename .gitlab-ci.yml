@@ -18,8 +18,34 @@ mirror:
   parallel:
     matrix:
       - IMAGE_NAME:
+          - "cpu.core"
+          - "cpu.ffmpeg"
+          - "cpu.base"
           - "cpu.pytorch"
+          - "gpu.core"
+          - "gpu.ffmpeg"
+          - "gpu.base"
+          - "gpu.pytorch"
+          - "gpu.video"
+          - "gpu.core.opt"
+          - "gpu.ffmpeg.opt"
+          - "gpu.base.opt"
+          - "gpu.pytorch.opt"
+          - "gpu.video.opt"
+          - "cpu.core.rootless"
+          - "cpu.ffmpeg.rootless"
+          - "cpu.base.rootless"
           - "cpu.pytorch.rootless"
+          - "gpu.core.rootless"
+          - "gpu.ffmpeg.rootless"
+          - "gpu.base.rootless"
+          - "gpu.pytorch.rootless"
+          - "gpu.video.rootless"
+          - "gpu.core.opt.rootless"
+          - "gpu.ffmpeg.opt.rootless"
+          - "gpu.base.opt.rootless"
+          - "gpu.pytorch.opt.rootless"
+          - "gpu.video.opt.rootless"
   image:
     name: gcr.io/go-containerregistry/crane:debug
     entrypoint: [""]
@@ -36,4 +62,4 @@ mirror:
       ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
   only:
     refs:
-      - branches
+      - tags
