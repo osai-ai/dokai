@@ -27,25 +27,25 @@ build-cpu.rootless:		## Build rootless CPU-based set of Docker images
 
 .PHONY: build-gpu
 build-gpu:		## Build GPU-based set of Docker images
-	for NAME in core ffmpeg base pytorch video ; do \
+	for NAME in $(GPU_IMAGES) ; do \
 	  $(call docker_build,gpu,$$NAME,) ; \
 	done
 
 .PHONY: build-gpu.rootless
 build-gpu.rootless:		## Build rootless GPU-based set of Docker images
-	for NAME in core ffmpeg base pytorch video ; do \
+	for NAME in $(GPU_IMAGES) ; do \
 	  $(call docker_build_rootless,gpu,$$NAME,) ; \
 	done
 
 .PHONY: build-gpu.opt
 build-gpu.opt:		## Build GPU-based optimized set of Docker images
-	for NAME in core ffmpeg base pytorch video ; do \
+	for NAME in $(GPU_IMAGES) ; do \
 	  $(call docker_build,gpu,$$NAME,.opt) ; \
 	done
 
 .PHONY: build-gpu.opt.rootless
 build-gpu.opt.rootless:		## Build rootless GPU-based optimized set of Docker images
-	for NAME in core ffmpeg base pytorch video ; do \
+	for NAME in $(GPU_IMAGES) ; do \
 	  $(call docker_build_rootless,gpu,$$NAME,.opt) ; \
 	done
 

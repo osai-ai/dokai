@@ -1,12 +1,16 @@
 NAME?=dokai
 COMMAND?=bash
 
-TAG?=gpu.video
+TAG?=cpu.core.rootless
 UNAME?=dokai
 VERSION?=24.06
 
 UID:=$(shell id -u)
 GID:=$(shell id -g)
+
+REGISTRIES:="osaiai" "ghcr.io/osai-ai"
+CPU_IMAGES:="core" "ffmpeg" "base" "pytorch"
+GPU_IMAGES:="core" "ffmpeg" "base" "pytorch" "video"
 
 GPUS?=all
 ifeq ($(GPUS),none)

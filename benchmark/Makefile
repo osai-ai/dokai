@@ -1,6 +1,6 @@
 REGISTRY?=ghcr.io/osai-ai/dokai
-TAG?=24.03-pytorch
-PRECISION?=float32
+TAG?=23.12-pytorch
+PRECISION?=float16
 RESULT_PREFIX?=benchmark
 
 BENCHMARK_NAME=$(shell basename $(REGISTRY)):$(TAG)
@@ -21,6 +21,16 @@ build:
 		--build-arg REGISTRY=$(REGISTRY) \
 		--build-arg TAG=$(TAG) \
 		-t $(BENCHMARK_NAME) .
+
+.PHONY: run
+run:		## Runs docker container in an interactive mode
+	docker run --rm -it \
+		$(GPUS_OPTION) \
+		-v $(shell pwd):/root/workdir \
+		--workdir=/root/workdir \
+		--name=dokai-benchmark \
+		$(BENCHMARK_NAME) \
+		bash
 
 .PHONY: run-benchmark
 run-benchmark:
