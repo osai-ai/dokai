@@ -18,11 +18,11 @@ for version in versions:
     train_values.append(df["train_samples_per_sec"])
     infer_values.append(df["infer_samples_per_sec"])
 
+indices = range(len(models))
+
 # Plotting
 fig, axis = plt.subplots(1, 2, figsize=(16, 8))
 for i, (label, values) in enumerate([("Training", train_values), ("Inference", infer_values)]):
-
-    indices = range(len(models))
 
     axis[i].bar(indices, values[0], width, label=versions[0], color="blue")
     axis[i].bar([i + width for i in indices], values[1], width, label=versions[1], color="green")
@@ -30,7 +30,6 @@ for i, (label, values) in enumerate([("Training", train_values), ("Inference", i
     # Adding labels and title
     axis[i].set_xlabel("Model")
     axis[i].set_ylabel("Samples per Second")
-    axis[i].set_title(f"{label} Samples per Second Comparison")
     axis[i].set_title(f"{label} Samples per Second Comparison")
     axis[i].set_xticks([j + width / 2 for j in indices])
     axis[i].set_xticklabels(models, rotation=45, ha="right")
