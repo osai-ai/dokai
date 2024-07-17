@@ -9,6 +9,7 @@ Several types of images are presented:
 * `core`: Python (3.11.9)
 * `ffmpeg`: FFmpeg (6.1)
 * `base`: Python ML and CV packages listed [here](requirements/pip/base.txt)
+* `pytorch`: PyTorch (2.1.2), torchvision (0.16.2), torchaudio (2.1.2) and torch based libraries listed [here](requirements/pip/pytorch.txt)
 
 ## Overview of `gpu.*` images
 
@@ -72,31 +73,34 @@ docker run --rm \
     nvidia-smi
 ```
 
-In case of `*.rootless` images there may permission problems happen within docker container.
+##### In case of `*.rootless` images there may permission problems happen within docker container:
 
-If the source code is copied to the container with the command `COPY`, make sure to change the owner
+- If the source code is copied to the container with the command `COPY`, make sure to change the owner
 of the copied files and folders with additional flag, for example:
 
 ```bash
 FROM dokai:gpu.video.opt.rootless
 
-WORKDIR /home/UNAME/workdir
+WORKDIR /home/$UNAME/workdir
 COPY --chown=$UID:$GID ./ ./
 
 ...
 ```
 
-If the source code is mounted as a volume with the flag `-v` make sure to mount it to the correct 
-user home directory path, for example like this:
+- If the source code is mounted as a volume with the flag `-v` make sure to mount it to the correct 
+user home directory path, and `--user` flag is passed, for example like this:
 
 ```bash
-docker run --rm -dit \
+docker run --rm -it \
+    --user=$(id -u):$(id -g) \
 	-v $(shell pwd):/home/dokai/workdir \
 	ghcr.io/osai-ai/dokai:24.06-gpu.pytorch.opt.rootless \
 	bash
 ```
 
-And make sure that the mounted volume has enough permission for the `dokai` user to work. 
+Or make sure that the mounted volume has enough permission for the `dokai:1000:1000` user to work.
+
+The result of above commands strongly depends on the local setup, although it should work in most cases.
 
 ## Package versions
 
@@ -152,6 +156,21 @@ Image based on `dokai:24.06-cpu.ffmpeg`:
 Additionally, installed:
 
 - Python ML and CV packages: [requirements.txt](requirements/pip/base.txt)
+
+</p>
+</details>
+
+<details><summary>dokai:24.06-cpu.pytorch</summary>
+<p>
+
+[ghcr.io/osai-ai/dokai:24.06-cpu.pytorch](https://github.com/osai-ai/dokai/pkgs/container/dokai)
+
+Image based on `dokai:24.06-cpu.base`:
+
+Additionally, installed:
+
+- Pytorch, torch-audio, torch-vision;
+- Pytorch-related packages: [requirements.txt](requirements/pip/pytorch.txt)
 
 </p>
 </details>
@@ -250,6 +269,7 @@ Additionally, installed:
 
 - TensorRT (9.2.0)
 - MAGMA (2.7.1)
+- Pytorch, torch-audio, torch-vision;
 - Pytorch-related packages: [requirements.txt](requirements/pip/pytorch.txt)
 
 </p>
@@ -329,6 +349,17 @@ additionally installed packages as `dokai:24.06-gpu.pytorch`.
 
 Image based on `dokai:24.06-gpu.pytorch.opt`  and includes the same
 additionally installed packages as `dokai:24.06-gpu.video`.
+
+</p>
+</details>
+
+### Performance comparison
+
+
+<details><summary>`dokai:23.12-pytorch` vs `dokai:24.04-gpu.pytorch`</summary>
+<p>
+
+![Comparison of releases](pics/release_comparison.png)
 
 </p>
 </details>
