@@ -16,10 +16,6 @@ stages:
   - code_quality
   - mirror
 
-sonarqube/python/publish:
-  variables:
-    SONAR_PROJECT_SOURCES: 'tests'
-
 flake8:
   variables:
     FLAKE8_PATH: '${CI_PROJECT_DIR}/pyproject.toml'
