@@ -1,17 +1,21 @@
 ---
 include:
   - project: ${AC_CICD_TEMPLATES}
-    file: ['code-quality.yml']
-    ref: 'v0.4.3'
+    file:
+      - 'code-quality.yml'
+    ref: 'v0.5.2'
+    inputs:
+      compliance/audit: true
+      python/tests/unit: false
+      python/tests/integrity: false
 
 stages:
   - code_quality
   - mirror
 
-variables:
-  SONARQUBE_DISABLED: 'true'
-  PYTEST_UNIT_TESTS_DISABLED: 'true'
-  PYTEST_INTEGRITY_TESTS_DISABLED: 'true'
+sonarqube/python/publish:
+  variables:
+    SONAR_PROJECT_SOURCES: 'tests'
 
 mirror:
   stage: mirror
