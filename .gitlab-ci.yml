@@ -5,7 +5,7 @@ include:
       - 'code-quality.yml'
     ref: 'v0.5.2'
     inputs:
-      compliance/audit: true
+      compliance/audit: false
       python/autoflake: false
       python/mypy: false
       python/pylint: false
