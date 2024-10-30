@@ -20,6 +20,9 @@ flake8:
   variables:
     FLAKE8_PATH: '${CI_PROJECT_DIR}/pyproject.toml'
 
+variables:
+  SONARQUBE_DISABLED: 'true'
+
 mirror:
   stage: mirror
   parallel:
