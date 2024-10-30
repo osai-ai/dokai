@@ -23,7 +23,7 @@ indices = range(len(models))
 # Plotting
 fig, axis = plt.subplots(1, 2, figsize=(16, 8))
 for i, (label, values) in enumerate([("Training", train_values), ("Inference", infer_values)]):
-
+    # Plotting the bars
     axis[i].bar(indices, values[0], width, label=versions[0], color="blue")
     axis[i].bar([i + width for i in indices], values[1], width, label=versions[1], color="green")
 

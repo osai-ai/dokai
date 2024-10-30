@@ -6,6 +6,7 @@ include:
     ref: 'v0.5.2'
     inputs:
       compliance/audit: true
+      python/autoflake: false
       python/mypy: false
       python/pylint: false
       python/tests/unit: false
@@ -18,6 +19,10 @@ stages:
 sonarqube/python/publish:
   variables:
     SONAR_PROJECT_SOURCES: 'tests'
+
+flake8:
+  variables:
+    FLAKE8_PATH: '${CI_PROJECT_DIR}/pyproject.toml'
 
 mirror:
   stage: mirror
@@ -60,12 +65,12 @@ mirror:
     VERSION: "24.06"
   script:
     - crane auth login
-      -u ${CI_REGISTRY_USER}
-      -p ${CI_REGISTRY_PASSWORD}
-      ${CI_REGISTRY}
+      -u "${CI_REGISTRY_USER}"
+      -p "${CI_REGISTRY_PASSWORD}"
+      "${CI_REGISTRY}"
     - crane cp
-      ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME}
-      ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
+      "ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME}"
+      "${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}"
   only:
     refs:
       - tags
