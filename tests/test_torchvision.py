@@ -42,33 +42,12 @@ class TestTorchvision:
 
         return torch.cat([ids, x1, y1, x2, y2], dim=1).to(torch.float32)
 
-    @pytest.mark.cpu
-    @pytest.mark.pytorch
-    @pytest.mark.rootful
-    @pytest.mark.rootless
-    @pytest.mark.parametrize("aligned", [True, False])
-    def test_cpu_forward(
-        self,
-        inputs,
-        boxes,
-        cpu_device,
-        width: int,
-        height: int,
-        aligned: bool,
-    ):
-        from torchvision.ops import roi_align
-
-        inputs = inputs.to(cpu_device)
-        boxes = boxes.to(cpu_device)
-
-        roi_align(input=inputs, boxes=boxes, output_size=(width, height), aligned=aligned)
-
     @pytest.mark.gpu
     @pytest.mark.pytorch
     @pytest.mark.rootful
     @pytest.mark.rootless
     @pytest.mark.parametrize("aligned", [True, False])
-    def test_cpu_forward(
+    def test_forward(
         self,
         inputs,
         boxes,

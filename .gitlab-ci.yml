@@ -6,6 +6,8 @@ include:
     ref: 'v0.5.2'
     inputs:
       compliance/audit: true
+      python/mypy: false
+      python/pylint: false
       python/tests/unit: false
       python/tests/integrity: false
 

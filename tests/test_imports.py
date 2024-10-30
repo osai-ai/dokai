@@ -1,3 +1,4 @@
+# autoflake: skip_file
 import pytest
 
 
