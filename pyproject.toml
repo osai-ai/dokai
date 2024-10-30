@@ -78,18 +78,3 @@ no-accept-encodings = true
 # https://pycqa.github.io/isort/docs/configuration/profiles.html
 profile = "black"
 line_length = 100
-
-[tool.mypy]
-plugins = [
-  "numpy.typing.mypy_plugin",
-]
-disallow_untyped_defs = true
-# disallow_any_unimported = true  #NOTE: to enable this type stubs in oniwa/metaphor are needed
-no_implicit_optional = true
-check_untyped_defs = true
-strict_equality = true
-warn_return_any = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-show_error_codes = true
-ignore_missing_imports = true
