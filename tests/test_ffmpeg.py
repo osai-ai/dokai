@@ -63,4 +63,3 @@ class TestFFmpeg:
             "libswresample   4. 12.100 /  4. 12.100\n"
             "libpostproc    57.  3.100 / 57.  3.100\n"
         )
-

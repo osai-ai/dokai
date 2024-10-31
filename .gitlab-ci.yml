@@ -1,17 +1,28 @@
 ---
 include:
   - project: ${AC_CICD_TEMPLATES}
-    file: ['code-quality.yml']
-    ref: 'v0.4.3'
+    file:
+      - 'code-quality.yml'
+    ref: 'v0.5.2'
+    inputs:
+      compliance/audit: false
+      python/autoflake: false
+      python/mypy: false
+      python/pylint: false
+      python/tests/unit: false
+      python/tests/integrity: false
 
 stages:
   - code_quality
   - mirror
 
-variables:
-  SONARQUBE_DISABLED: 'true'
-  PYTEST_UNIT_TESTS_DISABLED: 'true'
-  PYTEST_INTEGRITY_TESTS_DISABLED: 'true'
+flake8:
+  variables:
+    FLAKE8_PATH: '${CI_PROJECT_DIR}/pyproject.toml'
+
+sonarqube/python/publish:
+  variables:
+    SONAR_PROJECT_SOURCES: 'docker,requirements,scripts'
 
 mirror:
   stage: mirror
@@ -54,12 +65,12 @@ mirror:
     VERSION: "24.06"
   script:
     - crane auth login
-      -u ${CI_REGISTRY_USER}
-      -p ${CI_REGISTRY_PASSWORD}
-      ${CI_REGISTRY}
+      -u "${CI_REGISTRY_USER}"
+      -p "${CI_REGISTRY_PASSWORD}"
+      "${CI_REGISTRY}"
     - crane cp
-      ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME}
-      ${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}
+      "ghcr.io/osai-ai/dokai:${VERSION}-${IMAGE_NAME}"
+      "${CI_REGISTRY_IMAGE}/dokai:${VERSION}-${IMAGE_NAME}"
   only:
     refs:
       - tags
