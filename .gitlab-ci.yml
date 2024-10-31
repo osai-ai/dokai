@@ -20,8 +20,9 @@ flake8:
   variables:
     FLAKE8_PATH: '${CI_PROJECT_DIR}/pyproject.toml'
 
-variables:
-  SONARQUBE_DISABLED: 'true'
+sonarqube/python/publish:
+  variables:
+    SONAR_PROJECT_SOURCES: 'docker,requirements,scripts'
 
 mirror:
   stage: mirror
