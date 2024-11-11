@@ -1,0 +1,18 @@
+openapi: 3.1.0
+info:
+  title: Dokai
+  description: ""
+  x-cortex-tag: acinfra_infrastructure-dokai
+  x-cortex-type: service
+  x-cortex-parents:
+    - tag: acinfra
+  x-cortex-git:
+    gitlab:
+      repository: automated-content/infrastructure/dokai
+  x-cortex-static-analysis:
+    sonarqube:
+      project: acinfra_infrastructure-dokai
+  x-cortex-owners:
+    - type: group
+      name: team-acinfra
+      provider: CORTEX
