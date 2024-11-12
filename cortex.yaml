@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Dokai
-  description: ""
+  description: "Collection of base Docker images for ML/DL projects"
   x-cortex-tag: acinfra_infrastructure-dokai
   x-cortex-type: service
   x-cortex-parents:
