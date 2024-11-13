@@ -1,9 +1,8 @@
 ---
 include:
   - project: ${AC_CICD_TEMPLATES}
-    file:
-      - 'code-quality.yml'
-    ref: 'v0.5.2'
+    file: /code-quality.yml
+    ref: 'v0.5.4'
     inputs:
       compliance/audit: false
       python/autoflake: false
