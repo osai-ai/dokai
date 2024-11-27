@@ -1,0 +1,9 @@
+formatter:
+  type: basic
+  retain_line_breaks: true
+  trim_trailing_whitespace: true
+  line_ending: lf
+  retain_line_breaks_single: true
+  max_line_length: 150
+  scan_folded_as_literal: true
+  eof_newline: true
