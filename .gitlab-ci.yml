@@ -1,4 +1,3 @@
----
 include:
   - project: ${AC_CICD_TEMPLATES}
     file: /code-quality.yml
